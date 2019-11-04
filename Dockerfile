@@ -9,7 +9,7 @@
 # ------------------------------------------------------------------------------------
 # @build-example docker build . -f Dockerfile -t swoft/swoft
 #
-FROM php:7.2
+FROM php:7.3.11
 
 LABEL maintainer="inhere <in.798@qq.com>" version="2.0"
 
@@ -82,4 +82,5 @@ WORKDIR /var/www/swoft
 EXPOSE 18306 18307 18308
 
 # ENTRYPOINT ["php", "/var/www/swoft/bin/swoft", "http:start"]
-CMD ["php", "/var/www/swoft/bin/swoft", "http:start"]
+# CMD ["php", "/var/www/swoft/bin/swoft", "http:start"]
+ENTRYPOINT ['bash']

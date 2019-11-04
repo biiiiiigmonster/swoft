@@ -65,10 +65,8 @@
     "cs-fix": "./bin/php-cs-fixer fix --dry-run --diff --diff-format=udiff",
     "do-cs-fix": "./bin/php-cs-fixer fix"
   },
-  "repositories": {
-    "packagist": {
-      "type": "composer",
-      "url": "https://mirrors.aliyun.com/composer/"
-    }
-  }
+  "repositories": [
+    {"type": "composer", "url": "https://php.cnpkg.org"},
+    {"packagist": false}
+  ]
 }

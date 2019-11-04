@@ -3,7 +3,7 @@ services:
   swoft:
     image: swoft/swoft
 #    for local develop
-#    command: php -S 127.0.0.1:13300
+    command: php -S 127.0.0.1:13300
     container_name: swoft-srv
     environment:
       - APP_ENV=dev
@@ -22,7 +22,7 @@ services:
       # - ./runtime/logs:/var/log
 
   mysql:
-    image: mysql
+    image: mysql:5.7.28
     container_name: mysql-srv
     environment:
       - MYSQL_ROOT_PASSWORD=123456
