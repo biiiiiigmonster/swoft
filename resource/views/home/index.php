@@ -253,8 +253,8 @@
 <div class="container">
   <nav class="top-nav ">
     <ul class="clearfix">
-      <li><a target="_blank"  href="https://github.com/swoft-cloud/swoft">Github</a></li>
-      <li><a target="_blank"  href="https://swoft.org/docs">Document</a></li>
+      <li><a target="_blank"  href="https://github.com/swoft-cloud/swoft">Github 哈哈</a></li>
+      <li><a target="_blank"  href="https://swoft.org/docs">Document nice 啊 杜杜</a></li>
       <li><a target="_blank"  href="https://swoft.org/docs">Swoft.org</a></li>
       <li><a target="_blank"  href="https://gitter.im/swoft-cloud/community">Gitter.im</a></li>
     </ul>
