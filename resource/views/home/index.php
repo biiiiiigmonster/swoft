@@ -254,7 +254,7 @@
   <nav class="top-nav ">
     <ul class="clearfix">
       <li><a target="_blank"  href="https://github.com/swoft-cloud/swoft">Github 哈哈</a></li>
-      <li><a target="_blank"  href="https://swoft.org/docs">Document ni 啊 杜哈</a></li>
+      <li><a target="_blank"  href="https://swoft.org/docs">Document ni 啊 杜哈嘻嘻</a></li>
       <li><a target="_blank"  href="https://swoft.org/docs">Swoft.org</a></li>
       <li><a target="_blank"  href="https://gitter.im/swoft-cloud/community">Gitter.im</a></li>
     </ul>
