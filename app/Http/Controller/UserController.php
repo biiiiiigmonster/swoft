@@ -24,7 +24,7 @@ use Swoft\Http\Server\Annotation\Mapping\RequestMethod;
 class UserController{
     /**
      * Get data list. access uri path: /users
-     * @RequestMapping(route="users", method=RequestMethod::GET)
+     * @RequestMapping(route="/users", method=RequestMethod::GET)
      * @return array
      */
     public function index(): array
