@@ -22,7 +22,7 @@ use function server;
  *
  * @WsModule(
  *     "/chat",
- *     messageParser=JsonParser::class,
+ *     messageParser=TokenTextParser::class,
  *     controllers={HomeController::class}
  * )
  */
