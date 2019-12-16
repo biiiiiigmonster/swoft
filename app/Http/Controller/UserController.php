@@ -10,9 +10,11 @@
 
 namespace App\Http\Controller;
 
+use App\Rpc\Lib\UserInterface;
 use Swoft\Http\Server\Annotation\Mapping\Controller;
 use Swoft\Http\Server\Annotation\Mapping\RequestMapping;
 use Swoft\Http\Server\Annotation\Mapping\RequestMethod;
+use Swoft\Rpc\Client\Annotation\Mapping\Reference;
 // use Swoft\Http\Message\Response;
 
 /**
@@ -23,13 +25,30 @@ use Swoft\Http\Server\Annotation\Mapping\RequestMethod;
  */
 class UserController{
     /**
+     * @Reference(pool="user.pool")
+     *
+     * @var UserInterface
+     */
+    private $userService;
+
+    /**
+     * @Reference(pool="user.pool", version="1.2")
+     *
+     * @var UserInterface
+     */
+    private $userService2;
+
+    /**
      * Get data list. access uri path: /users
      * @RequestMapping(route="/users", method=RequestMethod::GET)
      * @return array
      */
     public function index(): array
     {
-        return ['item0', 'item1', ...[1,2,3]];
+        $result  = $this->userService->getList(12, 'type');
+        $result2 = $this->userService2->getList(12, 'type');
+
+        return ['item0', 'item1', ...[1,2,3],$result,$result2];
     }
 
     /**
