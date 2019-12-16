@@ -33,7 +33,7 @@ class UserService implements UserInterface
      */
     public function getList(int $id, $type, int $count = 10): array
     {
-        return ['name' => ['list']];
+        return ['name' => ['list','xixi']];
     }
 
     /**

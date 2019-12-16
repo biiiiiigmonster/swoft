@@ -34,7 +34,7 @@ class UserServiceV2 implements UserInterface
     public function getList(int $id, $type, int $count = 10): array
     {
         return [
-            'name' => ['list'],
+            'name' => ['list','haha'],
             'v'    => '1.2'
         ];
     }
