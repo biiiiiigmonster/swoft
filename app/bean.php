@@ -39,9 +39,9 @@ return [
     'httpServer'        => [
         'class'    => HttpServer::class,
         'port'     => 18306,
-        'listener' => [
-            'rpc' => bean('rpcServer')
-        ],
+//        'listener' => [
+//            'rpc' => bean('rpcServer')
+//        ],
         'process'  => [
 //            'monitor' => bean(MonitorProcess::class)
 //            'crontab' => bean(CrontabProcess::class)
