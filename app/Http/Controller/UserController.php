@@ -29,7 +29,7 @@ class UserController{
      */
     public function index(): array
     {
-        return ['item0', 'item1', ...[1,2]];
+        return ['item0', 'item1', ...[1,2,3]];
     }
 
     /**
