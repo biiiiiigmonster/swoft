@@ -135,6 +135,7 @@ return [
         'class' => ServiceServer::class,
     ],
     'wsServer'          => [
+        'type'    => SWOOLE_SOCK_TCP | SWOOLE_SSL,
         'class'   => WebSocketServer::class,
         'port'    => 18308,
         'on'      => [
