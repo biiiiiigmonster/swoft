@@ -37,6 +37,7 @@ return [
         'json'         => false,
     ],
     'httpServer'        => [
+        'type'     => SWOOLE_SOCK_TCP | SWOOLE_SSL,
         'class'    => HttpServer::class,
         'port'     => 18306,
 //        'listener' => [
@@ -55,7 +56,9 @@ return [
         'setting' => [
             'task_worker_num'       => 12,
             'task_enable_coroutine' => true,
-            'worker_num'            => 6
+            'worker_num'            => 6,
+            'ssl_cert_file'         => '/home/swoft.duzhaoteng.com/1_swoft.duzhaoteng.com_bundle.crt',
+            'ssl_key_file'          => '/home/swoft.duzhaoteng.com/2_swoft.duzhaoteng.com.key',
         ]
     ],
     'httpRouter'  => [
@@ -143,6 +146,8 @@ return [
         /* @see WebSocketServer::$setting */
         'setting' => [
             'log_file' => alias('@runtime/swoole.log'),
+            'ssl_cert_file' => '/home/io.swoft.duzhaoteng.com/1_io.swoft.duzhaoteng.com_bundle.crt',
+            'ssl_key_file'  => '/home/io.swoft.duzhaoteng.com/2_io.swoft.duzhaoteng.com.key',
         ],
     ],
     'tcpServer'         => [
