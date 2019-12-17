@@ -9,7 +9,7 @@
 # ------------------------------------------------------------------------------------
 # @build-example docker build . -f Dockerfile -t swoft/swoft
 #
-FROM php:7.3.11
+FROM php:7.4.0
 
 LABEL maintainer="inhere <in.798@qq.com>" version="2.0"
 
@@ -22,48 +22,29 @@ ARG work_user=www-data
 
 ENV APP_ENV=${app_env:-"prod"} \
     TIMEZONE=${timezone:-"Asia/Shanghai"} \
-    PHPREDIS_VERSION=5.1.0 \
-    SWOOLE_VERSION=4.4.8 \
+    PHPREDIS_VERSION=5.1.1 \
+    SWOOLE_VERSION=4.4.12 \
     COMPOSER_ALLOW_SUPERUSER=1
 
 # Libs -y --no-install-recommends
 RUN apt-get update \
-    && apt-get install -y \
-        curl wget git zip unzip less vim procps lsof tcpdump htop openssl \
-        libz-dev \
-        libssl-dev \
-        libnghttp2-dev \
-        libpcre3-dev \
-        libjpeg-dev \
+    &&  apt-get install -y \
+        curl openssl \
         libpng-dev \
         libfreetype6-dev \
+        libjpeg62-turbo-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
 # Install PHP extensions
     && docker-php-ext-install \
-       bcmath gd pdo_mysql mbstring sockets zip sysvmsg sysvsem sysvshm
-
+       bcmath gd pdo_mysql sockets sysvmsg sysvsem sysvshm
 # Install composer
 Run curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer \
-    && composer self-update --clean-backups \
-# Install redis extension
-    && wget http://pecl.php.net/get/redis-${PHPREDIS_VERSION}.tgz -O /tmp/redis.tar.tgz \
-    && pecl install /tmp/redis.tar.tgz \
-    && rm -rf /tmp/redis.tar.tgz \
-    && docker-php-ext-enable redis \
-# Install swoole extension
-    && wget https://github.com/swoole/swoole-src/archive/v${SWOOLE_VERSION}.tar.gz -O swoole.tar.gz \
-    && mkdir -p swoole \
-    && tar -xf swoole.tar.gz -C swoole --strip-components=1 \
-    && rm swoole.tar.gz \
-    && ( \
-        cd swoole \
-        && phpize \
-        && ./configure --enable-mysqlnd --enable-sockets --enable-openssl --enable-http2 \
-        && make -j$(nproc) \
-        && make install \
-    ) \
-    && rm -r swoole \
-    && docker-php-ext-enable swoole \
+    && composer self-update --clean-backups
+# Install redisi swoole extension
+Run pecl install redis-${PHPREDIS_VERSION} \
+    && pecl install swoole-${SWOOLE_VERSION} \
+    && docker-php-ext-enable redis swoole \
 # Clear dev deps
     && apt-get clean \
     && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
@@ -83,4 +64,4 @@ EXPOSE 18306 18307 18308
 
 # ENTRYPOINT ["php", "/var/www/swoft/bin/swoft", "http:start"]
 # CMD ["php", "/var/www/swoft/bin/swoft", "http:start"]
-ENTRYPOINT ['bash']
+
