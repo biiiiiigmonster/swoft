@@ -18,7 +18,7 @@ use Swoft\Rpc\Server\Annotation\Mapping\Service;
  *
  * @Service()
  */
-class DemoService implements UserInterface
+class DemoService
 {
     /**
      * @return array
