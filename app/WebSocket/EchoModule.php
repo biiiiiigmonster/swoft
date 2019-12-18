@@ -43,6 +43,6 @@ class EchoModule
      */
     public function onMessage(Server $server, Frame $frame): void
     {
-        $server->push($frame->fd, 'Recv: ' . $frame->data);
+        $server->push($frame->fd%2?$frame->fd+1:$frame->fd-1, 'Recv: ' . $frame->data);
     }
 }

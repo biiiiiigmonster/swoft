@@ -75,15 +75,15 @@ return [
     ],
     'db'                => [
         'class'    => Database::class,
-        'dsn'      => 'mysql:dbname=test;host=127.0.0.1',
-        'username' => 'root',
-        'password' => 'swoft123456',
+        'dsn'      => 'mysql:dbname=tp6;host=172.16.0.2;port=13306',
+        'username' => 'tp6',
+        'password' => 'rhf$[TF}42ad',
     ],
     'db2'               => [
         'class'      => Database::class,
-        'dsn'        => 'mysql:dbname=test2;host=127.0.0.1',
-        'username'   => 'root',
-        'password'   => 'swoft123456',
+        'dsn'        => 'mysql:dbname=idx;host=172.16.0.2;port=13306',
+        'username'   => 'tp6',
+        'password'   => 'rhf$[TF}42ad',
 //        'dbSelector' => bean(DbSelector::class)
     ],
     'db2.pool' => [
@@ -92,21 +92,32 @@ return [
     ],
     'db3'               => [
         'class'    => Database::class,
-        'dsn'      => 'mysql:dbname=test2;host=127.0.0.1',
-        'username' => 'root',
-        'password' => 'swoft123456'
+        'dsn'      => 'mysql:dbname=partitions;host=172.16.0.2;port=13306',
+        'username' => 'tp6',
+        'password' => 'rhf$[TF}42ad',
     ],
     'db3.pool'          => [
         'class'    => Pool::class,
         'database' => bean('db3')
+    ],
+    'db4'               => [
+        'class'    => Database::class,
+        'dsn'      => 'mysql:dbname=unionall;host=172.16.0.2;port=13306',
+        'username' => 'tp6',
+        'password' => 'rhf$[TF}42ad',
+    ],
+    'db4.pool'          => [
+        'class'    => Pool::class,
+        'database' => bean('db4')
     ],
     'migrationManager'  => [
         'migrationPath' => '@database/Migration',
     ],
     'redis'             => [
         'class'    => RedisDb::class,
-        'host'     => '127.0.0.1',
+        'host'     => '172.16.0.2',
         'port'     => 6379,
+        'password' => 'BBOqWsva',
         'database' => 0,
         'option'   => [
             'prefix' => 'swoft:'
