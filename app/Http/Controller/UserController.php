@@ -43,7 +43,7 @@ class UserController{
      * @OpenApi(
      *     path="/users",
      *     tags={"select"},
-     *     @OA\Response(response="200", description="An example resource")
+     *     @OpenApi\Response(response="200", description="An example resource")
      * )
      *
      * Get data list. access uri path: /users
