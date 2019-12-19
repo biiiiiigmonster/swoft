@@ -39,6 +39,13 @@ class UserController{
     private $userService2;
 
     /**
+     * @OA\Info(title="My First API", version="0.1")
+     * @OA\Get(
+     *     path="/users",
+     *     tags={"select"},
+     *     @OA\Response(response="200", description="An example resource")
+     * )
+     *
      * Get data list. access uri path: /users
      * @RequestMapping(route="/users", method=RequestMethod::GET)
      * @return array
