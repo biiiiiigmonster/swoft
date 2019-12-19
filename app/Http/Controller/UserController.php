@@ -11,6 +11,7 @@
 namespace App\Http\Controller;
 
 use App\Rpc\Lib\UserInterface;
+use OpenApi\Annotations\OpenApi;
 use Swoft\Http\Server\Annotation\Mapping\Controller;
 use Swoft\Http\Server\Annotation\Mapping\RequestMapping;
 use Swoft\Http\Server\Annotation\Mapping\RequestMethod;
@@ -39,7 +40,7 @@ class UserController{
     private $userService2;
 
     /**
-     * @OA\Get(
+     * @OpenApi(
      *     path="/users",
      *     tags={"select"},
      *     @OA\Response(response="200", description="An example resource")
