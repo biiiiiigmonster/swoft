@@ -39,7 +39,6 @@ class UserController{
     private $userService2;
 
     /**
-     * @OA\Info(title="My First API", version="0.1")
      * @OA\Get(
      *     path="/users",
      *     tags={"select"},
