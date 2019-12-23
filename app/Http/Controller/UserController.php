@@ -40,12 +40,6 @@ class UserController{
     private $userService2;
 
     /**
-     * @OpenApi(
-     *     path="/users",
-     *     tags={"select"},
-     *     @OpenApi\Response(response="200", description="An example resource")
-     * )
-     *
      * Get data list. access uri path: /users
      * @RequestMapping(route="/users", method=RequestMethod::GET)
      * @return array
