@@ -47,9 +47,9 @@ return [
         'levels'    => 'error,warning',
     ],
     'logger'            => [
-        'flushRequest' => true,
+        'flushRequest' => false,
         'enable'       => true,
-        'json'         => true,
+        'json'         => false,
         'handlers'     => [
             'application' => bean('applicationHandler'),
             'notice'      => bean('noticeHandler'),
