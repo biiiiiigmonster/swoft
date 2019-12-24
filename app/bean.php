@@ -10,6 +10,10 @@
 use App\Common\DbSelector;
 use App\Process\MonitorProcess;
 use Swoft\Crontab\Process\CrontabProcess;
+use App\Http\Middleware\ {
+    FavIconMiddleware,
+    CorsMiddleware,
+};
 use Swoft\Db\Pool;
 use Swoft\Http\Server\HttpServer;
 use Swoft\Task\Swoole\SyncTaskListener;
@@ -64,8 +68,8 @@ return [
     'httpDispatcher'    => [
         // Add global http middleware
         'middlewares'      => [
-            \App\Http\Middleware\FavIconMiddleware::class,
-            \App\Http\Middleware\CorsMiddleware::class,
+            FavIconMiddleware::class,
+            CorsMiddleware::class,
             // \Swoft\Whoops\WhoopsMiddleware::class,
             // Allow use @View tag
             \Swoft\View\Middleware\ViewMiddleware::class,

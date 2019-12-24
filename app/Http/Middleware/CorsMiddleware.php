@@ -45,7 +45,7 @@ class CorsMiddleware implements MiddlewareInterface
         return $this->configResponse($response);
     }
 
-    private function configResponse(ResponseInterface $response)
+    private function configResponse(ResponseInterface $response): ResponseInterface
     {
         return $response
             ->withHeader('Access-Control-Allow-Origin', '*')
