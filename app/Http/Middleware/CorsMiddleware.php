@@ -26,26 +26,30 @@ use function context;
  */
 class CorsMiddleware implements MiddlewareInterface
 {
-   /**
+    /**
      * Process an incoming server request.
      *
      * @param ServerRequestInterface|Request  $request
      * @param RequestHandlerInterface $handler
      *
      * @return ResponseInterface
-     * @throws SwoftException
      * @inheritdoc
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        if ($request->getUriPath() === '/favicon.ico') {
-            return context()->getResponse()->withStatus(404);
+        if ('OPTIONS' === $request->getMethod()) {
+            $response = context()->getResponse();
+            return $this->configResponse($response);
         }
+        $response = $handler->handle($request);
+        return $this->configResponse($response);
+    }
 
-        // before request handle
-
-        return $handler->handle($request);
-
-        // after request handle
+    private function configResponse(ResponseInterface $response)
+    {
+        return $response
+            ->withHeader('Access-Control-Allow-Origin', '*')
+            ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     }
 }

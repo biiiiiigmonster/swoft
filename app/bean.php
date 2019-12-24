@@ -65,6 +65,7 @@ return [
         // Add global http middleware
         'middlewares'      => [
             \App\Http\Middleware\FavIconMiddleware::class,
+            \App\Http\Middleware\CorsMiddleware::class,
             // \Swoft\Whoops\WhoopsMiddleware::class,
             // Allow use @View tag
             \Swoft\View\Middleware\ViewMiddleware::class,
