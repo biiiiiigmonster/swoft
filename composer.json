@@ -35,7 +35,8 @@
     "swoft/crontab": "~2.0.0",
     "swoft/devtool": "~2.0.0",
     "swoft/annotation": "^2.0",
-    "zircote/swagger-php": "^3.0"
+    "zircote/swagger-php": "^3.0",
+    "firebase/php-jwt": "^5.0"
   },
   "require-dev": {
     "swoft/swoole-ide-helper": "dev-master",
