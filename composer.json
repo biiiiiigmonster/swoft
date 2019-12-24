@@ -35,8 +35,7 @@
     "swoft/crontab": "~2.0.0",
     "swoft/devtool": "~2.0.0",
     "swoft/annotation": "^2.0",
-    "zircote/swagger-php": "^3.0",
-    "swagger-api/swagger-ui": "^3.24"
+    "zircote/swagger-php": "^3.0"
   },
   "require-dev": {
     "swoft/swoole-ide-helper": "dev-master",
