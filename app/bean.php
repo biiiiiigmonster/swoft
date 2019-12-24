@@ -47,9 +47,9 @@ return [
         'levels'    => 'notice,info,debug,trace',
     ],
     'logger'            => [
-        'flushRequest' => false,
-        'enable'       => false,
-        'json'         => false,
+        'flushRequest' => true,
+        'enable'       => true,
+        'json'         => true,
         'handlers'     => [
             'application' => bean('applicationHandler'),
             'notice'      => bean('noticeHandler'),
