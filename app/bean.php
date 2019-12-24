@@ -27,13 +27,24 @@ use Swoft\WebSocket\Server\WebSocketServer;
 use Swoft\Server\SwooleEvent;
 use Swoft\Db\Database;
 use Swoft\Redis\RedisDb;
+use Swoft\Log\Handler\FileHandler;
 
 return [
+    'lineFormatter'      => [
+        'format'     => '%datetime% [%level_name%] [%channel%] [%event%] [tid:%tid%] [cid:%cid%] [traceid:%traceid%] [spanid:%spanid%] [parentid:%parentid%] %messages%',
+        'dateFormat' => 'Y-m-d H:i:s',
+    ],
     'noticeHandler'      => [
+        'class'     => FileHandler::class,
         'logFile' => '@runtime/logs/notice-%d{Y-m-d-H}.log',
+        'formatter' => bean('lineFormatter'),
+        'levels'    => 'notice,info,debug,trace',
     ],
     'applicationHandler' => [
+        'class'     => FileHandler::class,
         'logFile' => '@runtime/logs/error-%d{Y-m-d}.log',
+        'formatter' => bean('lineFormatter'),
+        'levels'    => 'notice,info,debug,trace',
     ],
     'logger'            => [
         'flushRequest' => false,
