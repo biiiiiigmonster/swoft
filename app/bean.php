@@ -50,6 +50,10 @@ return [
         'flushRequest' => false,
         'enable'       => false,
         'json'         => false,
+        'handlers'     => [
+            'application' => bean('applicationHandler'),
+            'notice'      => bean('noticeHandler'),
+        ],
     ],
     'httpServer'        => [
         'class'    => HttpServer::class,
