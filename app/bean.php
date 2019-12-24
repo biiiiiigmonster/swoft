@@ -44,7 +44,7 @@ return [
         'class'     => FileHandler::class,
         'logFile' => '@runtime/logs/error-%d{Y-m-d}.log',
         'formatter' => bean('lineFormatter'),
-        'levels'    => 'notice,info,debug,trace',
+        'levels'    => 'error,warning',
     ],
     'logger'            => [
         'flushRequest' => true,
