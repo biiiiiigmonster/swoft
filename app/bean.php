@@ -49,7 +49,7 @@ return [
     'logger'            => [
         'flushRequest' => false,
         'enable'       => true,
-        'json'         => false,
+        'json'         => true,
         'handlers'     => [
             'application' => bean('applicationHandler'),
             'notice'      => bean('noticeHandler'),
