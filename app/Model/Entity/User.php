@@ -20,7 +20,7 @@ use Swoft\Db\Eloquent\Model;
 class User extends Model
 {
     /**
-     * 
+     *
      * @Id()
      * @Column()
      *
@@ -58,7 +58,7 @@ class User extends Model
     /**
      * ???????
      *
-     * @Column(name="login_code", prop="loginCode")
+     * @Column(name="login_code", hidden=true, prop="loginCode")
      *
      * @var string
      */
@@ -112,7 +112,7 @@ class User extends Model
     /**
      * ?????
      *
-     * @Column(name="delete_time", prop="deleteTime")
+     * @Column(name="delete_time", hidden=true, prop="deleteTime")
      *
      * @var string|null
      */
