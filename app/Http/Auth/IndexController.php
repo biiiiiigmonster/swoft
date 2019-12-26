@@ -25,7 +25,6 @@ use Swoft\Rpc\Client\Annotation\Mapping\Reference;
  * Class UserController
  *
  * @Controller(prefix="/auth")
- * @package App\Http\Controller
  */
 class IndexController{
 

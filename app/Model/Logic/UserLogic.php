@@ -31,11 +31,12 @@ class UserLogic
      * @throws \Swoft\Bean\Exception\ContainerException
      * @throws \Swoft\Db\Exception\DbException
      */
-    public function login(array $param)
+    public function login(array $param): array
     {
         $user = User::where('mobile',$param['mobile'])->firstOrFail();
         if(md5($param['password'])!=$user->getPassword())
             throw new LogicException('账号或密码错误',100);
+
         $user->setLoginStatus(1);
         $user->setLoginCode(Str::random());
         $user->setLastLoginIp(ip());

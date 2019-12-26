@@ -29,7 +29,7 @@ class User extends Model
     private $id;
 
     /**
-     * ????????
+     * 手机号，登陆使用
      *
      * @Column()
      *
@@ -38,7 +38,7 @@ class User extends Model
     private $mobile;
 
     /**
-     * ????
+     * 用户密码
      *
      * @Column(hidden=true)
      *
@@ -47,25 +47,25 @@ class User extends Model
     private $password;
 
     /**
-     * ????
+     * 登陆状态
      *
-     * @Column(name="login_status", prop="loginStatus")
+     * @Column(name="login_status", hidden=true, prop="loginStatus")
      *
      * @var int
      */
     private $loginStatus;
 
     /**
-     * ???????
+     * 排他性登陆标识
      *
-     * @Column(name="login_code", hidden=true, prop="loginCode")
+     * @Column(name="login_code", prop="loginCode")
      *
      * @var string
      */
     private $loginCode;
 
     /**
-     * ????IP
+     * 最后登录IP
      *
      * @Column(name="last_login_ip", prop="lastLoginIp")
      *
@@ -74,7 +74,7 @@ class User extends Model
     private $lastLoginIp;
 
     /**
-     * ??????
+     * 最后登录时间
      *
      * @Column(name="last_login_time", prop="lastLoginTime")
      *
@@ -83,51 +83,40 @@ class User extends Model
     private $lastLoginTime;
 
     /**
-     * ????????????
+     * 账号状态，状态信息见配置
      *
-     * @Column()
+     * @Column(hidden=true)
      *
      * @var int
      */
     private $status;
 
     /**
-     * ????
+     * 创建时间
      *
-     * @Column(name="create_time", prop="createTime")
+     * @Column(name="create_time", hidden=true, prop="createTime")
      *
      * @var string
      */
     private $createTime;
 
     /**
-     * ????
+     * 更新时间
      *
-     * @Column(name="update_time", prop="updateTime")
+     * @Column(name="update_time", hidden=true, prop="updateTime")
      *
      * @var string
      */
     private $updateTime;
 
     /**
-     * ?????
+     * 软删除时间
      *
      * @Column(name="delete_time", hidden=true, prop="deleteTime")
      *
      * @var string|null
      */
     private $deleteTime;
-
-
-    /**
-     * @param int $id
-     *
-     * @return void
-     */
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
 
     /**
      * @param string $mobile
