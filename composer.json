@@ -36,7 +36,9 @@
     "swoft/devtool": "~2.0.0",
     "swoft/annotation": "^2.0",
     "zircote/swagger-php": "^3.0",
-    "firebase/php-jwt": "^5.0"
+    "firebase/php-jwt": "^5.0",
+    "swoft/validator": "^2.0",
+    "nesbot/carbon": "^2.28"
   },
   "require-dev": {
     "swoft/swoole-ide-helper": "dev-master",
