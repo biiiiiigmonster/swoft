@@ -17,7 +17,7 @@ use Swoft\Bean\Annotation\Mapping\Bean;
 /**
  * Class UserLogic
  * @package App\Model\Logic
- * @Bean()
+ * @Bean("UserLogic")
  */
 class UserLogic
 {

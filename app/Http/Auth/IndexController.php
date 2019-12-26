@@ -31,7 +31,7 @@ class IndexController{
 
     /**
      * 用户登录
-     * @RequestMapping(route="login", method=RequestMethod::POST)
+     * @RequestMapping(route="login", method=RequestMethod::GET)
      * @param Request $request
      * @return array
      */
