@@ -27,13 +27,14 @@ class LoginTask{
      * 保存用户登录信息
      *
      * @TaskMapping(name="imprint")
-     * @param array $user
+     * @param int $id
+     * @param array $data
      */
-    public function imprint(array $user): void
+    public function imprint(int $id,array $data): void
     {
-        $row = User::modifyById($user['id'],['last_login_ip'=>$user['last_login_ip'],'last_login_time'=>$user['last_login_time']]);
+        $row = User::modifyById($id,$data);
         if(!$row) {
-            Log::warning('用户{'.$user['id'].'}登录信息保存失败');
+            Log::warning("用户\{$id\}登录信息保存失败");
         }
     }
 }
