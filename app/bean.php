@@ -36,7 +36,7 @@ return [
     ],
     'noticeHandler'      => [
         'class'     => FileHandler::class,
-        'logFile' => '@runtime/logs/notice-%d{Y-m-d-H}.log',
+        'logFile' => '@runtime/logs/notice-%d{Y-m-d}.log',
         'formatter' => bean('lineFormatter'),
         'levels'    => 'notice,info,debug,trace',
     ],
