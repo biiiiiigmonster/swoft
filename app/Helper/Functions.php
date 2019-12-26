@@ -37,3 +37,18 @@ function subDomain(): string
 
     return rtrim(stristr(context()->getRequest()->getHost(), $rootDomain, true), '.');
 }
+
+/**
+ * 获取客户端的真实IP
+ * @return string
+ */
+function ip(): string
+{
+    $serverParams = context()->getRequest()->getServerParams();
+    $HeaderParams = context()->getRequest()->getHeaders();
+
+    /** var String */
+    $ip = $HeaderParams['x-real-ip'][0]??$HeaderParams['x-forwarded-for'][0]??$serverParams['remote_addr']??'0.0.0.0';
+
+    return $ip;
+}
