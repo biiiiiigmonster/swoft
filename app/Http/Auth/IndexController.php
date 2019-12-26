@@ -11,6 +11,7 @@
 namespace App\Http\Auth;
 
 use App\Rpc\Lib\UserInterface;
+use Carbon\Carbon;
 use OpenApi\Annotations\OpenApi;
 use Swoft\Bean\BeanFactory;
 use Swoft\Http\Message\Request;
@@ -18,6 +19,7 @@ use Swoft\Http\Server\Annotation\Mapping\Controller;
 use Swoft\Http\Server\Annotation\Mapping\RequestMapping;
 use Swoft\Http\Server\Annotation\Mapping\RequestMethod;
 use Swoft\Rpc\Client\Annotation\Mapping\Reference;
+use Swoft\Task\Task;
 
 // use Swoft\Http\Message\Response;
 
@@ -30,15 +32,19 @@ class IndexController{
 
     /**
      * 用户登录
+     *
      * @RequestMapping(route="login", method=RequestMethod::POST)
      * @param Request $request
      * @return array
+     * @throws \Swoft\Task\Exception\TaskException
      */
     public function login(Request $request): array
     {
         $data = $request->post();
 
         $user = BeanFactory::getBean('UserLogic')->login($data);
+        //登陆成功之后的异步处理
+        Task::async('LoginTask','imprint',[...$user,'last_login_ip'=>ip(),'last_login_time'=>Carbon::now()->toDateTimeString()]);
 
         return $user;
     }

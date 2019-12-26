@@ -12,7 +12,6 @@ namespace App\Model\Logic;
 
 use App\Exception\LogicException;
 use App\Model\Entity\User;
-use Carbon\Carbon;
 use Swoft\Bean\Annotation\Mapping\Bean;
 use think\helper\Str;
 
@@ -39,8 +38,6 @@ class UserLogic
 
         $user->setLoginStatus(1);
         $user->setLoginCode(Str::random());
-        $user->setLastLoginIp(ip());
-        $user->setLastLoginTime(Carbon::now()->toDateTimeString());
         $user->save();
 
         return $user->toArray();

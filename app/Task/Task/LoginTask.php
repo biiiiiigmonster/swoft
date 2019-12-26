@@ -10,50 +10,30 @@
 
 namespace App\Task\Task;
 
-use Swoft\App;
-// use Swoft\Bean\Annotation\Inject;
-// use Swoft\HttpClient\Client;
-// use Swoft\Rpc\Client\Bean\Annotation\Reference;
-use Swoft\Task\Bean\Annotation\Scheduled;
-use Swoft\Task\Bean\Annotation\Task;
+use App\Model\Entity\User;
+use Swoft\Log\Helper\Log;
+use Swoft\Task\Annotation\Mapping\Task;
+use Swoft\Task\Annotation\Mapping\TaskMapping;
 
 /**
  * Class LoginTask - define some tasks
  *
- * @Task("Login")
+ * @Task(name="LoginTask")
  * @package App\Task\Task
  */
 class LoginTask{
-    /**
-     * A work task
-     * do something
-     *
-     * @param string $p1
-     * @param string $p2
-     *
-     * @return string
-     */
-    public function work(string $p1, string $p2)
-    {
-        App::profileStart('co');
-        App::trace('trace');
-        App::info('info');
-        App::pushlog('key', 'stelin');
-        App::profileEnd('co');
-
-        return 'o, task completed';
-    }
 
     /**
-     * A cronTab task
-     * 3-5 seconds per minute 每分钟第3-5秒执行
+     * 保存用户登录信息
      *
-     * @Scheduled(cron="3-5 * * * * *")
+     * @TaskMapping(name="imprint")
+     * @param array $user
      */
-    public function cronTask()
+    public function imprint(array $user): void
     {
-        echo time() . "第3-5秒执行\n";
-
-        return 'cron';
+        $row = User::modifyById($user['id'],['last_login_ip'=>$user['last_login_ip'],'last_login_time'=>$user['last_login_time']]);
+        if(!$row) {
+            Log::warning('用户{'.$user['id'].'}登录信息保存失败');
+        }
     }
 }
