@@ -1,12 +1,5 @@
 <?php declare(strict_types=1);
-/**
- * This file is part of Swoft.
- *
- * @link     https://swoft.org
- * @document https://swoft.org/docs
- * @contact  group@swoft.org
- * @license  https://github.com/swoft-cloud/swoft/blob/master/LICENSE
- */
+
 
 namespace App\Model\Entity;
 
@@ -15,8 +8,9 @@ use Swoft\Db\Annotation\Mapping\Entity;
 use Swoft\Db\Annotation\Mapping\Id;
 use Swoft\Db\Eloquent\Model;
 
+
 /**
- *
+ * ???
  * Class User
  *
  * @since 2.0
@@ -26,29 +20,26 @@ use Swoft\Db\Eloquent\Model;
 class User extends Model
 {
     /**
+     * 
      * @Id()
-     *
-     * @Column()
-     *
-     * @var int|null
-     */
-    private $id;
-
-    /**
-     * @Column()
-     *
-     * @var string
-     */
-    private $name;
-
-    /**
      * @Column()
      *
      * @var int
      */
-    private $age;
+    private $id;
 
     /**
+     * ????????
+     *
+     * @Column()
+     *
+     * @var string
+     */
+    private $mobile;
+
+    /**
+     * ????
+     *
      * @Column(hidden=true)
      *
      * @var string
@@ -56,47 +47,96 @@ class User extends Model
     private $password;
 
     /**
-     * @Column(name="user_desc", prop="userDesc")
+     * ????
+     *
+     * @Column(name="login_status", prop="loginStatus")
+     *
+     * @var int
+     */
+    private $loginStatus;
+
+    /**
+     * ???????
+     *
+     * @Column(name="login_code", prop="loginCode")
      *
      * @var string
      */
-    private $userDesc;
+    private $loginCode;
 
     /**
-     * @Column(name="test_json", prop="testJson")
+     * ????IP
      *
-     * @var array|null
+     * @Column(name="last_login_ip", prop="lastLoginIp")
+     *
+     * @var string
      */
-    private $testJson;
+    private $lastLoginIp;
 
     /**
-     * @param int|null $id
+     * ??????
+     *
+     * @Column(name="last_login_time", prop="lastLoginTime")
+     *
+     * @var string|null
+     */
+    private $lastLoginTime;
+
+    /**
+     * ????????????
+     *
+     * @Column()
+     *
+     * @var int
+     */
+    private $status;
+
+    /**
+     * ????
+     *
+     * @Column(name="create_time", prop="createTime")
+     *
+     * @var string
+     */
+    private $createTime;
+
+    /**
+     * ????
+     *
+     * @Column(name="update_time", prop="updateTime")
+     *
+     * @var string
+     */
+    private $updateTime;
+
+    /**
+     * ?????
+     *
+     * @Column(name="delete_time", prop="deleteTime")
+     *
+     * @var string|null
+     */
+    private $deleteTime;
+
+
+    /**
+     * @param int $id
      *
      * @return void
      */
-    public function setId(?int $id): void
+    public function setId(int $id): void
     {
         $this->id = $id;
     }
 
     /**
-     * @param string $name
+     * @param string $mobile
      *
      * @return void
      */
-    public function setName(string $name): void
+    public function setMobile(string $mobile): void
     {
-        $this->name = $name;
-    }
-
-    /**
-     * @param int $age
-     *
-     * @return void
-     */
-    public function setAge(int $age): void
-    {
-        $this->age = $age;
+        $this->mobile = $mobile;
     }
 
     /**
@@ -110,27 +150,87 @@ class User extends Model
     }
 
     /**
-     * @param string $userDesc
+     * @param int $loginStatus
      *
      * @return void
      */
-    public function setUserDesc(string $userDesc): void
+    public function setLoginStatus(int $loginStatus): void
     {
-        $this->userDesc = $userDesc;
+        $this->loginStatus = $loginStatus;
     }
 
     /**
-     * @param array|null $testJson
+     * @param string $loginCode
      *
      * @return void
      */
-    public function setTestJson(?array $testJson): void
+    public function setLoginCode(string $loginCode): void
     {
-        $this->testJson = $testJson;
+        $this->loginCode = $loginCode;
     }
 
     /**
-     * @return int|null
+     * @param string $lastLoginIp
+     *
+     * @return void
+     */
+    public function setLastLoginIp(string $lastLoginIp): void
+    {
+        $this->lastLoginIp = $lastLoginIp;
+    }
+
+    /**
+     * @param string|null $lastLoginTime
+     *
+     * @return void
+     */
+    public function setLastLoginTime(?string $lastLoginTime): void
+    {
+        $this->lastLoginTime = $lastLoginTime;
+    }
+
+    /**
+     * @param int $status
+     *
+     * @return void
+     */
+    public function setStatus(int $status): void
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @param string $createTime
+     *
+     * @return void
+     */
+    public function setCreateTime(string $createTime): void
+    {
+        $this->createTime = $createTime;
+    }
+
+    /**
+     * @param string $updateTime
+     *
+     * @return void
+     */
+    public function setUpdateTime(string $updateTime): void
+    {
+        $this->updateTime = $updateTime;
+    }
+
+    /**
+     * @param string|null $deleteTime
+     *
+     * @return void
+     */
+    public function setDeleteTime(?string $deleteTime): void
+    {
+        $this->deleteTime = $deleteTime;
+    }
+
+    /**
+     * @return int
      */
     public function getId(): ?int
     {
@@ -140,40 +240,81 @@ class User extends Model
     /**
      * @return string
      */
-    public function getName(): string
+    public function getMobile(): ?string
     {
-        return $this->name;
-    }
-
-    /**
-     * @return int
-     */
-    public function getAge(): int
-    {
-        return $this->age;
+        return $this->mobile;
     }
 
     /**
      * @return string
      */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getUserDesc(): string
+    public function getLoginStatus(): ?int
     {
-        return $this->userDesc;
+        return $this->loginStatus;
     }
 
     /**
-     * @return array|null
+     * @return string
      */
-    public function getTestJson(): ?array
+    public function getLoginCode(): ?string
     {
-        return $this->testJson;
+        return $this->loginCode;
     }
+
+    /**
+     * @return string
+     */
+    public function getLastLoginIp(): ?string
+    {
+        return $this->lastLoginIp;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLastLoginTime(): ?string
+    {
+        return $this->lastLoginTime;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCreateTime(): ?string
+    {
+        return $this->createTime;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUpdateTime(): ?string
+    {
+        return $this->updateTime;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDeleteTime(): ?string
+    {
+        return $this->deleteTime;
+    }
+
 }
