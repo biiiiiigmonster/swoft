@@ -118,6 +118,17 @@ class User extends Model
      */
     private $deleteTime;
 
+
+    /**
+     * @param int $id
+     *
+     * @return void
+     */
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
     /**
      * @param string $mobile
      *
