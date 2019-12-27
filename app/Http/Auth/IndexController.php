@@ -18,6 +18,7 @@ use Swoft\Http\Message\Request;
 use Swoft\Http\Server\Annotation\Mapping\Controller;
 use Swoft\Http\Server\Annotation\Mapping\RequestMapping;
 use Swoft\Http\Server\Annotation\Mapping\RequestMethod;
+use Swoft\Log\Helper\Log;
 use Swoft\Rpc\Client\Annotation\Mapping\Reference;
 use Swoft\Task\Task;
 
@@ -31,6 +32,11 @@ use Swoft\Task\Task;
 class IndexController{
 
     /**
+     * @var int
+     */
+    private $num = 0;
+
+    /**
      * 用户登录
      *
      * @RequestMapping(route="login", method=RequestMethod::POST)
@@ -40,12 +46,13 @@ class IndexController{
      */
     public function login(Request $request): array
     {
+        $this->num++;
         $data = $request->post();
 
         $user = BeanFactory::getBean('UserLogic')->login($data);
         //登陆成功之后的异步处理
         Task::async('LoginTask','imprint',[$user['id'],['last_login_ip'=>ip(),'last_login_time'=>Carbon::now()->toDateTimeString()]]);
-
+        Log::info('测试计数'.(string)$this->num);
         return $user;
     }
 }

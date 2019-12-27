@@ -59,7 +59,8 @@ return [
         'class'    => HttpServer::class,
         'port'     => 18306,
 //        'listener' => [
-//            'rpc' => bean('rpcServer')
+//            'rpc' => bean('rpcServer'),
+//            'ws'  => bean('wsServer')
 //        ],
         'process'  => [
 //            'monitor' => bean(MonitorProcess::class)
