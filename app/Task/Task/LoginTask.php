@@ -33,7 +33,7 @@ class LoginTask{
      */
     public function imprint(int $id,array $data): void
     {
-        Coroutine::sleep(5);
+        Coroutine::sleep(30);
         $row = User::modifyById($id,$data);
         if(!$row) {
             Log::warning("用户\{$id\}登录信息保存失败");
