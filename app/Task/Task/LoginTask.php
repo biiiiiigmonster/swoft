@@ -14,6 +14,7 @@ use App\Model\Entity\User;
 use Swoft\Log\Helper\Log;
 use Swoft\Task\Annotation\Mapping\Task;
 use Swoft\Task\Annotation\Mapping\TaskMapping;
+use Swoole\Coroutine;
 
 /**
  * Class LoginTask - define some tasks
@@ -32,6 +33,7 @@ class LoginTask{
      */
     public function imprint(int $id,array $data): void
     {
+        Coroutine::sleep(5);
         $row = User::modifyById($id,$data);
         if(!$row) {
             Log::warning("用户\{$id\}登录信息保存失败");
