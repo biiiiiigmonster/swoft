@@ -42,9 +42,6 @@ class CorsMiddleware implements MiddlewareInterface
             $response = context()->getResponse();
             return $this->configResponse($response);
         }
-        Log::info(json_encode($request->getHeaderLines()));
-        Log::info('wairi');
-        Log::error('baozaorulei');
         $response = $handler->handle($request);
         return $this->configResponse($response);
     }
