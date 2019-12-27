@@ -22,7 +22,7 @@ class User extends Model
     /**
      *
      * @Id()
-     * @Column()
+     * @Column(hidden=true)
      *
      * @var int
      */
