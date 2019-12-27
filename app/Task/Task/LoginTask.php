@@ -19,7 +19,7 @@ use Swoole\Coroutine;
 /**
  * Class LoginTask - define some tasks
  *
- * @Task()
+ * @Task(name="LoginTask")
  * @package App\Task\Task
  */
 class LoginTask{
@@ -37,7 +37,6 @@ class LoginTask{
     public function imprint(array $where,array $data): void
     {
         $row = User::where($where)->limit(1)->update($data);
-        Log::warning('用户{'.$where['mobile'].'}登录信息保存失败');
         if(!$row) {
             Log::warning('用户{'.$where['mobile'].'}登录信息保存失败');
         }
