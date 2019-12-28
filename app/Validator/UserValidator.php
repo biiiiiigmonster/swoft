@@ -26,7 +26,7 @@ class UserValidator
      *
      * @var string
      */
-    protected string $mobile;
+    protected $mobile;
 
     /**
      * @IsString()
@@ -35,7 +35,7 @@ class UserValidator
      *
      * @var string
      */
-    protected string $password;
+    protected $password;
 
     /**
      * @IsString()
@@ -43,5 +43,5 @@ class UserValidator
      *
      * @var string
      */
-    protected string $password_conf;
+    protected $password_conf;
 }
