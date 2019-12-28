@@ -59,7 +59,7 @@ function user_func(): string
 function format($data=null,$code=SUCCESS,$msg=''): array
 {
     $return['code'] = $code;
-    $return['data'] = ['msg' => $msg?:lang((string)$code)];
+    $return['data'] = ['msg' => $msg?:'lang((string)$code)'];
 
     // 根据不同数据类型来封装不同的返回值格式
     switch (gettype($data)) {
@@ -90,7 +90,7 @@ function format($data=null,$code=SUCCESS,$msg=''): array
  */
 function rootDomain(): string
 {
-    $item  = explode('.', context()->getRequest()->getHost());
+    $item  = explode('.', context()->getRequest()->getUri()->getHost());
     $count = count($item);
     return $count > 1 ? $item[$count - 2] . '.' . $item[$count - 1] : $item[0];
 }
@@ -105,7 +105,7 @@ function subDomain(): string
     // 获取当前主域名
     $rootDomain = rootDomain();
 
-    return rtrim(stristr(context()->getRequest()->getHost(), $rootDomain, true), '.');
+    return rtrim(stristr(context()->getRequest()->getUri()->getHost(), $rootDomain, true), '.');
 }
 
 /**

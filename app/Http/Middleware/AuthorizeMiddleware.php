@@ -44,8 +44,8 @@ class AuthorizeMiddleware implements MiddlewareInterface
             'iat' => $time,//签发时间
             'nbf' => $time,//生效时间，比如设置time+30，表示当前时间30秒后才能使用
             'exp' => $time + 3600*24*30,//过期时间
-            "iss" => $request->getHost(),//签发者
-            'aud' => $request->getScheme().'://*.'.rootDomain(),//接收者
+            "iss" => $request->getUri()->getHost(),//签发者
+            'aud' => $request->getUri()->getScheme().'://*.'.rootDomain(),//接收者
             'data' => [//自定义信息，不要定义敏感信息
                 'id' => $data['id'],//例如用户主键id
 //                'mobile' => $data['mobile'],//用户手机号
