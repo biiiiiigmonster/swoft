@@ -12,7 +12,6 @@ use App\Process\MonitorProcess;
 use Swoft\Crontab\Process\CrontabProcess;
 use App\Http\Middleware\ {
     FavIconMiddleware,
-    CorsMiddleware,
 };
 use Swoft\Db\Pool;
 use Swoft\Http\Server\HttpServer;
@@ -85,7 +84,6 @@ return [
         // Add global http middleware
         'middlewares'      => [
             FavIconMiddleware::class,
-            CorsMiddleware::class,
             // \Swoft\Whoops\WhoopsMiddleware::class,
             // Allow use @View tag
             \Swoft\View\Middleware\ViewMiddleware::class,
