@@ -32,7 +32,7 @@ class UserLogic
      */
     public function login(array $param): array
     {
-        $user = User::where('mobile',$param['mobile'])->firstOrFail();
+        $user = User::where('mobile',$param['mobile'])->first();
         if(md5($param['password'])!=$user->getPassword())
             throw new BizException('',LOGIN_FAILED);
 
