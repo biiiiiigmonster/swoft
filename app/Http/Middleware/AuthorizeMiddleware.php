@@ -10,6 +10,7 @@
 
 namespace App\Http\Middleware;
 
+use Firebase\JWT\JWT;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -22,29 +23,38 @@ use function context;
 /**
  * Class AuthorizeMiddleware - Custom middleware
  * @Bean()
- * @package App\Http\Middleware
  */
 class AuthorizeMiddleware implements MiddlewareInterface
 {
-   /**
+    /**
      * Process an incoming server request.
      *
      * @param ServerRequestInterface|Request  $request
      * @param RequestHandlerInterface $handler
      *
      * @return ResponseInterface
-     * @throws SwoftException
      * @inheritdoc
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        if ($request->getUriPath() === '/favicon.ico') {
-            return context()->getResponse()->withStatus(404);
-        }
+        $response = $handler->handle($request);
+        $time = time();
+        $data = $response->getData();
+        $token = [
+            'iat' => $time,//签发时间
+            'nbf' => $time,//生效时间，比如设置time+30，表示当前时间30秒后才能使用
+            'exp' => $time + 3600*24*30,//过期时间
+            "iss" => $request->getHost(),//签发者
+            'aud' => $request->getScheme().'://*.'.rootDomain(),//接收者
+            'data' => [//自定义信息，不要定义敏感信息
+                'id' => $data['id'],//例如用户主键id
+//                'mobile' => $data['mobile'],//用户手机号
+                //等等...
+            ],
+        ];
 
-        // before request handle
-
-        return $handler->handle($request);
+        $jwt = JWT::encode($token, config('secret.jwt', 'CT5'),'HS256');
+        return $response->withHeader('Authorization',"Bearer $jwt");
 
         // after request handle
     }

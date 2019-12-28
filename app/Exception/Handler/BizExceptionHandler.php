@@ -4,20 +4,20 @@
 namespace App\Exception\Handler;
 
 
-use App\Exception\LogicException;
+use App\Exception\BizException;
 use Swoft\Error\Annotation\Mapping\ExceptionHandler;
 use Swoft\Http\Message\Response;
 use Swoft\Http\Server\Exception\Handler\AbstractHttpErrorHandler;
 use Throwable;
 
 /**
- * Class LogicExceptionHandler
+ * Class BizExceptionHandler
  *
  * @since 2.0
  *
- * @ExceptionHandler(LogicException::class)
+ * @ExceptionHandler(BizException::class)
  */
-class LogicExceptionHandler extends AbstractHttpErrorHandler
+class BizExceptionHandler extends AbstractHttpErrorHandler
 {
     /**
      * @param Throwable $except
@@ -28,10 +28,7 @@ class LogicExceptionHandler extends AbstractHttpErrorHandler
     public function handle(Throwable $except, Response $response): Response
     {
         // TODO: Implement handle() method.
-        $data = [
-            'code' => $except->getCode(),
-            'msg' => $except->getMessage(),
-        ];
+        $data = format(null,$except->getCode(),$except->getMessage());
 
         return $response->withData($data);
     }

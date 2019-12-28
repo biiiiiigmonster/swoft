@@ -50,6 +50,40 @@ function user_func(): string
 }
 
 /**
+ * http请求正常格式化返回数据
+ * @param null $data
+ * @param int $code
+ * @param string $msg
+ * @return array
+ */
+function format($data=null,$code=SUCCESS,$msg=''): array
+{
+    $return['code'] = $code;
+    $return['data'] = ['msg' => $msg?:lang((string)$code)];
+
+    // 根据不同数据类型来封装不同的返回值格式
+    switch (gettype($data)) {
+        case 'object':
+        case 'array':
+            $return['data'] = array_merge($return['data'],(array) $data);
+            break;
+        case 'NULL':
+        case 'boolean':
+            break;
+        case 'resource':
+            break;
+        case 'integer':
+        case 'double'://（如果是 float 则返回“double”，而不是“float”；详细参考gettype函数）
+        case 'string':
+        default:
+            $return = $data;
+            break;
+    }
+
+    return $return;
+}
+
+/**
  * 获取当前根域名
  * @access public
  * @return string

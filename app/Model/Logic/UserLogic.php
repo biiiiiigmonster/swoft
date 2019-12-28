@@ -10,7 +10,7 @@
 
 namespace App\Model\Logic;
 
-use App\Exception\LogicException;
+use App\Exception\BizException;
 use App\Model\Entity\User;
 use Swoft\Bean\Annotation\Mapping\Bean;
 use think\helper\Str;
@@ -25,7 +25,7 @@ class UserLogic
     /**
      * @param array $param
      * @return array
-     * @throws LogicException
+     * @throws BizException
      * @throws \ReflectionException
      * @throws \Swoft\Bean\Exception\ContainerException
      * @throws \Swoft\Db\Exception\DbException
@@ -34,7 +34,7 @@ class UserLogic
     {
         $user = User::where('mobile',$param['mobile'])->firstOrFail();
         if(md5($param['password'])!=$user->getPassword())
-            throw new LogicException('账号或密码错误',100);
+            throw new BizException('',LOGIN_FAILED);
 
         $user->setLoginStatus(1);
         $user->setLoginCode(Str::random());

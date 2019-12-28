@@ -10,12 +10,14 @@
 
 namespace App\Http\Auth;
 
+use App\Http\Middleware\AuthorizeMiddleware;
 use App\Rpc\Lib\UserInterface;
 use Carbon\Carbon;
 use OpenApi\Annotations\OpenApi;
 use Swoft\Bean\BeanFactory;
 use Swoft\Http\Message\Request;
 use Swoft\Http\Server\Annotation\Mapping\Controller;
+use Swoft\Http\Server\Annotation\Mapping\Middleware;
 use Swoft\Http\Server\Annotation\Mapping\RequestMapping;
 use Swoft\Http\Server\Annotation\Mapping\RequestMethod;
 use Swoft\Log\Helper\Log;
@@ -37,6 +39,7 @@ class IndexController{
      *
      * @RequestMapping(route="login", method=RequestMethod::POST)
      * @Validate(validator="UserValidator",fields={"mobile","password"})
+     * @Middleware(AuthorizeMiddleware::class)
      * @param Request $request
      * @return array
      * @throws \Swoft\Task\Exception\TaskException
@@ -48,7 +51,6 @@ class IndexController{
         $user = BeanFactory::getBean('UserLogic')->login($data);
         //登陆成功之后的异步处理
         Task::async('LoginTask','imprint',[$user['id'],['last_login_ip'=>ip(),'last_login_time'=>Carbon::now()->toDateTimeString()]]);
-        context()->getResponse()->withHeader('Authorization','Bearer 1234567');
 
         return $user;
     }
