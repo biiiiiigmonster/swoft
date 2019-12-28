@@ -54,7 +54,9 @@ class AuthorizeMiddleware implements MiddlewareInterface
         ];
 
         $jwt = JWT::encode($token, config('secret.jwt', 'CT5'),'HS256');
-        return $response->withHeader('Authorization',"Bearer $jwt");
+        return $response
+            ->withHeader('Access-Control-Expose-Headers','Authorization')
+            ->withHeader('Authorization',"Bearer $jwt");
 
         // after request handle
     }
