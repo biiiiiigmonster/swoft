@@ -21,6 +21,7 @@ use Swoft\Http\Server\Annotation\Mapping\RequestMethod;
 use Swoft\Log\Helper\Log;
 use Swoft\Rpc\Client\Annotation\Mapping\Reference;
 use Swoft\Task\Task;
+use Swoft\Validator\Annotation\Mapping\Validate;
 
 // use Swoft\Http\Message\Response;
 
@@ -35,6 +36,7 @@ class IndexController{
      * 用户登录
      *
      * @RequestMapping(route="login", method=RequestMethod::POST)
+     * @Validate(validator="UserValidator")
      * @param Request $request
      * @return array
      * @throws \Swoft\Task\Exception\TaskException
