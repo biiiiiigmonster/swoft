@@ -36,7 +36,7 @@ class IndexController{
      * 用户登录
      *
      * @RequestMapping(route="login", method=RequestMethod::POST)
-     * @Validate(validator="UserValidator")
+     * @Validate(validator="UserValidator",fields={"mobile","password"})
      * @param Request $request
      * @return array
      * @throws \Swoft\Task\Exception\TaskException
