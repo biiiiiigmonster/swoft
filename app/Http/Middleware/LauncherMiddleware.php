@@ -22,7 +22,6 @@ use function context;
 /**
  * Class LauncherMiddleware - Custom middleware
  * @Bean()
- * @package App\Http\Middleware
  */
 class LauncherMiddleware implements MiddlewareInterface
 {

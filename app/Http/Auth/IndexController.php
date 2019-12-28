@@ -47,7 +47,8 @@ class IndexController{
 
         $user = BeanFactory::getBean('UserLogic')->login($data);
         //登陆成功之后的异步处理
-        Task::async('LoginTask','imprint',[['mobile'=>$user['mobile']],['last_login_ip'=>ip(),'last_login_time'=>Carbon::now()->toDateTimeString()]]);
+        Task::async('LoginTask','imprint',[$user['id'],['last_login_ip'=>ip(),'last_login_time'=>Carbon::now()->toDateTimeString()]]);
+        context()->getResponse()->withHeader('Authorization','Bearer 1234567');
 
         return $user;
     }

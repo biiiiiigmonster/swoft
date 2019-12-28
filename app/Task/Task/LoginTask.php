@@ -28,17 +28,14 @@ class LoginTask{
      * 保存用户登录信息
      *
      * @TaskMapping()
-     * @param array $where
+     * @param int $id
      * @param array $data
-     * @throws \ReflectionException
-     * @throws \Swoft\Bean\Exception\ContainerException
-     * @throws \Swoft\Db\Exception\DbException
      */
-    public function imprint(array $where,array $data): void
+    public function imprint(int $id,array $data): void
     {
-        $row = User::where($where)->limit(1)->update($data);
+        $row = User::modifyById($id,$data);
         if(!$row) {
-            Log::warning('用户{'.$where['mobile'].'}登录信息保存失败');
+            Log::warning("用户\{$id\}登录信息保存失败");
         }
     }
 }
