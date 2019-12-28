@@ -71,7 +71,6 @@ function format($data=null,$code=SUCCESS,$msg=''): array
         case 'boolean':
             break;
         case 'resource':
-            break;
         case 'integer':
         case 'double'://（如果是 float 则返回“double”，而不是“float”；详细参考gettype函数）
         case 'string':

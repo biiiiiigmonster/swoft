@@ -18,7 +18,6 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Swoft\Bean\Annotation\Mapping\Bean;
-use Swoft\Exception\SwoftException;
 use Swoft\Http\Message\Request;
 use Swoft\Http\Server\Contract\MiddlewareInterface;
 use Swoft\Log\Helper\Log;
@@ -62,7 +61,7 @@ class AuthMiddleware implements MiddlewareInterface
                 return $response->withStatus(401);
             }
 
-            $request->authorizion = (object)$decoded->data;
+            $request->auth = (object)$decoded->data;
         } catch (SignatureInvalidException $e){
             Log::warning('[ 验签失败 ] 签名无效');
             $response = context()->getResponse();
@@ -95,6 +94,7 @@ class AuthMiddleware implements MiddlewareInterface
     {
         $allow = [
             //默认有效签发者域名为auth+当前站点的根域名
+            context()->getRequest()->getUri()->getHost(),
             'auth.'.rootDomain(),
         ];
         list($scheme,$iss) = explode('://',$domain);

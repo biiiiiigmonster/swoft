@@ -14,13 +14,14 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Swoft\Bean\Annotation\Mapping\Bean;
-use Swoft\Exception\SwoftException;
 use Swoft\Http\Message\Request;
 use Swoft\Http\Server\Contract\MiddlewareInterface;
 use function context;
 
 /**
- * Class LauncherMiddleware - Custom middleware
+ * 发射器
+ * 一般作用于http-server，将预期响应数据格式化返回
+ *
  * @Bean()
  */
 class LauncherMiddleware implements MiddlewareInterface
@@ -36,14 +37,9 @@ class LauncherMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        if ($request->getUriPath() === '/favicon.ico') {
-            return context()->getResponse()->withStatus(404);
-        }
+        $response = $handler->handle($request);
+        $data = $response->getData();
 
-        // before request handle
-
-        return $handler->handle($request);
-
-        // after request handle
+        return $response->withData(format($data));
     }
 }

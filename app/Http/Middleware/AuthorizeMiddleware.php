@@ -15,10 +15,8 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Swoft\Bean\Annotation\Mapping\Bean;
-use Swoft\Exception\SwoftException;
 use Swoft\Http\Message\Request;
 use Swoft\Http\Server\Contract\MiddlewareInterface;
-use Swoft\Log\Helper\Log;
 use function context;
 
 /**
@@ -53,8 +51,6 @@ class AuthorizeMiddleware implements MiddlewareInterface
                 //等等...
             ],
         ];
-        Log::info(rootDomain());
-        Log::info(subDomain());
 
         $jwt = JWT::encode($token, config('secret.jwt', 'CT5'),'HS256');
         return $response
