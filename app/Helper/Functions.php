@@ -61,22 +61,11 @@ function format($data=null,$code=SUCCESS,$msg=''): array
     $return['code'] = $code;
     $return['data'] = ['msg' => $msg?:Swoft::t((string)$code)];
 
-    // 根据不同数据类型来封装不同的返回值格式
-    switch (gettype($data)) {
-        case 'object':
-        case 'array':
-            $return['data'] = array_merge($return['data'],(array) $data);
-            break;
-        case 'NULL':
-        case 'boolean':
-            break;
-        case 'resource':
-        case 'integer':
-        case 'double'://（如果是 float 则返回“double”，而不是“float”；详细参考gettype函数）
-        case 'string':
-        default:
-            $return = $data;
-            break;
+    //判断能否当做数组一样访问
+    if(\think\helper\Arr::accessible($data)) {
+        $return['data'] = array_merge($return['data'],\Swoft\Stdlib\Helper\ArrayHelper::toArray($data));
+    } else {
+        $return['data'] = array_merge($return['data'],['result'=>$data]);
     }
 
     return $return;
