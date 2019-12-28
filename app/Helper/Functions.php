@@ -59,7 +59,7 @@ function user_func(): string
 function format($data=null,$code=SUCCESS,$msg=''): array
 {
     $return['code'] = $code;
-    $return['data'] = ['msg' => $msg?:'lang((string)$code)'];
+    $return['data'] = ['msg' => $msg?:Swoft::t((string)$code)];
 
     // 根据不同数据类型来封装不同的返回值格式
     switch (gettype($data)) {

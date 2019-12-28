@@ -186,5 +186,17 @@ return [
     ],
     'cliRouter'         => [
         // 'disabledGroups' => ['demo', 'test'],
-    ]
+    ],
+    'i18n'              => [
+        // 设置到文本资源目录
+        'resourcePath' => '@resource/language/', // 结尾斜线必须
+
+        // 设置默认文本文件夹名称
+        // 未填写则默认 en 文件夹
+        'defaultLanguage'   => 'zh_CN',
+
+        // 设置默认文本文件名称
+        // 未填写则默认 default.php
+        'defaultCategory'   => 'msg',
+    ],
 ];
