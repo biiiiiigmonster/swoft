@@ -70,8 +70,8 @@ class IndexController{
      * 用户注册
      *
      * @RequestMapping(route="register", method=RequestMethod::POST)
-     * @Validate(validator="CaptchaValidator",params={"receiver":"mobile","scene":"register"})
      * @Validate(validator="MobileUniqueValidator")
+     * @Validate(validator="CaptchaValidator",params={"receiver":"mobile","scene":"register"})
      * @Validate(validator="UserValidator",fields={"mobile","password","password_conf"})
      * @Middleware(AuthorizeMiddleware::class)
      *
