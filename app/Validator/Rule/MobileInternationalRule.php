@@ -38,7 +38,7 @@ class MobileInternationalRule implements RuleInterface
         Log::info(config('regex.international_phone'));
         Log::info(json_encode($data));
         if(preg_match(config('regex.international_phone'), $data[$propertyName])) {
-            return [$data];
+            return $data;
         }
 
         $message = (empty($message)) ? sprintf('%s must be a unique', $propertyName) : $message;
