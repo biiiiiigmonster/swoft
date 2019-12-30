@@ -4,10 +4,10 @@
 namespace App\Validator;
 
 
+use App\Exception\BizException;
 use App\Model\Entity\User;
 use Swoft\Validator\Annotation\Mapping\Validator;
 use Swoft\Validator\Contract\ValidatorInterface;
-use Swoft\Validator\Exception\ValidatorException;
 
 /**
  * Class MobileUniqueValidator
@@ -22,12 +22,12 @@ class MobileUniqueValidator implements ValidatorInterface
      * @param array $data
      * @param array $params
      * @return array
-     * @throws ValidatorException
+     * @throws BizException
      */
     public function validate(array $data, array $params): array
     {
         if(User::where('mobile',$data['mobile'])->count()) {
-            throw new ValidatorException('mobile already exists');
+            throw new BizException('手机号已存在');
         }
 
         return $data;
