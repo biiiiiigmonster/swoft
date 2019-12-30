@@ -60,8 +60,31 @@ class IndexController{
         $data = $request->post();
 
         $user = $this->logic->login($data);
-        //登陆成功之后的异步处理
+        //投递记录本次登陆信息
         Task::async('LoginTask','imprint',[$user['id'],['last_login_ip'=>ip(),'last_login_time'=>Carbon::now()->toDateTimeString()]]);
+
+        return $user;
+    }
+
+    /**
+     * 用户注册
+     *
+     * @RequestMapping(route="register", method=RequestMethod::POST)
+     * @Validate(validator="MobileUniqueValidator")
+     * @Validate(validator="UserValidator",fields={"mobile","password","password_conf"})
+     * @Middleware(AuthorizeMiddleware::class)
+     *
+     * @param Request $request
+     * @return array
+     * @throws ContainerException
+     * @throws DbException
+     * @throws ReflectionException
+     */
+    public function register(Request $request): array
+    {
+        $data = $request->post();
+
+        $user = $this->logic->register($data);
 
         return $user;
     }

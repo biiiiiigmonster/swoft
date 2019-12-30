@@ -14,6 +14,10 @@ use App\Exception\BizException;
 use App\Model\Entity\User;
 use Swoft\Bean\Annotation\Mapping\Bean;
 use think\helper\Str;
+use ReflectionException;
+use RuntimeException;
+use Swoft\Bean\Exception\ContainerException;
+use Swoft\Db\Exception\DbException;
 
 /**
  * Class UserLogic
@@ -23,12 +27,14 @@ use think\helper\Str;
 class UserLogic
 {
     /**
+     * 用户登录
+     *
      * @param array $param
      * @return array
      * @throws BizException
-     * @throws \ReflectionException
-     * @throws \Swoft\Bean\Exception\ContainerException
-     * @throws \Swoft\Db\Exception\DbException
+     * @throws ReflectionException
+     * @throws ContainerException
+     * @throws DbException
      */
     public function login(array $param): array
     {
@@ -43,6 +49,25 @@ class UserLogic
         $user->setLoginStatus(1);
         $user->setLoginCode(Str::random());
         $user->save();
+
+        return $user->toArray();
+    }
+
+    /**
+     * 用户注册
+     *
+     * @param array $param
+     * @return array
+     * @throws ContainerException
+     * @throws DbException
+     * @throws ReflectionException
+     */
+    public function register(array $param): array
+    {
+        $user = User::new($param);
+        if(!$user->save()) {
+            throw new RuntimeException('用户注册异常');
+        }
 
         return $user->toArray();
     }
