@@ -199,4 +199,7 @@ return [
         // 未填写则默认 default.php
         'defaultCategory'   => 'msg',
     ],
+    'config'   => [
+        'path' => '@config',
+    ],
 ];

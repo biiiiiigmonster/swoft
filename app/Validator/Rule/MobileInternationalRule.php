@@ -7,6 +7,7 @@ namespace App\Validator\Rule;
 use App\Annotation\Mapping\MobileInternational;
 use App\Model\Entity\User;
 use Swoft\Bean\Annotation\Mapping\Bean;
+use Swoft\Log\Helper\Log;
 use Swoft\Validator\Contract\RuleInterface;
 use Swoft\Validator\Exception\ValidatorException;
 
@@ -34,6 +35,7 @@ class MobileInternationalRule implements RuleInterface
         }
 
         //手机号国际化验证，所有正则表达式均从.env配置文件中获取
+        Log::info(config('regex.international_phone'));
         if(preg_match(config('regex.international_phone'), $data[$propertyName])) {
             return $data;
         }
