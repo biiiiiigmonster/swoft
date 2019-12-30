@@ -4,18 +4,18 @@
 namespace App\Validator\Rule;
 
 
-use App\Annotation\Mapping\MobileUnique;
+use App\Annotation\Mapping\MobileInternational;
 use App\Model\Entity\User;
 use Swoft\Bean\Annotation\Mapping\Bean;
 use Swoft\Validator\Contract\RuleInterface;
 use Swoft\Validator\Exception\ValidatorException;
 
 /**
- * Class MobileUniqueRule
+ * Class MobileInternationalRule
  *
- * @Bean(MobileUnique::class)
+ * @Bean(MobileInternational::class)
  */
-class MobileUniqueRule implements RuleInterface
+class MobileInternationalRule implements RuleInterface
 {
     /**
      * @param array $data
@@ -33,9 +33,9 @@ class MobileUniqueRule implements RuleInterface
             throw new ValidatorException($message);
         }
 
-        //用户表中不存在记录即为判断通过
-        if(!User::where('mobile',$data[$propertyName])->count()) {
-            return [$data];
+        //手机号国际化验证，所有正则表达式均从.env配置文件中获取
+        if(preg_match(env('regex.international_phone'), $data[$propertyName])) {
+            return $data;
         }
 
         $message = (empty($message)) ? sprintf('%s must be a unique', $propertyName) : $message;

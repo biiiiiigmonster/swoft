@@ -3,7 +3,7 @@
 
 namespace App\Annotation\Parser;
 
-use App\Annotation\Mapping\MobileUnique;
+use App\Annotation\Mapping\MobileInternational;
 use Swoft\Annotation\Annotation\Mapping\AnnotationParser;
 use Swoft\Annotation\Annotation\Parser\Parser;
 use Swoft\Validator\Exception\ValidatorException;
@@ -11,11 +11,11 @@ use Swoft\Validator\ValidatorRegister;
 use ReflectionException;
 
 /**
- * Class MobileUniqueParser
+ * Class MobileInternationalParser
  *
- * @AnnotationParser(annotation=MobileUnique::class)
+ * @AnnotationParser(annotation=MobileInternational::class)
  */
-class MobileUniqueParser extends Parser
+class MobileInternationalParser extends Parser
 {
     /**
      * @param int $type

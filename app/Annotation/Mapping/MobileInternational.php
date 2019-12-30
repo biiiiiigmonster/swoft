@@ -16,7 +16,7 @@ use Doctrine\Common\Annotations\Annotation\Attributes;
  *      @Attribute("message",type="string")
  * })
  */
-class MobileUnique
+class MobileInternational
 {
     /**
      * @var string
