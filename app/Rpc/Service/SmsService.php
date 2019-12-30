@@ -11,6 +11,7 @@
 namespace App\Rpc\Service;
 
 use App\Rpc\Lib\SmsInterface;
+use Swoft\Log\Helper\Log;
 use Swoft\Rpc\Server\Annotation\Mapping\Service;
 use think\helper\Str;
 
@@ -29,6 +30,10 @@ class SmsService implements SmsInterface
     public function sendCaptcha(string $mobile): array
     {
         $code = Str::random();
+        Log::info(json_encode([
+            'code' => $code,
+            'mobile' => $mobile,
+        ]));
         return [
             'code' => $code,
             'mobile' => $mobile,

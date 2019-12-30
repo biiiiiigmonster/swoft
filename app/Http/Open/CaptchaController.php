@@ -16,6 +16,7 @@ use Swoft\Http\Message\Request;
 use Swoft\Http\Server\Annotation\Mapping\Controller;
 use Swoft\Http\Server\Annotation\Mapping\RequestMapping;
 use Swoft\Http\Server\Annotation\Mapping\RequestMethod;
+use Swoft\Log\Helper\Log;
 use Swoft\Redis\Redis;
 use Swoft\Rpc\Client\Annotation\Mapping\Reference;
 use Exception;
@@ -56,6 +57,7 @@ class CaptchaController{
         $param = $request->get();
 
         $res = $this->smsService->sendCaptcha($param['mobile']);
+        Log::info(json_encode($res));
         Redis::set('captcha:'.$res['mobile'].':'.$res['scene'],$res['code'],config('captcha.expire'));
         return $res;
     }
