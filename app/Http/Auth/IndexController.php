@@ -44,7 +44,7 @@ class IndexController{
      * 用户登录
      *
      * @RequestMapping(route="login", method=RequestMethod::POST)
-     * @Validate(validator="UserValidator",fields={"mobile","password","mobileUnique"})
+     * @Validate(validator="UserValidator",fields={"mobile","password"})
      * @Middleware(AuthorizeMiddleware::class)
      *
      * @param Request $request
