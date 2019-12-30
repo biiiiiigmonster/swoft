@@ -200,6 +200,6 @@ return [
         'defaultCategory'   => 'msg',
     ],
     'config'   => [
-        'path' => '@config',
+        'path' => alias('@config'),
     ],
 ];
