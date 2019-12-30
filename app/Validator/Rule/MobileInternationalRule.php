@@ -34,7 +34,7 @@ class MobileInternationalRule implements RuleInterface
         }
 
         //手机号国际化验证，所有正则表达式均从.env配置文件中获取
-        if(preg_match(env('regex.international_phone'), $data[$propertyName])) {
+        if(preg_match(config('regex.international_phone'), $data[$propertyName])) {
             return $data;
         }
 
