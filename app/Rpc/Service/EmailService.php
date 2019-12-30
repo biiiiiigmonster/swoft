@@ -24,9 +24,9 @@ class EmailService implements EmailInterface
      */
     public function sendCaptcha(string $email): array
     {
-        $code = Str::random();
+        $captcha = Str::random();
         return [
-            'code' => $code,
+            'captcha' => $captcha,
             'email' => $email,
         ];
     }

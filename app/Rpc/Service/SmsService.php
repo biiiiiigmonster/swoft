@@ -29,13 +29,9 @@ class SmsService implements SmsInterface
      */
     public function sendCaptcha(string $mobile): array
     {
-        $code = Str::random();
-        Log::info(json_encode([
-            'code' => $code,
-            'mobile' => $mobile,
-        ]));
+        $captcha = Str::random();
         return [
-            'code' => $code,
+            'captcha' => $captcha,
             'mobile' => $mobile,
         ];
     }
