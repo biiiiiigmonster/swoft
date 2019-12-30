@@ -21,6 +21,11 @@ use Swoft\Http\Server\Annotation\Mapping\RequestMapping;
 use Swoft\Http\Server\Annotation\Mapping\RequestMethod;
 use Swoft\Task\Task;
 use Swoft\Validator\Annotation\Mapping\Validate;
+use App\Exception\BizException;
+use ReflectionException;
+use Swoft\Bean\Exception\ContainerException;
+use Swoft\Db\Exception\DbException;
+use Swoft\Task\Exception\TaskException;
 
 /**
  * Class UserController
@@ -39,16 +44,16 @@ class IndexController{
      * 用户登录
      *
      * @RequestMapping(route="login", method=RequestMethod::POST)
-     * @Validate(validator="UserValidator",fields={"mobile","password"})
+     * @Validate(validator="UserValidator",fields={"mobile","password","mobileUnique"})
      * @Middleware(AuthorizeMiddleware::class)
      *
      * @param Request $request
      * @return array
-     * @throws \App\Exception\BizException
-     * @throws \ReflectionException
-     * @throws \Swoft\Bean\Exception\ContainerException
-     * @throws \Swoft\Db\Exception\DbException
-     * @throws \Swoft\Task\Exception\TaskException
+     * @throws BizException
+     * @throws ReflectionException
+     * @throws ContainerException
+     * @throws DbException
+     * @throws TaskException
      */
     public function login(Request $request): array
     {

@@ -44,13 +44,8 @@ define('SECRET_ERROR', 10043);
 define('NOT_REGISTER', 10044);
 define('ROUTE_MISS', 10045);
 
-function user_func(): string
-{
-    return 'hello';
-}
-
 /**
- * http请求正常格式化返回数据
+ * 格式化返回数据
  * @param null $data
  * @param int $code
  * @param string $msg
@@ -63,9 +58,9 @@ function format($data=null,$code=SUCCESS,$msg=''): array
 
     //判断能否当做数组一样访问
     if(\think\helper\Arr::accessible($data)) {
-        $return['data'] = array_merge($return['data'],\Swoft\Stdlib\Helper\ArrayHelper::toArray($data));
+        $return['data'] = array_merge($return['data'],(array)$data);
     } else {
-        $return['data'] = array_merge($return['data'],['result'=>$data]);
+        $return = $data;
     }
 
     return $return;

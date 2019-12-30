@@ -4,6 +4,7 @@
 namespace App\Validator;
 
 
+use App\Annotation\Mapping\MobileUnique;
 use Swoft\Validator\Annotation\Mapping\Confirm;
 use Swoft\Validator\Annotation\Mapping\IsString;
 use Swoft\Validator\Annotation\Mapping\Length;
@@ -21,11 +22,18 @@ class UserValidator
 {
     /**
      * @IsString()
-     * @Mobile(name="手机号格式不正确")
+     * @Mobile(message="手机号格式不正确")
      *
      * @var string
      */
     protected $mobile;
+
+    /**
+     * @MobileUnique(name="mobile")
+     *
+     * @var string
+     */
+    protected $mobileUnique;
 
     /**
      * @IsString()
