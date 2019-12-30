@@ -32,7 +32,7 @@ use Swoft\Task\Exception\TaskException;
  *
  * @Controller(prefix="/auth")
  */
-class IndexController{
+class UserController{
     /**
      * @Inject("UserLogic")
      *
@@ -70,9 +70,9 @@ class IndexController{
      * 用户注册
      *
      * @RequestMapping(route="register", method=RequestMethod::POST)
+     * @Validate(validator="UserValidator",fields={"mobile","password","password_conf"})
      * @Validate(validator="MobileUniqueValidator")
      * @Validate(validator="CaptchaValidator",params={"receiver":"mobile","scene":"register"})
-     * @Validate(validator="UserValidator",fields={"mobile","password","password_conf"})
      * @Middleware(AuthorizeMiddleware::class)
      *
      * @param Request $request

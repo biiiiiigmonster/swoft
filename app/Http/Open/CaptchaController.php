@@ -47,6 +47,7 @@ class CaptchaController{
      * 发送短信验证码
      *
      * @RequestMapping(route="sms", method=RequestMethod::POST)
+     * @Validate(validator="MobileUniqueValidator")
      * @Validate(validator="CreateCaptchaValidator",fields={"type","scene","mobile"})
      *
      * @param Request $request
@@ -65,6 +66,7 @@ class CaptchaController{
      * 发送邮件验证码
      *
      * @RequestMapping(route="email", method=RequestMethod::POST)
+     * @Validate(validator="MobileUniqueValidator")
      * @Validate(validator="CreateCaptchaValidator",fields={"type","scene","email"})
      *
      * @param Request $request
