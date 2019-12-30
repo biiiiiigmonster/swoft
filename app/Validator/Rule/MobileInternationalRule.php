@@ -36,8 +36,9 @@ class MobileInternationalRule implements RuleInterface
 
         //手机号国际化验证，所有正则表达式均从.env配置文件中获取
         Log::info(config('regex.international_phone'));
+        Log::info(json_encode($data));
         if(preg_match(config('regex.international_phone'), $data[$propertyName])) {
-            return $data;
+            return [$data];
         }
 
         $message = (empty($message)) ? sprintf('%s must be a unique', $propertyName) : $message;
