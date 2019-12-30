@@ -30,15 +30,13 @@ class CaptchaValidator implements ValidatorInterface
      */
     public function validate(array $data, array $params): array
     {
-//        if(!isset($data['captcha'])) {
-//            throw new ValidatorException('captcha must be exist');
-//        }
-//        if($data['captcha']!=Redis::get('captcha:'.$params['receiver'].':'.$params['scene'])) {
-//            throw new BizException('',CAPTCHA_ERROR);
-//        }
-//        Redis::del('captcha:'.$params['receiver'].':'.$params['scene']);
-
-        Log::info(json_encode($params));
+        if(!isset($data['captcha'])) {
+            throw new ValidatorException('captcha must be exist');
+        }
+        if($data['captcha']!=Redis::get('captcha:'.$data[$params['receiver']].':'.$params['scene'])) {
+            throw new BizException('',CAPTCHA_ERROR);
+        }
+        Redis::del('captcha:'.$data[$params['receiver']].':'.$params['scene']);
         return $data;
     }
 }
