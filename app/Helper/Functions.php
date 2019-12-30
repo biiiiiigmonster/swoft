@@ -49,9 +49,9 @@ define('ROUTE_MISS', 10045);
  * @param null $data
  * @param int $code
  * @param string $msg
- * @return array
+ * @return mixed
  */
-function format($data=null,$code=SUCCESS,$msg=''): array
+function format($data=null,$code=SUCCESS,$msg=''): void
 {
     $return['code'] = $code;
     $return['data'] = ['msg' => $msg?:Swoft::t((string)$code)];
