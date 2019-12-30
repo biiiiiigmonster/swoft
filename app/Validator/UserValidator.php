@@ -29,6 +29,7 @@ class UserValidator
     protected $mobile;
 
     /**
+     * @IsString()
      * @MobileUnique(name="mobile")
      *
      * @var string
