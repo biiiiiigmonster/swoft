@@ -54,10 +54,9 @@ class CaptchaController{
      */
     public function sendSms(Request $request): array
     {
-        $param = $request->get();
+        $param = $request->post();
 
         $res = $this->smsService->sendCaptcha($param['mobile']);
-        Log::info(json_encode($res));
         Redis::set('captcha:'.$res['mobile'].':'.$res['scene'],$res['code'],config('captcha.expire'));
         return $res;
     }
@@ -73,7 +72,7 @@ class CaptchaController{
      */
     public function sendEmail(Request $request): array
     {
-        $param = $request->get();
+        $param = $request->post();
 
         $res = $this->emailService->sendCaptcha($param['email']);
         Redis::set('captcha:'.$res['email'].':'.$res['scene'],$res['code'],config('captcha.expire'));
