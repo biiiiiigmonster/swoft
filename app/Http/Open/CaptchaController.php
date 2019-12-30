@@ -10,65 +10,71 @@
 
 namespace App\Http\Open;
 
+use App\Rpc\Lib\EmailInterface;
+use App\Rpc\Lib\SmsInterface;
+use Swoft\Http\Message\Request;
 use Swoft\Http\Server\Annotation\Mapping\Controller;
 use Swoft\Http\Server\Annotation\Mapping\RequestMapping;
 use Swoft\Http\Server\Annotation\Mapping\RequestMethod;
-// use Swoft\Http\Message\Response;
+use Swoft\Redis\Redis;
+use Swoft\Rpc\Client\Annotation\Mapping\Reference;
+use Exception;
+use Swoft\Validator\Annotation\Mapping\Validate;
 
 /**
  * Class CaptchaController
  *
- * @Controller(prefix="/Captcha")
+ * @Controller(prefix="/captcha")
  * @package App\Http\Open
  */
 class CaptchaController{
     /**
-     * Get data list. access uri path: /Captcha
-     * @RequestMapping(route="/Captcha", method=RequestMethod::GET)
+     * @Reference(pool="sms.pool")
+     *
+     * @var SmsInterface
+     */
+    private $smsService;
+
+    /**
+     * @Reference(pool="email.pool")
+     *
+     * @var EmailInterface
+     */
+    private $emailService;
+
+    /**
+     * 发送短信验证码
+     *
+     * @RequestMapping(name="sms")
+     * @Validate(validator="CreateCaptchaValidator",fields={"type","scene","mobile"})
+     *
+     * @param Request $request
      * @return array
      */
-    public function index(): array
+    public function sendSms(Request $request): array
     {
-        return ['item0', 'item1'];
+        $param = $request->get();
+
+        $res = $this->smsService->sendCaptcha($param['mobile']);
+        Redis::set('captcha:'.$res['mobile'].':'.$res['scene'],$res['code'],config('captcha.expire'));
+        return $res;
     }
 
     /**
-     * Get one by ID. access uri path: /Captcha/{id}
-     * @RequestMapping(route="{id}", method=RequestMethod::GET)
+     * 发送邮件验证码
+     *
+     * @RequestMapping(name="email")
+     * @Validate(validator="CreateCaptchaValidator",fields={"type","scene","email"})
+     *
+     * @param Request $request
      * @return array
      */
-    public function get(): array
+    public function sendEmail(Request $request): array
     {
-        return ['item0'];
-    }
+        $param = $request->get();
 
-    /**
-     * Create a new record. access uri path: /Captcha
-     * @RequestMapping(route="/Captcha", method=RequestMethod::POST)
-     * @return array
-     */
-    public function post(): array
-    {
-        return ['id' => 2];
-    }
-
-    /**
-     * Update one by ID. access uri path: /Captcha/{id}
-     * @RequestMapping(route="{id}", method=RequestMethod::PUT)
-     * @return array
-     */
-    public function put(): array
-    {
-        return ['id' => 1];
-    }
-
-    /**
-     * Delete one by ID. access uri path: /Captcha/{id}
-     * @RequestMapping(route="{id}", method=RequestMethod::DELETE)
-     * @return array
-     */
-    public function del(): array
-    {
-        return ['id' => 1];
+        $res = $this->emailService->sendCaptcha($param['email']);
+        Redis::set('captcha:'.$res['email'].':'.$res['scene'],$res['code'],config('captcha.expire'));
+        return $res;
     }
 }

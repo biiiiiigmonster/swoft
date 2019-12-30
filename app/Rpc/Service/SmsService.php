@@ -10,21 +10,28 @@
 
 namespace App\Rpc\Service;
 
-use App\Rpc\Lib\UserInterface;
+use App\Rpc\Lib\SmsInterface;
 use Swoft\Rpc\Server\Annotation\Mapping\Service;
+use think\helper\Str;
 
 /**
  * Class SmsService - This is an controller for handle rpc request
  *
  * @Service()
  */
-class SmsService implements UserInterface
+class SmsService implements SmsInterface
 {
     /**
+     * 发送验证码
+     * @param string $mobile
      * @return array
      */
-    public function getList(): array
+    public function sendCaptcha(string $mobile): array
     {
-        return ['item0', 'item1'];
+        $code = Str::random();
+        return [
+            'code' => $code,
+            'mobile' => $mobile,
+        ];
     }
 }

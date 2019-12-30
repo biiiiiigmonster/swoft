@@ -157,8 +157,41 @@ return [
         'class'  => ServicePool::class,
         'client' => bean('user'),
     ],
+    'sms'              => [
+        'class'   => ServiceClient::class,
+        'host'    => '127.0.0.1',//172.16.0.2
+        'port'    => 18307,
+        'setting' => [
+            'timeout'         => 0.5,
+            'connect_timeout' => 1.0,
+            'write_timeout'   => 10.0,
+            'read_timeout'    => 0.5,
+        ],
+        'packet'  => bean('rpcClientPacket')
+    ],
+    'sms.pool'         => [
+        'class'  => ServicePool::class,
+        'client' => bean('sms'),
+    ],
+    'email'              => [
+        'class'   => ServiceClient::class,
+        'host'    => '127.0.0.1',//172.16.0.2
+        'port'    => 18307,
+        'setting' => [
+            'timeout'         => 0.5,
+            'connect_timeout' => 1.0,
+            'write_timeout'   => 10.0,
+            'read_timeout'    => 0.5,
+        ],
+        'packet'  => bean('rpcClientPacket')
+    ],
+    'email.pool'         => [
+        'class'  => ServicePool::class,
+        'client' => bean('email'),
+    ],
     'rpcServer'         => [
         'class' => ServiceServer::class,
+        'port' => 18307,
     ],
     'wsServer'          => [
         'class'   => WebSocketServer::class,
