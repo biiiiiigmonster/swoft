@@ -27,7 +27,7 @@ class MobileUniqueValidator implements ValidatorInterface
     public function validate(array $data, array $params): array
     {
         if(User::where('mobile',$data['mobile'])->count()) {
-            throw new BizException('手机号已存在');
+            throw new BizException('手机号已存在',FAILED);
         }
 
         return $data;

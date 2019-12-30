@@ -64,6 +64,7 @@ class UserLogic
      */
     public function register(array $param): array
     {
+        $param['password'] = md5($param['password']);
         $user = User::new($param);
         if(!$user->save()) {
             throw new RuntimeException('用户注册异常');
