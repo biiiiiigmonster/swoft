@@ -49,9 +49,9 @@ define('ROUTE_MISS', 10045);
  * @param null $data
  * @param int $code
  * @param string $msg
- * @return mixed
+ * @return array
  */
-function format($data=null,$code=SUCCESS,$msg=''): void
+function format($data=null,$code=SUCCESS,$msg=''): array
 {
     $return['code'] = $code;
     $return['data'] = ['msg' => $msg?:Swoft::t((string)$code)];
@@ -59,8 +59,6 @@ function format($data=null,$code=SUCCESS,$msg=''): void
     //判断能否当做数组一样访问
     if(\think\helper\Arr::accessible($data)) {
         $return['data'] = array_merge($return['data'],(array)$data);
-    } else {
-        $return = $data;
     }
 
     return $return;
