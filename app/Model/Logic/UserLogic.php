@@ -66,6 +66,8 @@ class UserLogic
     {
         $param['password'] = md5($param['password']);
         $user = User::new($param);
+        $user->setLoginStatus(1);
+        $user->setLoginCode(Str::random());
         if(!$user->save()) {
             throw new RuntimeException('用户注册异常');
         }
