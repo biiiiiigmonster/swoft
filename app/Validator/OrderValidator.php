@@ -6,7 +6,14 @@ namespace App\Validator;
 
 use Swoft\Validator\Annotation\Mapping\Date;
 use Swoft\Validator\Annotation\Mapping\IsString;
+use Swoft\Validator\Annotation\Mapping\Validator;
 
+/**
+ * Class OrderValidator
+ * @package App\Validator
+ *
+ * @Validator(name="OrderValidator")
+ */
 class OrderValidator
 {
     /**
