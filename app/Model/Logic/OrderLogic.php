@@ -23,13 +23,13 @@ class OrderLogic
      * @return array
      * @throws DbException
      */
-    public function getList(array $param, int $page=1, int $pageSize=10): array
+    public function list(array $param, int $page=1, int $pageSize=10): array
     {
         $where = [
             ['userId',context()->getRequest()->auth->id],
         ];
 
-        $list = Order::where($where)->forPage($page,$pageSize)->get();
+        $list = Order::whereProp($where)->forPage($page,$pageSize)->get();
 
         return $list->toArray();
     }

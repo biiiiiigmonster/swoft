@@ -41,5 +41,5 @@ class UserValidator
      *
      * @var string
      */
-    protected $password_conf;
+    protected $passwordConf;
 }

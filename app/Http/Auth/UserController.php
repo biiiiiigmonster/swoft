@@ -70,7 +70,7 @@ class UserController{
      * 用户注册
      *
      * @RequestMapping(route="register", method=RequestMethod::POST)
-     * @Validate(validator="UserValidator",fields={"mobile","password","password_conf"})
+     * @Validate(validator="UserValidator",fields={"mobile","password","passwordConf"})
      * @Validate(validator="MobileUniqueValidator")
      * @Validate(validator="CaptchaValidator",params={"receiver":"mobile","scene":"register"})
      * @Middleware(AuthorizeMiddleware::class)

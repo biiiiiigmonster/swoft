@@ -20,6 +20,8 @@ use Swoft\Http\Server\Annotation\Mapping\Middlewares;
 use Swoft\Http\Server\Annotation\Mapping\RequestMapping;
 use Swoft\Http\Server\Annotation\Mapping\RequestMethod;
 use Swoft\Db\Exception\DbException;
+use Swoft\Validator\Annotation\Mapping\Validate;
+use Swoft\Validator\Annotation\Mapping\ValidateType;
 
 /**
  * Class OrderController
@@ -40,17 +42,18 @@ class OrderController{
 
     /**
      * 获取订单列表
-     * @RequestMapping(route="list",method=RequestMethod::GET)
+     * @RequestMapping(route="/order",method=RequestMethod::GET)
+     * @Validate(validator="OrderValidator",type=ValidateType::GET,fields={})
      *
      * @param Request $request
      * @return array
      * @throws DbException
      */
-    public function getList(Request $request): array
+    public function list(Request $request): array
     {
         $param = $request->get();
 
-        $list = $this->logic->getList($param);
+        $list = $this->logic->list($param);
 
         return ['list' => $list];
     }
