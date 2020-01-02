@@ -46,6 +46,10 @@ class AuthMiddleware implements MiddlewareInterface
 
         // 判断token
         $auth = $request->getHeaderLine("authorization");
+        CLog::info(config('secret.jwt', 'CT5'));
+        list($type,$token) = explode(' ',$auth);
+        CLog::info($type);
+        CLog::info($token);
         try {
             list($type,$token) = explode(' ',$auth);
 //            JWT::$leeway = 60;//这个属性表示可以当前请求token的有效时间再延长60s
