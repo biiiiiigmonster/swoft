@@ -46,22 +46,10 @@ class AuthMiddleware implements MiddlewareInterface
 
         // 判断token
         $auth = $request->getHeaderLine("authorization");
-        CLog::info(config('secret.jwt', 'CT5'));
-        list($type,$token) = explode(' ',$auth);
-        CLog::info($type);
-        CLog::info($token);
         try {
             list($type,$token) = explode(' ',$auth);
 //            JWT::$leeway = 60;//这个属性表示可以当前请求token的有效时间再延长60s
             $decoded = JWT::decode($token, config('secret.jwt', 'CT5'), ['HS256']);
-            //签发者验证
-            if (!$this->issDomainVerify($decoded->iss)) {
-                throw new ApiException('[ 验签失败 ] 来源不可靠',401);
-            }
-            //接收者验证
-            if (!$this->audDomainVerify($decoded->aud)) {
-                throw new ApiException('[ 验签失败 ] 签名无法验收',401);
-            }
 
             $request->auth = (object)$decoded->data;
         } catch (SignatureInvalidException $e){
@@ -72,6 +60,14 @@ class AuthMiddleware implements MiddlewareInterface
             throw new BizException('',AUTH_EXPIRED);
         } catch (\Exception $e) {
             throw new ApiException('[ 验签失败 ] 解析失败',401);
+        }
+        //签发者验证
+        if (!$this->issDomainVerify($decoded->iss)) {
+            throw new ApiException('[ 验签失败 ] 来源不可靠',401);
+        }
+        //接收者验证
+        if (!$this->audDomainVerify($decoded->aud)) {
+            throw new ApiException('[ 验签失败 ] 签名无法验收',401);
         }
         $response = $handler->handle($request);
         return $response;
