@@ -15,7 +15,7 @@ use Swoft\Db\Eloquent\Model;
  *
  * @since 2.0
  *
- * @Entity(table="order", pool="db2.pool")
+ * @Entity(table="order", pool="db3.pool")
  */
 class Order extends Model
 {
