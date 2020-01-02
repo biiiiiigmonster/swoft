@@ -40,7 +40,7 @@ class OrderController{
 
     /**
      * 获取订单列表
-     * @RequestMapping(method=RequestMethod::GET)
+     * @RequestMapping(route="list",method=RequestMethod::GET)
      *
      * @param Request $request
      * @return array
