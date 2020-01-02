@@ -64,7 +64,7 @@ class AuthMiddleware implements MiddlewareInterface
         } catch (BeforeValidException $e){
             throw new ApiException('[ 验签失败 ] 解析失败',401);
         } catch (ExpiredException $e){
-            throw new BizException('[ 验签失败 ] 签名过期',401);
+            throw new BizException('',AUTH_EXPIRED);
         } catch (\Exception $e) {
             throw new ApiException('[ 验签失败 ] 解析失败',401);
         }
