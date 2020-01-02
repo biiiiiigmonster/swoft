@@ -34,4 +34,5 @@ return [
     INSUFFICIENT_BALANCE                                        => '余额不足',
     FILE_PARSE_FAILED                                           => '文件解析失败',
     ROUTE_MISS                                                  => '访问地址不存在',
+    AUTH_EXPIRED                                                => '身份信息失效',
 ];

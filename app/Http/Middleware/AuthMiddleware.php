@@ -10,6 +10,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Exception\ApiException;
+use App\Exception\BizException;
 use Firebase\JWT\BeforeValidException;
 use Firebase\JWT\ExpiredException;
 use Firebase\JWT\JWT;
@@ -31,13 +33,10 @@ use function context;
 class AuthMiddleware implements MiddlewareInterface
 {
     /**
-     * Process an incoming server request.
-     *
-     * @param ServerRequestInterface|Request  $request
+     * @param ServerRequestInterface $request
      * @param RequestHandlerInterface $handler
-     *
      * @return ResponseInterface
-     * @inheritdoc
+     * @throws ApiException
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
@@ -51,34 +50,22 @@ class AuthMiddleware implements MiddlewareInterface
             $decoded = JWT::decode($token[0], config('secret.jwt', 'CT5'), ['type' => 'HS256']);
             //签发者验证
             if (!$this->issDomainVerify($decoded->iss)) {
-                Log::warning('[ 验签失败 ] 来源不可靠');
-                $response = context()->getResponse();
-                return $response->withStatus(401);
+                throw new ApiException('[ 验签失败 ] 来源不可靠',401);
             }
             //接收者验证
             if (!$this->audDomainVerify($decoded->aud)) {
-                Log::warning('[ 验签失败 ] 签名无法验收');
-                $response = context()->getResponse();
-                return $response->withStatus(401);
+                throw new ApiException('[ 验签失败 ] 签名无法验收',401);
             }
 
             $request->auth = (object)$decoded->data;
         } catch (SignatureInvalidException $e){
-            Log::warning('[ 验签失败 ] 签名无效');
-            $response = context()->getResponse();
-            return $response->withStatus(401);
+            throw new ApiException('[ 验签失败 ] 签名无效',401);
         } catch (BeforeValidException $e){
-            Log::warning('[ 验签失败 ] 解析失败');
-            $response = context()->getResponse();
-            return $response->withStatus(401);
+            throw new ApiException('[ 验签失败 ] 解析失败',401);
         } catch (ExpiredException $e){
-            Log::warning('[ 验签失败 ] 签名过期');
-            $response = context()->getResponse();
-            return $response->withStatus(401);
+            throw new BizException('[ 验签失败 ] 签名过期',401);
         } catch (\Exception $e) {
-            Log::warning('[ 验签失败 ] 解析失败');
-            $response = context()->getResponse();
-            return $response->withStatus(401);
+            throw new ApiException('[ 验签失败 ] 解析失败',401);
         }
         $response = $handler->handle($request);
         return $response;

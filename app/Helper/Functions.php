@@ -43,6 +43,7 @@ define('FILE_PARSE_FAILED', 10042);
 define('SECRET_ERROR', 10043);
 define('NOT_REGISTER', 10044);
 define('ROUTE_MISS', 10045);
+define('AUTH_EXPIRED', 10046);
 
 /**
  * 格式化返回数据

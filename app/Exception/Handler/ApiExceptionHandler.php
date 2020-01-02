@@ -33,6 +33,13 @@ class ApiExceptionHandler extends AbstractHttpErrorHandler
      */
     public function handle(Throwable $except, Response $response): Response
     {
+        // Debug is false
+        if (!APP_DEBUG) {
+            return $response->withStatus($except->getCode())->withContent(
+                sprintf(' %s', $except->getMessage())
+            );
+        }
+
         $data = [
             'code'  => $except->getCode(),
             'error' => sprintf('(%s) %s', get_class($except), $except->getMessage()),
