@@ -10,7 +10,7 @@ $compiler
     ->stripComments(true)
     ->setShebang(true)
     // 需要打包的文件后缀，内置已经包含了 .php
-    ->addSuffix(['.tpl','.json','.stub'])
+    ->addSuffix(['.tpl','.json'])
     // 排除打包目录，排除一些无用的目录，可以有效减少输出文件大小
     ->addExcludeDir([
         'test',
@@ -25,10 +25,10 @@ $compiler
     // 指定添加的文件
     ->addFile([
         'LICENSE',
-	'.env',
         'composer.json',
         'README.md',
         'bin/bootstrap.php',
+        '.env',
     ])
     ->setCliIndex('bin/swoft') // 应用入口
     // ->setWebIndex('web/index.php')
