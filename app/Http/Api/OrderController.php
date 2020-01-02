@@ -52,8 +52,12 @@ class OrderController{
     public function list(Request $request): array
     {
         $param = $request->get();
+        /** @var Int */
+        $page = $request->get('page',1);
+        /** @var Int */
+        $pageSize = $request->get('pageSize',10);
 
-        $list = $this->logic->list($param);
+        $list = $this->logic->list($param,(int)$page,(int)$pageSize);
 
         return ['list' => $list];
     }

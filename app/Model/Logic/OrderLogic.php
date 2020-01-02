@@ -23,14 +23,25 @@ class OrderLogic
      * @return array
      * @throws DbException
      */
-    public function list(array $param, int $page=1, int $pageSize=10): array
+    public function list(array $param, int $page=0, int $pageSize=10): array
+    {
+        $model = Order::whereProp($this->where($param))->whereBetween('createTime',[$param['start'],$param['end']]);
+        if($page) $model->forPage($page,$pageSize);
+        $list = $model->get();
+
+        return $list->toArray();
+    }
+
+    /**
+     * @param array $param
+     * @return array
+     */
+    public function where(array $param): array
     {
         $where = [
             ['userId',context()->getRequest()->auth->id],
         ];
 
-        $list = Order::whereProp($where)->forPage($page,$pageSize)->get();
-
-        return $list->toArray();
+        return $where;
     }
 }
