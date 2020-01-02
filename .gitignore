@@ -13,3 +13,4 @@ vendor/
 .DS_Store
 public/devtool/
 bin/php-cs-fixer
+/*.phar
