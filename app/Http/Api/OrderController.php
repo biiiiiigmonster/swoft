@@ -20,6 +20,7 @@ use Swoft\Http\Server\Annotation\Mapping\Middlewares;
 use Swoft\Http\Server\Annotation\Mapping\RequestMapping;
 use Swoft\Http\Server\Annotation\Mapping\RequestMethod;
 use Swoft\Db\Exception\DbException;
+use Swoft\Log\Helper\Log;
 use Swoft\Validator\Annotation\Mapping\Validate;
 use Swoft\Validator\Annotation\Mapping\ValidateType;
 
@@ -51,6 +52,7 @@ class OrderController{
      */
     public function list(Request $request): array
     {
+        Log::error('我出错啦！');
         $param = $request->get();
         /** @var Int */
         $page = $request->get('page',1);
