@@ -57,8 +57,12 @@ class OrderController{
         /** @var Int */
         $pageSize = $request->get('pageSize',10);
 
+        $total = $this->logic->total($param);
         $list = $this->logic->list($param,(int)$page,(int)$pageSize);
 
-        return ['list' => $list];
+        return [
+            'total' => $total,
+            'list' => $list,
+        ];
     }
 }

@@ -14,6 +14,7 @@ use ReflectionException;
 use Swoft\Bean\Exception\ContainerException;
 use Swoft\Error\Annotation\Mapping\ExceptionHandler;
 use Swoft\Http\Message\Response;
+use Swoft\Log\Helper\Log;
 use Swoft\WebSocket\Server\Exception\Handler\AbstractHandshakeErrorHandler;
 use Throwable;
 use function get_class;
@@ -39,11 +40,15 @@ class WsHandshakeExceptionHandler extends AbstractHandshakeErrorHandler
     {
         // Debug is false
         if (!APP_DEBUG) {
-            return $response->withStatus(500)->withContent(sprintf(
+            Log::error(sprintf(
                 '%s At %s line %d',
                 $e->getMessage(),
                 $e->getFile(),
                 $e->getLine()
+            ));
+            return $response->withStatus(500)->withContent(sprintf(
+                '%s',
+                $e->getMessage()
             ));
         }
 

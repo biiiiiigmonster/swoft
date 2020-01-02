@@ -14,6 +14,7 @@ use App\Exception\ApiException;
 use Swoft\Error\Annotation\Mapping\ExceptionHandler;
 use Swoft\Http\Message\Response;
 use Swoft\Http\Server\Exception\Handler\AbstractHttpErrorHandler;
+use Swoft\Log\Helper\Log;
 use Throwable;
 
 /**
@@ -35,6 +36,7 @@ class ApiExceptionHandler extends AbstractHttpErrorHandler
     {
         // Debug is false
         if (!APP_DEBUG) {
+            Log::error(sprintf(' %s At %s line %d', $except->getMessage(), $except->getFile(), $except->getLine()));
             return $response->withStatus($except->getCode())->withContent(
                 sprintf(' %s', $except->getMessage())
             );
