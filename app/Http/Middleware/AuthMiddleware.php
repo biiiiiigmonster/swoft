@@ -45,10 +45,11 @@ class AuthMiddleware implements MiddlewareInterface
         // before request handle
 
         // 判断token
-        $token = $request->getHeaderLine("authorization");
+        $auth = $request->getHeaderLine("authorization");
         try {
+            list($type,$token) = explode(' ',$auth);
 //            JWT::$leeway = 60;//这个属性表示可以当前请求token的有效时间再延长60s
-            $decoded = JWT::decode(ltrim($token,'Bearer '), config('secret.jwt', 'CT5'), ['HS256']);
+            $decoded = JWT::decode($token, config('secret.jwt', 'CT5'), ['HS256']);
             //签发者验证
             if (!$this->issDomainVerify($decoded->iss)) {
                 throw new ApiException('[ 验签失败 ] 来源不可靠',401);
