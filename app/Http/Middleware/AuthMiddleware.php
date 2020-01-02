@@ -80,7 +80,7 @@ class AuthMiddleware implements MiddlewareInterface
      * @param string $domain
      * @return bool
      */
-    public function issDomainVerify(string $domain):bool
+    private function issDomainVerify(string $domain):bool
     {
         $allow = [
             //默认有效签发者域名为auth+当前站点的根域名
@@ -97,7 +97,7 @@ class AuthMiddleware implements MiddlewareInterface
      * @param string $domain
      * @return bool
      */
-    public function audDomainVerify(string $domain):bool
+    private function audDomainVerify(string $domain):bool
     {
         list($scheme,$aud) = explode('://',$domain);
         $arr1 = array_reverse(array_filter(explode('.',$aud)),false);
@@ -119,6 +119,6 @@ class AuthMiddleware implements MiddlewareInterface
      */
     private function schemeEq(string $scheme):bool
     {
-        return context()->getRequest()->getScheme()==$scheme;
+        return context()->getRequest()->getUri()->getScheme()==$scheme;
     }
 }
