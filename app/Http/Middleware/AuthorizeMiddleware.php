@@ -17,6 +17,7 @@ use Psr\Http\Server\RequestHandlerInterface;
 use Swoft\Bean\Annotation\Mapping\Bean;
 use Swoft\Http\Message\Request;
 use Swoft\Http\Server\Contract\MiddlewareInterface;
+use Swoft\Log\Helper\CLog;
 use function context;
 
 /**
@@ -53,6 +54,8 @@ class AuthorizeMiddleware implements MiddlewareInterface
         ];
 
         $jwt = JWT::encode($token, config('secret.jwt', 'CT5'),'HS256');
+        $arr = JWT::decode($jwt,config('secret.jwt', 'CT5'),['HS256']);
+        CLog::info(json_encode($arr));
         return $response
             ->withHeader('Access-Control-Expose-Headers','Authorization')
             ->withHeader('Authorization',"Bearer $jwt");
