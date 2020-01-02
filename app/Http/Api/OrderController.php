@@ -10,65 +10,48 @@
 
 namespace App\Http\Api;
 
+use App\Http\Middleware\AuthMiddleware;
+use App\Model\Logic\OrderLogic;
+use Swoft\Bean\Annotation\Mapping\Inject;
+use Swoft\Http\Message\Request;
 use Swoft\Http\Server\Annotation\Mapping\Controller;
+use Swoft\Http\Server\Annotation\Mapping\Middleware;
+use Swoft\Http\Server\Annotation\Mapping\Middlewares;
 use Swoft\Http\Server\Annotation\Mapping\RequestMapping;
 use Swoft\Http\Server\Annotation\Mapping\RequestMethod;
-// use Swoft\Http\Message\Response;
+use Swoft\Db\Exception\DbException;
 
 /**
  * Class OrderController
  *
- * @Controller(prefix="/Order")
+ * @Controller(prefix="/order")
+ * @Middlewares({
+ *     @Middleware(AuthMiddleware::class)
+ * })
  * @package App\Http\Api
  */
 class OrderController{
     /**
-     * Get data list. access uri path: /Order
-     * @RequestMapping(route="/Order", method=RequestMethod::GET)
-     * @return array
+     * @Inject("OrderLogic")
+     *
+     * @var OrderLogic
      */
-    public function index(): array
-    {
-        return ['item0', 'item1'];
-    }
+    private $logic;
 
     /**
-     * Get one by ID. access uri path: /Order/{id}
-     * @RequestMapping(route="{id}", method=RequestMethod::GET)
+     * 获取订单列表
+     * @RequestMapping(route="",method=RequestMethod::GET)
+     *
+     * @param Request $request
      * @return array
+     * @throws DbException
      */
-    public function get(): array
+    public function getList(Request $request): array
     {
-        return ['item0'];
-    }
+        $param = $request->get();
 
-    /**
-     * Create a new record. access uri path: /Order
-     * @RequestMapping(route="/Order", method=RequestMethod::POST)
-     * @return array
-     */
-    public function post(): array
-    {
-        return ['id' => 2];
-    }
+        $list = $this->logic->getList($param);
 
-    /**
-     * Update one by ID. access uri path: /Order/{id}
-     * @RequestMapping(route="{id}", method=RequestMethod::PUT)
-     * @return array
-     */
-    public function put(): array
-    {
-        return ['id' => 1];
-    }
-
-    /**
-     * Delete one by ID. access uri path: /Order/{id}
-     * @RequestMapping(route="{id}", method=RequestMethod::DELETE)
-     * @return array
-     */
-    public function del(): array
-    {
-        return ['id' => 1];
+        return ['list' => $list];
     }
 }

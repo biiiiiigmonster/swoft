@@ -97,6 +97,10 @@ return [
         'username' => 'tp6',
         'password' => 'rhf$[TF}42ad',
     ],
+    'db.pool' => [
+        'class'    => Pool::class,
+        'database' => bean('db'),
+    ],
     'db2'               => [
         'class'      => Database::class,
         'dsn'        => 'mysql:dbname=idx;host=172.16.0.2;port=13306',
