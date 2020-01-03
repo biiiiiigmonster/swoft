@@ -202,12 +202,18 @@ return [
         'on'      => [
             // Enable http handle
             SwooleEvent::REQUEST => bean(RequestListener::class),
+            // 启用任务必须添加 task, finish 事件处理
+            SwooleEvent::TASK => bean(TaskListener::class),
+            SwooleEvent::FINISH => bean(FinishListener::class),
         ],
-        'debug'   => 1,
-        // 'debug'   => env('SWOFT_DEBUG', 0),
+//        'debug'   => 1,
+        'debug'   => env('SWOFT_DEBUG', 0),
         /* @see WebSocketServer::$setting */
         'setting' => [
             'log_file' => alias('@runtime/swoole.log'),
+            // 任务需要配置 task worker
+            'task_worker_num' => 2,
+            'task_enable_coroutine' => true
         ],
     ],
     'tcpServer'         => [
