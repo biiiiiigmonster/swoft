@@ -12,11 +12,12 @@ namespace App\WebSocket;
 
 use Swoft\Http\Message\Request;
 use Swoft\Http\Message\Response;
+use Swoft\Log\Helper\CLog;
 use Swoft\WebSocket\Server\Annotation\Mapping\WsModule;
 use Swoft\WebSocket\Server\Annotation\Mapping\OnOpen;
 use Swoft\WebSocket\Server\Annotation\Mapping\OnClose;
 use Swoft\WebSocket\Server\Annotation\Mapping\OnHandshake;
-use Swoft\WebSocket\Server\MessageParser\JsonParser;
+use Swoft\WebSocket\Server\MessageParser\TokenTextParser;
 use Swoole\WebSocket\Frame;
 use Swoole\WebSocket\Server;
 
@@ -24,9 +25,7 @@ use Swoole\WebSocket\Server;
  * Class AuthModule - This is an module for handle websocket
  *
  * @WsModule(
- *    "/Auth"
- *     messageParser=JsonParser::class,
- *     controllers={}
+ *    "/auth/{uuid}"
  *  )
  */
 class AuthModule{
@@ -40,29 +39,25 @@ class AuthModule{
      * @OnHandshake()
      * @param Request $request
      * @param Response $response
+     * @param string $uuid
      * @return array
-     * [
-     *  self::HANDSHAKE_OK,
-     *  $response
-     * ]
      */
-    public function checkHandshake(Request $request, Response $response): array
+    public function checkHandshake(Request $request, Response $response, string $uuid): array
     {
         // some validate logic ...
-
-        return [self::HANDSHAKE_OK, $response];
+        CLog::info($uuid);
+        return [true, $response];
     }
 
     /**
      * @OnOpen()
-     * @param Server $server
      * @param Request $request
      * @param int $fd
      * @return mixed
      */
-    public function onOpen(Server $server, Request $request, int $fd)
+    public function onOpen(Request $request, int $fd)
     {
-        // $server->push($fd, 'hello, welcome! :)');
+         server()->push($fd, 'hello, welcome! :)');
     }
 
     /**
@@ -74,5 +69,6 @@ class AuthModule{
     public function onClose(Server $server, int $fd)
     {
         // do something. eg. record log
+        server()->push($fd, 'bye! :)');
     }
 }
