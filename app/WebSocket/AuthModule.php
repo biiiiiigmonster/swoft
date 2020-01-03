@@ -13,6 +13,7 @@ namespace App\WebSocket;
 use Swoft\Http\Message\Request;
 use Swoft\Http\Message\Response;
 use Swoft\Log\Helper\CLog;
+use Swoft\Redis\Redis;
 use Swoft\WebSocket\Server\Annotation\Mapping\WsModule;
 use Swoft\WebSocket\Server\Annotation\Mapping\OnOpen;
 use Swoft\WebSocket\Server\Annotation\Mapping\OnClose;
@@ -44,7 +45,7 @@ class AuthModule{
     public function checkHandshake(Request $request, Response $response): array
     {
         // some validate logic ...
-        CLog::info($request->query('uuid'));
+
         return [true, $response];
     }
 
@@ -56,7 +57,7 @@ class AuthModule{
      */
     public function onOpen(Request $request, int $fd)
     {
-        CLog::info($request->query('uuid'));
+        Redis::set($request->query('uuid'),$fd);
         server()->push($fd, 'hello, welcome! :)');
     }
 
@@ -69,6 +70,8 @@ class AuthModule{
     public function onClose(Server $server, int $fd)
     {
         // do something. eg. record log
+        $uuid = context()->getRequest();
+        CLog::info(json_encode($uuid));
         server()->push($fd, 'bye! :)');
     }
 }
