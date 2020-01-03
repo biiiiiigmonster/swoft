@@ -25,7 +25,7 @@ use Swoole\WebSocket\Server;
  * Class AuthModule - This is an module for handle websocket
  *
  * @WsModule(
- *    "/auth/{uuid}"
+ *    "/auth"
  *  )
  */
 class AuthModule{
@@ -39,13 +39,12 @@ class AuthModule{
      * @OnHandshake()
      * @param Request $request
      * @param Response $response
-     * @param string $uuid
      * @return array
      */
-    public function checkHandshake(Request $request, Response $response, string $uuid): array
+    public function checkHandshake(Request $request, Response $response): array
     {
         // some validate logic ...
-        CLog::info($uuid);
+        CLog::info($request->query('uuid'));
         return [true, $response];
     }
 
@@ -57,7 +56,8 @@ class AuthModule{
      */
     public function onOpen(Request $request, int $fd)
     {
-         server()->push($fd, 'hello, welcome! :)');
+        CLog::info($request->query('uuid'));
+        server()->push($fd, 'hello, welcome! :)');
     }
 
     /**
