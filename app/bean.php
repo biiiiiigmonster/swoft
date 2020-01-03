@@ -10,10 +10,8 @@
 use App\Common\DbSelector;
 use App\Process\MonitorProcess;
 use Swoft\Crontab\Process\CrontabProcess;
-use App\Http\Middleware\ {
-    FavIconMiddleware,
-    LauncherMiddleware,
-};
+use App\Http\Middleware\FavIconMiddleware;
+use App\Http\Middleware\LauncherMiddleware;
 use Swoft\Db\Pool;
 use Swoft\Http\Server\HttpServer;
 use Swoft\Task\Swoole\SyncTaskListener;
@@ -28,6 +26,7 @@ use Swoft\Server\SwooleEvent;
 use Swoft\Db\Database;
 use Swoft\Redis\RedisDb;
 use Swoft\Log\Handler\FileHandler;
+use Swoft\Limiter\RateLimter;
 
 return [
     'lineFormatter'      => [
@@ -239,4 +238,8 @@ return [
     'config'   => [
         'path' => alias('@config'),
     ],
+    'rateLimiter' => [
+        'class'      => RateLimter::class,
+        'rateLimter' => bean('redisRateLimiter'),
+    ]
 ];
