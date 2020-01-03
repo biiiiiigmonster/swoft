@@ -62,11 +62,11 @@ class AuthMiddleware implements MiddlewareInterface
             throw new ApiException('[ 验签失败 ] 解析失败',401);
         }
         //签发者验证
-        if (!$this->issDomainVerify($decoded->iss)) {
+        if (!$this->issHostVerify($decoded->iss)) {
             throw new ApiException('[ 验签失败 ] 来源不可靠',401);
         }
         //接收者验证
-        if (!$this->audDomainVerify($decoded->aud)) {
+        if (!$this->audHostVerify($decoded->aud)) {
             throw new ApiException('[ 验签失败 ] 签名无法验收',401);
         }
         $response = $handler->handle($request);
@@ -77,30 +77,28 @@ class AuthMiddleware implements MiddlewareInterface
 
     /**
      * 签发者域名验证
-     * @param string $domain
+     * @param string $host
      * @return bool
      */
-    private function issDomainVerify(string $domain):bool
+    private function issHostVerify(string $host): bool
     {
         $allow = [
             //默认有效签发者域名为auth+当前站点的根域名
             context()->getRequest()->getUri()->getHost(),
             'auth.'.rootDomain(),
         ];
-        list($scheme,$iss) = explode('://',$domain);
         //必须是指定签发者且协议头一致
-        return in_array($iss,$allow) && $this->schemeEq($scheme);
+        return in_array($host,$allow);
     }
 
     /**
      * 接收者域名验证
-     * @param string $domain
+     * @param string $host
      * @return bool
      */
-    private function audDomainVerify(string $domain):bool
+    private function audHostVerify(string $host):bool
     {
-        list($scheme,$aud) = explode('://',$domain);
-        $arr1 = array_reverse(array_filter(explode('.',$aud)),false);
+        $arr1 = array_reverse(array_filter(explode('.',$host)),false);
         $arr2 = array_reverse(array_filter(explode('.',subDomain().'.'.rootDomain())),false);
         //将接收者的域名与当前站点的域名进行比较（$arr1,$arr2此处的处理还需理解）
         $diff = array_diff_assoc($arr1,$arr2);
@@ -109,16 +107,6 @@ class AuthMiddleware implements MiddlewareInterface
             return false;
         }
 
-        return $this->schemeEq($scheme);
-    }
-
-    /**
-     * 验证是否与当前站点协议头一致（如果验证状态关闭，则默认返回true）
-     * @param string $scheme
-     * @return bool
-     */
-    private function schemeEq(string $scheme):bool
-    {
-        return context()->getRequest()->getUri()->getScheme()==$scheme;
+        return true;
     }
 }

@@ -18,6 +18,23 @@ namespace App\Rpc\Lib;
 interface UserInterface
 {
     /**
+     * 生成用户凭证
+     * @param array $data
+     * @param string $iss
+     * @param string $aud
+     * @return string
+     */
+    public function authorize(array $data,string $iss,string $aud): string;
+
+    /**
+     * 获取用户信息
+     * @param int $id
+     *
+     * @return array
+     */
+    public function getInfo(int $id): array;
+
+    /**
      * @param int   $id
      * @param mixed $type
      * @param int   $count

@@ -10,6 +10,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Rpc\Lib\UserInterface;
 use Firebase\JWT\JWT;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -18,6 +19,7 @@ use Swoft\Bean\Annotation\Mapping\Bean;
 use Swoft\Http\Message\Request;
 use Swoft\Http\Server\Contract\MiddlewareInterface;
 use Swoft\Log\Helper\CLog;
+use Swoft\Rpc\Client\Annotation\Mapping\Reference;
 use function context;
 
 /**
@@ -26,6 +28,13 @@ use function context;
  */
 class AuthorizeMiddleware implements MiddlewareInterface
 {
+    /**
+     * @Reference(pool="user.pool",version="1.2")
+     *
+     * @var UserInterface
+     */
+    private $userService;
+
     /**
      * Process an incoming server request.
      *
@@ -38,22 +47,11 @@ class AuthorizeMiddleware implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $response = $handler->handle($request);
-        $time = time();
         $data = $response->getData();
-        $token = [
-            'iat' => $time,//签发时间
-            'nbf' => $time,//生效时间，比如设置time+30，表示当前时间30秒后才能使用
-            'exp' => $time + 3600*24*30,//过期时间
-            "iss" => $request->getUri()->getScheme().'://'.$request->getUri()->getHost(),//签发者
-            'aud' => $request->getUri()->getScheme().'://*.'.rootDomain(),//接收者
-            'data' => [//自定义信息，不要定义敏感信息
-                'id' => $data['id'],//例如用户主键id
-//                'mobile' => $data['mobile'],//用户手机号
-                //等等...
-            ],
-        ];
+        $iss = $request->getUri()->getHost();//签发者
+        $aud = '*.'.rootDomain();//接收者
 
-        $jwt = JWT::encode($token, config('secret.jwt', 'CT5'),'HS256');
+        $jwt = $this->userService->authorize(['id'=>$data['id']],$iss,$aud);
         return $response
             ->withHeader('Access-Control-Expose-Headers','Authorization')
             ->withHeader('Authorization',"Bearer $jwt");

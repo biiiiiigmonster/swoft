@@ -10,9 +10,12 @@
 
 namespace App\Rpc\Service;
 
+use App\Model\Entity\User;
 use App\Rpc\Lib\UserInterface;
 use Exception;
+use Firebase\JWT\JWT;
 use Swoft\Co;
+use Swoft\Db\Exception\DbException;
 use Swoft\Rpc\Server\Annotation\Mapping\Service;
 
 /**
@@ -24,6 +27,45 @@ use Swoft\Rpc\Server\Annotation\Mapping\Service;
  */
 class UserServiceV2 implements UserInterface
 {
+    /**
+     * 颁发授权
+     * @param array $data
+     * @param string $iss
+     * @param string $aud
+     * @return string
+     */
+    public function authorize(array $data,string $iss,string $aud): string
+    {
+        $time = time();
+        $token = [
+            'iat' => $time,//签发时间
+            'nbf' => $time,//生效时间，比如设置time+30，表示当前时间30秒后才能使用
+            'exp' => $time + 3600*24*30,//过期时间
+            "iss" => $iss,//签发者  ex: swoft.duzhaoteng.com
+            'aud' => $aud,//接收者  ex: *.duzhaoteng.com
+            'data' => $data,
+//            'data' => [//自定义信息，不要定义敏感信息
+//                'id' => $data['id'],//例如用户主键id
+////                'mobile' => $data['mobile'],//用户手机号
+//                //等等...
+//            ],
+        ];
+
+        return JWT::encode($token, config('secret.jwt', 'CT5'),'HS256');
+    }
+
+    /**
+     * @param int $id
+     * @return array
+     * @throws DbException
+     */
+    public function getInfo(int $id): array
+    {
+        $user = User::find($id);
+
+        return $user->toArray();
+    }
+
     /**
      * @param int   $id
      * @param mixed $type
