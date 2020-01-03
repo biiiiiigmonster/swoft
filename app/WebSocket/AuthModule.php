@@ -57,6 +57,7 @@ class AuthModule{
      */
     public function onOpen(Request $request, int $fd)
     {
+        Redis::del($request->query('uuid'));
         Redis::set($request->query('uuid'),$fd);
         server()->push($fd, 'hello, welcome! :)');
     }
