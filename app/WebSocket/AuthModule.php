@@ -45,7 +45,7 @@ class AuthModule{
     public function checkHandshake(Request $request, Response $response): array
     {
         // some validate logic ...
-
+        CLog::info($request->getHeaderLine('authorization'));
         return [true, $response];
     }
 
@@ -57,8 +57,7 @@ class AuthModule{
      */
     public function onOpen(Request $request, int $fd)
     {
-        Redis::del($request->query('uuid'));
-        Redis::set($request->query('uuid'),$fd);
+//        Redis::set($request->query('uuid'),$fd);
         server()->push($fd, 'hello, welcome! :)');
     }
 
@@ -71,8 +70,5 @@ class AuthModule{
     public function onClose(Server $server, int $fd)
     {
         // do something. eg. record log
-        $uuid = context()->getRequest();
-        CLog::info(json_encode($uuid));
-        server()->push($fd, 'bye! :)');
     }
 }
