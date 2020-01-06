@@ -30,6 +30,7 @@ use ReflectionException;
 use Swoft\Bean\Exception\ContainerException;
 use Swoft\Db\Exception\DbException;
 use Swoft\Task\Exception\TaskException;
+use Swoft\WebSocket\Server\WebSocketServer;
 
 /**
  * Class UserController
@@ -71,7 +72,9 @@ class UserController{
      */
     public function scan(string $uuid): void
     {
-        server()->push((int)Redis::get($uuid),'嗯哼？');
+        if($fd = Redis::get($uuid)) {
+            server()->push((int)$fd,'嗯哼？');
+        }
     }
 
     /**

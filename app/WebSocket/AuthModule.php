@@ -59,8 +59,7 @@ class AuthModule{
         $uuid = $request->query('uuid');
         Redis::set($uuid,$fd);
         Redis::set((string)$fd,$uuid);
-        $url = 'https://'.$request->getUri()->getHost().'/auth/scan/'.$uuid;
-        server()->push($fd, $url);
+        server()->push($fd, 'hello, welcome! :)');
     }
 
     /**
