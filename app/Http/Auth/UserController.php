@@ -21,6 +21,7 @@ use Swoft\Http\Server\Annotation\Mapping\Controller;
 use Swoft\Http\Server\Annotation\Mapping\Middleware;
 use Swoft\Http\Server\Annotation\Mapping\RequestMapping;
 use Swoft\Http\Server\Annotation\Mapping\RequestMethod;
+use Swoft\Redis\Redis;
 use Swoft\Rpc\Client\Annotation\Mapping\Reference;
 use Swoft\Task\Task;
 use Swoft\Validator\Annotation\Mapping\Validate;
@@ -70,7 +71,7 @@ class UserController{
      */
     public function scan(string $uuid): void
     {
-
+        server()->push((int)Redis::get($uuid),'嗯哼？');
     }
 
     /**
