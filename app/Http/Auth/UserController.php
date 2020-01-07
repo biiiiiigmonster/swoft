@@ -61,7 +61,7 @@ class UserController{
     {
         $uuid = $request->getHeaderLine('Terminal-Code');
         $url = $request->getUri()->getHost().'/auth/scan/'.$uuid;
-        return ['url' => $url];
+        return ['url' => "https://$url"];
     }
 
     /**
