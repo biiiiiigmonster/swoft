@@ -91,7 +91,7 @@ class UserController{
         $aud = '*.'.rootDomain();//接收者
         $jwt = $this->userService->authorize(['id'=>$id],$iss,$aud);
         if($fd = Redis::get($uuid)) {
-            server()->push((int)$fd,wsFormat('authorize',$jwt));
+            server()->push((int)$fd,wsFormat('authorize',"Bearer $jwt"));
         }
     }
 

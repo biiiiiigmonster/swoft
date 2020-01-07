@@ -46,7 +46,7 @@ class AuthMiddleware implements MiddlewareInterface
 
         // 判断token
         $auth = $request->getHeaderLine("authorization");
-	$auth = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NzgzMDAwNTgsIm5iZiI6MTU3ODMwMDA1OCwiZXhwIjoxNTgwODkyMDU4LCJpc3MiOiJzd29mdC5kdXpoYW90ZW5nLmNvbSIsImF1ZCI6IiouZHV6aGFvdGVuZy5jb20iLCJkYXRhIjp7ImlkIjoxfX0.OXNzwE-yoz0pTiiveC_W9EbdUjvbcZT0dhmfkckzt9A';
+
         try {
             list($type,$token) = explode(' ',$auth);
 //            JWT::$leeway = 60;//这个属性表示可以当前请求token的有效时间再延长60s
