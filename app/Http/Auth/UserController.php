@@ -21,6 +21,7 @@ use Swoft\Http\Server\Annotation\Mapping\Controller;
 use Swoft\Http\Server\Annotation\Mapping\Middleware;
 use Swoft\Http\Server\Annotation\Mapping\RequestMapping;
 use Swoft\Http\Server\Annotation\Mapping\RequestMethod;
+use Swoft\Log\Helper\CLog;
 use Swoft\Redis\Redis;
 use Swoft\Rpc\Client\Annotation\Mapping\Reference;
 use Swoft\Task\Task;
@@ -72,9 +73,11 @@ class UserController{
      */
     public function scan(string $uuid): void
     {
+        CLog::info('这是啥');
+        $a = 0;
         if($fd = Redis::get($uuid)) {
-            $server = \Swoft::getBean('wsServer');
-            $server->push((int)$fd,'1234');
+            server()->push((int)$fd,'1234');
+            CLog::info((string)(100/$a));
         }
     }
 
