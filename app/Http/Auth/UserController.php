@@ -31,7 +31,6 @@ use ReflectionException;
 use Swoft\Bean\Exception\ContainerException;
 use Swoft\Db\Exception\DbException;
 use Swoft\Task\Exception\TaskException;
-use Swoft\WebSocket\Server\WebSocketServer;
 
 /**
  * Class UserController
@@ -61,7 +60,7 @@ class UserController{
     public function license(Request $request): array
     {
         $uuid = $request->getHeaderLine('Terminal-Code');
-        $url = $request->getUri()->getScheme().'://'.$request->getUri()->getHost().'/auth/scan/'.$uuid;
+        $url = $request->getUri()->getHost().'/auth/scan/'.$uuid;
         return ['url' => $url];
     }
 
@@ -73,11 +72,8 @@ class UserController{
      */
     public function scan(string $uuid): void
     {
-        CLog::info('这是啥');
-        $a = 0;
         if($fd = Redis::get($uuid)) {
             server()->push((int)$fd,'1234');
-            CLog::info((string)(100/$a));
         }
     }
 
