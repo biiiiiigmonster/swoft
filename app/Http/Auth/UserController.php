@@ -72,8 +72,7 @@ class UserController{
     public function scan(string $uuid): void
     {
         if($fd = Redis::get($uuid)) {
-            $server = new \Swoft\WebSocket\Server\WebSocketServer();
-            $server->push((int)$fd,'嗯哼？');
+            server()->push((int)$fd,'1234');
         }
     }
 
