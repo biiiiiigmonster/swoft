@@ -66,6 +66,21 @@ function format($data=null,$code=SUCCESS,$msg=''): array
 }
 
 /**
+ * WebsocketServer push data format
+ * @param $action
+ * @param null|mixed $data
+ * @return string
+ */
+function wsFormat($action,$data=null): string
+{
+    $arr = ['action' => $action];
+    if(!is_null($data)) {
+        $arr['data'] = $data;
+    }
+    return json_encode($arr);
+}
+
+/**
  * 获取当前根域名
  * @access public
  * @return string

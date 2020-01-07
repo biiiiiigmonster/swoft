@@ -73,7 +73,7 @@ class UserController{
     public function scan(string $uuid): void
     {
         if($fd = Redis::get($uuid)) {
-            server()->push((int)$fd,'1234');
+            server()->push((int)$fd,wsFormat('scan'));
         }
     }
 
@@ -91,6 +91,9 @@ class UserController{
         $iss = $request->getUri()->getHost();//签发者
         $aud = '*.'.rootDomain();//接收者
         $jwt = $this->userService->authorize(['id'=>$id],$iss,$aud);
+        if($fd = Redis::get($uuid)) {
+            server()->push((int)$fd,wsFormat('authorize',$jwt));
+        }
     }
 
     /**
