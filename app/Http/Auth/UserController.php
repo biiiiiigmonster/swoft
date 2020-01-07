@@ -83,9 +83,8 @@ class UserController{
      * @Middleware(AuthMiddleware::class)
      * @param Request $request
      * @param string $uuid
-     * @return array
      */
-    public function authorize(Request $request,string $uuid): array
+    public function authorize(Request $request,string $uuid): void
     {
         $id = $request->auth->id;
         $iss = $request->getUri()->getHost();//签发者
