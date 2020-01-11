@@ -103,9 +103,9 @@ class UserController{
      * 用户登录
      *
      * @RequestMapping(route="login", method=RequestMethod::POST)
-     * @Validate(validator="UserValidator",fields={"mobile","password"})
-     * @Validate(validator="CaptchaValidator",params={"receiver":"mobile","scene":"login"})
-     * @Middleware(AuthorizeMiddleware::class)
+     * @Validate(validator="UserValidator",fields={"mobile","password"})接口参数验证
+     * @Validate(validator="CaptchaValidator",params={"receiver":"mobile","scene":"login"})验证码登录验证
+     * @Middleware(AuthorizeMiddleware::class)颁发授权token，后置操作
      *
      * @param Request $request
      * @return array
