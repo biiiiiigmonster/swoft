@@ -31,6 +31,7 @@ use ReflectionException;
 use Swoft\Bean\Exception\ContainerException;
 use Swoft\Db\Exception\DbException;
 use Swoft\Task\Exception\TaskException;
+use Swoft\Validator\Annotation\Mapping\ValidateType;
 
 /**
  * Class UserController
