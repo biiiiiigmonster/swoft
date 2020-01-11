@@ -104,6 +104,7 @@ class UserController{
      *
      * @RequestMapping(route="login", method=RequestMethod::POST)
      * @Validate(validator="UserValidator",fields={"mobile","password"})
+     * @Validate(validator="CaptchaValidator",params={"receiver":"mobile","scene":"login"})
      * @Middleware(AuthorizeMiddleware::class)
      *
      * @param Request $request
