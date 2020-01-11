@@ -42,8 +42,8 @@ class OrderController{
 
     /**
      * 获取订单列表
-     * @RequestMapping(route="/order",method=RequestMethod::GET)
-     * @Validate(validator="OrderValidator",type=ValidateType::GET,fields={})
+     * @RequestMapping(route="",method=RequestMethod::GET)
+     * @Validate(validator="OrderValidator",type=ValidateType::GET,fields={"start"})
      *
      * @param Request $request
      * @return array
@@ -51,6 +51,7 @@ class OrderController{
      */
     public function list(Request $request): array
     {
+        return [123];
         $param = $request->get();
         /** @var Int */
         $page = $request->get('page',1);
