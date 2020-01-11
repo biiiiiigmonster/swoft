@@ -51,6 +51,7 @@ class AuthorizeMiddleware implements MiddlewareInterface
         $iss = $request->getUri()->getHost();//签发者
         $aud = '*.'.rootDomain();//接收者
 
+        //授权动作调用与用户服务的授权
         $jwt = $this->userService->authorize(['id'=>$data['id']],$iss,$aud);
         return $response
             ->withHeader('Access-Control-Expose-Headers','Authorization')

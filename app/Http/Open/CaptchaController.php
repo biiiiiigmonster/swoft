@@ -54,8 +54,8 @@ class CaptchaController{
      * 这个动态验证暂时可以不做，不影响后续业务逻辑，只是资源消耗而已，不过要做的的话得单独写个场景验证器，
      * 比如某某情况下才不允许做什么，至于怎么去漂亮的实现，还需细品
      * @Validate(validator="CreateCaptchaValidator",fields={"type","scene","mobile"})
-     * 这里限流器的作用就当做就是防抖吧，毕竟最小限制是1qps/seconds；PS：还不知道这个能不能使用
-     * @RateLimiter(rate=1,key="request.post('mobile')~':'~request.post('scene')",default=5)
+     * 这里限流器的作用就当做就是防抖吧，毕竟最小限制是1qps/seconds；PS：这个好像还不能使用
+     * @RateLimiter(rate=1,key="request.post('mobile')~':'~request.post('scene')")
      *
      * @param Request $request
      * @return array

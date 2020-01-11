@@ -60,39 +60,43 @@ class UserController{
     public function license(Request $request): array
     {
         $uuid = $request->getHeaderLine('Terminal-Code');
-        $url = $request->getUri()->getHost().'/auth/scan/'.$uuid;
+        $url = $request->getUri()->getHost()."/auth/scan?uuid=$uuid";
         return ['url' => "https://$url"];
     }
 
     /**
      * app端扫码
-     * @RequestMapping(route="scan/{uuid}", method=RequestMethod::GET)
+     * @RequestMapping(route="scan", method=RequestMethod::GET)
      * @Middleware(AuthMiddleware::class)
-     * @param string $uuid
+     * @Validate(validator="AwaitValidator",params={"key":"uuid"})
+     * @param Request $request
      */
-    public function scan(string $uuid): void
+    public function scan(Request $request): void
     {
-        if($fd = Redis::get($uuid)) {
-            server()->push((int)$fd,wsFormat('scan'));
-        }
+        //推送信息
+        $uuid = $request->get('uuid');
+        server()->push((int)Redis::get($uuid),wsFormat('scan'));
     }
 
     /**
      * app端授权许可，将token发送至接收者
-     * @RequestMapping(route="authorize/{uuid}", method=RequestMethod::GET)
+     * @RequestMapping(route="authorize", method=RequestMethod::GET)
      * @Middleware(AuthMiddleware::class)
+     * @Validate(validator="AwaitValidator",params={"key":"uuid"})
      * @param Request $request
-     * @param string $uuid
      */
-    public function authorize(Request $request,string $uuid): void
+    public function authorize(Request $request): void
     {
         $id = $request->auth->id;
         $iss = $request->getUri()->getHost();//签发者
         $aud = '*.'.rootDomain();//接收者
+
+        //生成授权
         $jwt = $this->userService->authorize(['id'=>$id],$iss,$aud);
-        if($fd = Redis::get($uuid)) {
-            server()->push((int)$fd,wsFormat('authorize',"Bearer $jwt"));
-        }
+
+        //推送授权信息
+        $uuid = $request->get('uuid');
+        server()->push((int)Redis::get($uuid),wsFormat('authorize',"Bearer $jwt"));
     }
 
     /**
