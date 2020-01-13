@@ -134,7 +134,7 @@ class UserController{
      * @Validate(validator="UserValidator",fields={"mobile","password","passwordConf"})静态参数验证
      * @Validate(validator="MobileUniqueValidator")手机号user表唯一验证
      * @Validate(validator="CaptchaValidator",params={"receiver":"mobile","scene":"register"})验证码注册尝尽验证
-     * @Middleware(AuthorizeMiddleware::class)
+     * @Middleware(AuthorizeMiddleware::class)默认登陆成功，颁发授权token，后置操作
      *
      * @param Request $request
      * @return array

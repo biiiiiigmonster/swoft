@@ -212,8 +212,9 @@ return [
         'setting' => [
             'log_file' => alias('@runtime/swoole.log'),
             // 任务需要配置 task worker
-            'task_worker_num' => 2,
-            'task_enable_coroutine' => true
+            'task_worker_num'       => 12,
+            'task_enable_coroutine' => true,
+            'worker_num'            => 6,
         ],
     ],
     'tcpServer'         => [

@@ -10,8 +10,6 @@
 
 namespace App\Exception\Handler;
 
-use ReflectionException;
-use Swoft\Bean\Exception\ContainerException;
 use Swoft\Error\Annotation\Mapping\ExceptionHandler;
 use Swoft\Log\Debug;
 use Swoft\Rpc\Error;
@@ -33,18 +31,16 @@ class RpcExceptionHandler extends RpcErrorHandler
      * @param Response  $response
      *
      * @return Response
-     * @throws ReflectionException
-     * @throws ContainerException
      */
     public function handle(Throwable $e, Response $response): Response
     {
         // Debug is false
         if (!APP_DEBUG) {
             // just show error message
-            $error = Error::new($e->getCode(), $e->getMessage(), null);
+            $error = Error::new(ERRORS, $e->getMessage(), null);
         } else {
             $message = sprintf(' %s At %s line %d', $e->getMessage(), $e->getFile(), $e->getLine());
-            $error   = Error::new($e->getCode(), $message, null);
+            $error   = Error::new(ERRORS, $message, null);
         }
 
         Debug::log('Rpc server error(%s)', $e->getMessage());

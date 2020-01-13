@@ -1,8 +1,6 @@
 <?php declare(strict_types=1);
 
-
 namespace App\Validator\Rule;
-
 
 use App\Annotation\Mapping\MobileInternational;
 use App\Model\Entity\User;
