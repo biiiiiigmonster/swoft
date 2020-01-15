@@ -22,7 +22,7 @@ use Swoft\Db\Exception\DbException;
 /**
  * Class UserLogic
  * @package App\Model\Logic
- * @Bean("UserLogic")
+ * @Bean()
  */
 class UserLogic
 {

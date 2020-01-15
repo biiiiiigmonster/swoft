@@ -40,7 +40,7 @@ use Swoft\Validator\Annotation\Mapping\ValidateType;
  */
 class UserController{
     /**
-     * @Inject("UserLogic")
+     * @Inject()
      *
      * @var UserLogic
      */
