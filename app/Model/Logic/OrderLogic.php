@@ -16,11 +16,25 @@ class OrderLogic
 {
     /**
      * @param array $param
+     * @return array
+     */
+    public function where(array $param): array
+    {
+        $where = [
+            ['user_id',context()->getRequest()->auth->id],
+        ];
+
+        return $where;
+    }
+
+    /**
+     * @param array $param
      * @return int
      */
     public function total(array $param): int
     {
-        $model = Order::whereProp($this->where($param))->whereBetween('create_time',[$param['start'],$param['end']]);
+        $model = Order::whereProp($this->where($param))
+            ->whereBetween('create_time',[$param['start'],$param['end']]);
 
         return $model->count();
     }
@@ -36,23 +50,16 @@ class OrderLogic
      */
     public function list(array $param, int $page=0, int $pageSize=10): array
     {
-        $model = Order::whereProp($this->where($param))->whereBetween('create_time',[$param['start'],$param['end']]);
+        $model = Order::whereProp($this->where($param))
+            ->whereBetween('create_time',[$param['start'],$param['end']]);
         if($page) $model->forPage($page,$pageSize);
         $list = $model->get();
 
         return $list->toArray();
     }
 
-    /**
-     * @param array $param
-     * @return array
-     */
-    public function where(array $param): array
+    public function detail(int $id): array
     {
-        $where = [
-            ['user_id',context()->getRequest()->auth->id],
-        ];
 
-        return $where;
     }
 }

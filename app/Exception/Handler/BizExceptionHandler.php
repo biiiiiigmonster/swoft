@@ -28,7 +28,7 @@ class BizExceptionHandler extends AbstractHttpErrorHandler
     public function handle(Throwable $except, Response $response): Response
     {
         // TODO: Implement handle() method.
-        $data = format(null,$except->getCode(),$except->getMessage());
+        $data = format(null,$except->getCode() ?? FAILED,$except->getMessage());
 
         return $response->withData($data);
     }

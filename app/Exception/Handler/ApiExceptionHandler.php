@@ -43,7 +43,7 @@ class ApiExceptionHandler extends AbstractHttpErrorHandler
         }
 
         $data = [
-            'code'  => $except->getCode(),
+            'code'  => $except->getCode() ?? ERRORS,
             'error' => sprintf('(%s) %s', get_class($except), $except->getMessage()),
             'file'  => sprintf('At %s line %d', $except->getFile(), $except->getLine()),
             'trace' => $except->getTraceAsString(),

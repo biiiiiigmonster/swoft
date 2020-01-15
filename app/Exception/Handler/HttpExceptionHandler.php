@@ -48,7 +48,7 @@ class HttpExceptionHandler extends AbstractHttpErrorHandler
         }
 
         $data = [
-            'code'  => ERRORS,
+            'code'  => $e->getCode() ?? ERRORS,
             'error' => sprintf('(%s) %s', get_class($e), $e->getMessage()),
             'file'  => sprintf('At %s line %d', $e->getFile(), $e->getLine()),
             'trace' => $e->getTraceAsString(),

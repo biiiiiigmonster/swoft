@@ -42,27 +42,39 @@ class OrderController{
 
     /**
      * 获取订单列表
-     * @RequestMapping(route="/order",method=RequestMethod::GET)
+     * @RequestMapping(route="{page}/{pageSize}",method=RequestMethod::GET)
      * @Validate(validator="OrderValidator",type=ValidateType::GET)
      *
      * @param Request $request
+     * @param Int $page
+     * @param Int $pageSize
      * @return array
      * @throws DbException
      */
-    public function list(Request $request): array
+    public function list(Request $request,int $page,int $pageSize): array
     {
         $param = $request->get();
-        /** @var Int */
-        $page = $request->get('page',1);
-        /** @var Int */
-        $pageSize = $request->get('pageSize',10);
 
         $total = $this->logic->total($param);
-        $list = $this->logic->list($param,(int)$page,(int)$pageSize);
+        $list = $this->logic->list($param,$page,$pageSize);
 
         return [
             'total' => $total,
             'list' => $list,
         ];
+    }
+
+    /**
+     * 获取订单详情
+     *
+     * @RequestMapping(route="{id}",method=RequestMethod::GET)
+     * @param int $id
+     * @return array
+     */
+    public function detail(int $id): array
+    {
+        $detail = $this->logic->detail($id);
+
+        return $detail;
     }
 }

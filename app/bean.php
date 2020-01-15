@@ -51,7 +51,7 @@ return [
         'json'         => true,
         'handlers'     => [
             'application' => bean('applicationHandler'),
-            'notice'      => bean('noticeHandler'),
+//            'notice'      => bean('noticeHandler'),
         ],
     ],
     'httpServer'        => [
