@@ -15,6 +15,7 @@ use Swoft\Db\DbEvent;
 use Swoft\Event\Annotation\Mapping\Listener;
 use Swoft\Event\EventHandlerInterface;
 use Swoft\Event\EventInterface;
+use Swoft\Log\Helper\CLog;
 
 /**
  * Class RanListener
@@ -40,6 +41,7 @@ class RanListener implements EventHandlerInterface
         $bindings = $event->getParam(1);
 
         $rawSql = $connection->getRawSql($querySql, $bindings);
+        CLog::debug($rawSql);
         // output()->info($rawSql);
     }
 }
