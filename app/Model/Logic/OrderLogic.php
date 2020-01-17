@@ -10,7 +10,7 @@ use Swoft\Db\Exception\DbException;
 /**
  * Class OrderLogic
  * @package App\Model\Logic
- * @Bean("OrderLogic")
+ * @Bean()
  */
 class OrderLogic
 {

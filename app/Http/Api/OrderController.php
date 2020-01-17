@@ -34,7 +34,7 @@ use Swoft\Validator\Annotation\Mapping\ValidateType;
  */
 class OrderController{
     /**
-     * @Inject("OrderLogic")
+     * @Inject()
      *
      * @var OrderLogic
      */
@@ -70,6 +70,7 @@ class OrderController{
      * @RequestMapping(route="{id}",method=RequestMethod::GET)
      * @param int $id
      * @return array
+     * @throws DbException
      */
     public function detail(int $id): array
     {
