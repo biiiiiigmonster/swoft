@@ -58,8 +58,16 @@ class OrderLogic
         return $list->toArray();
     }
 
+    /**
+     * 获取订单详情
+     * @param int $id
+     * @return array
+     * @throws DbException
+     */
     public function detail(int $id): array
     {
+        $order = Order::find($id);
 
+        return $order->toArray();
     }
 }
