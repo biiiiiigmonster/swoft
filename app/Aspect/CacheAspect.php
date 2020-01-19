@@ -17,7 +17,7 @@ use Swoft\Log\Helper\CLog;
  * @Aspect(order=1)
  *
  * @PointExecution(include={
- *      OrderLogic::Detail
+ *      OrderLogic::detail()
  *     })
  */
 class CacheAspect
