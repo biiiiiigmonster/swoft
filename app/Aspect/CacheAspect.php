@@ -2,14 +2,12 @@
 
 namespace App\Aspect;
 
+use App\Annotation\Mapping\CacheWrap;
 use Swoft\Aop\Annotation\Mapping\Around;
 use Swoft\Aop\Annotation\Mapping\Aspect;
 use Swoft\Aop\Annotation\Mapping\PointAnnotation;
-use Swoft\Aop\Annotation\Mapping\PointExecution;
 use Swoft\Aop\Point\ProceedingJoinPoint;
-use Swoft\Http\Server\Annotation\Mapping\RequestMapping;
 use Swoft\Log\Helper\CLog;
-use Swoft\Validator\Annotation\Mapping\Validate;
 
 /**
  * Class CacheAspect
@@ -18,7 +16,7 @@ use Swoft\Validator\Annotation\Mapping\Validate;
  * @Aspect(order=1)
  *
  * @PointAnnotation(include={
- *      Validate::class
+ *      CacheWrap::class
  *     })
  */
 class CacheAspect
