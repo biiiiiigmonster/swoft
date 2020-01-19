@@ -16,6 +16,7 @@
     "ext-simplexml": "*",
     "ext-libxml": "*",
     "ext-mbstring": "*",
+    "swoft/cache": "~2.0.0",
     "swoft/db": "~2.0.0",
     "swoft/i18n": "^2.0",
     "swoft/view": "~2.0.0",
@@ -39,7 +40,8 @@
     "firebase/php-jwt": "^5.0",
     "swoft/validator": "^2.0",
     "nesbot/carbon": "^2.28",
-    "topthink/think-helper": "^3.1"
+    "topthink/think-helper": "^3.1",
+    "devweyes/cache": "^1.3"
   },
   "require-dev": {
     "swoft/swoole-ide-helper": "dev-master",
