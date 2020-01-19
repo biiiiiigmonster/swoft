@@ -74,7 +74,7 @@ class OrderController{
      */
     public function detail(int $id): array
     {
-        $detail = $this->logic->Detail($id);
+        $detail = $this->logic->detail($id);
 
         return $detail;
     }
