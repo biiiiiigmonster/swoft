@@ -10,16 +10,16 @@ use Swoft\Aop\Point\ProceedingJoinPoint;
 use Swoft\Log\Helper\CLog;
 
 /**
- * Class CacheAspect
+ * Class CacheWrapAspect
  * @package App\Aspect
  *
  * @Aspect(order=1)
  *
  * @PointAnnotation(include={
- *      CacheWrap::class
- *     })
+ *     CacheWrap::class
+ * })
  */
-class CacheAspect
+class CacheWrapAspect
 {
     /**
      * 环绕通知
@@ -34,6 +34,8 @@ class CacheAspect
     {
         CLog::debug('aop进来了哟');
         $ret = $proceedingJoinPoint->proceed();
+        $argsMap = $proceedingJoinPoint->getArgsMap();
+        CLog::debug('参数吧：'.json_encode($argsMap));
         CLog::debug('看看这是啥：'.json_encode($ret));
         return ['xixi'=>123];
     }
