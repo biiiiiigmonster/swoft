@@ -34,6 +34,6 @@ class CacheAspect
         CLog::debug('aop进来了哟');
         $ret = $proceedingJoinPoint->proceed();
         CLog::debug('看看这是啥：'.json_encode($ret));
-        return $ret;
+        return ['xixi'=>123];
     }
 }
