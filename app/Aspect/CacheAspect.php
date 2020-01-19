@@ -6,7 +6,6 @@ namespace App\Aspect;
 use App\Model\Logic\OrderLogic;
 use Swoft\Aop\Annotation\Mapping\Around;
 use Swoft\Aop\Annotation\Mapping\Aspect;
-use Swoft\Aop\Annotation\Mapping\PointBean;
 use Swoft\Aop\Annotation\Mapping\PointExecution;
 use Swoft\Aop\Point\ProceedingJoinPoint;
 use Swoft\Log\Helper\CLog;
@@ -17,9 +16,8 @@ use Swoft\Log\Helper\CLog;
  *
  * @Aspect(order=1)
  *
- * @PointBean(include={OrderLogic::class})
  * @PointExecution(include={
- *      OrderLogic::detail
+ *      OrderLogic::Detail
  *     })
  */
 class CacheAspect
