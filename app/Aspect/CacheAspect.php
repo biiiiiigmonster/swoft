@@ -9,6 +9,7 @@ use Swoft\Aop\Annotation\Mapping\PointExecution;
 use Swoft\Aop\Point\ProceedingJoinPoint;
 use Swoft\Http\Server\Annotation\Mapping\RequestMapping;
 use Swoft\Log\Helper\CLog;
+use Swoft\Validator\Annotation\Mapping\Validate;
 
 /**
  * Class CacheAspect
@@ -17,7 +18,7 @@ use Swoft\Log\Helper\CLog;
  * @Aspect(order=1)
  *
  * @PointAnnotation(include={
- *      RequestMapping::class
+ *      Validate::class
  *     })
  */
 class CacheAspect
