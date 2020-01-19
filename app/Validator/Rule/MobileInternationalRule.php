@@ -21,10 +21,12 @@ class MobileInternationalRule implements RuleInterface
      * @param string $propertyName
      * @param object $item
      * @param null $default
+     * @param bool $strict
+     *
      * @return array
      * @throws ValidatorException
      */
-    public function validate(array $data, string $propertyName, $item, $default = null): array
+    public function validate(array $data, string $propertyName, $item, $default = null, $strict = false): array
     {
         $message = $item->getMessage();
         if (!isset($data[$propertyName]) && $default === null) {
