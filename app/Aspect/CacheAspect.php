@@ -4,8 +4,10 @@ namespace App\Aspect;
 
 use Swoft\Aop\Annotation\Mapping\Around;
 use Swoft\Aop\Annotation\Mapping\Aspect;
+use Swoft\Aop\Annotation\Mapping\PointAnnotation;
 use Swoft\Aop\Annotation\Mapping\PointExecution;
 use Swoft\Aop\Point\ProceedingJoinPoint;
+use Swoft\Http\Server\Annotation\Mapping\RequestMapping;
 use Swoft\Log\Helper\CLog;
 
 /**
@@ -14,8 +16,8 @@ use Swoft\Log\Helper\CLog;
  *
  * @Aspect(order=1)
  *
- * @PointExecution(include={
- *      "App\\Model\\Logic\\OrderLogic::detail"
+ * @PointAnnotation(include={
+ *      RequestMapping::class
  *     })
  */
 class CacheAspect
