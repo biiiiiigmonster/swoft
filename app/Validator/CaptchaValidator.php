@@ -4,39 +4,49 @@
 namespace App\Validator;
 
 
-use App\Exception\BizException;
-use Swoft\Log\Helper\Log;
-use Swoft\Redis\Redis;
+use App\Annotation\Mapping\MobileInternational;
+use Swoft\Validator\Annotation\Mapping\Email;
+use Swoft\Validator\Annotation\Mapping\Enum;
+use Swoft\Validator\Annotation\Mapping\IsString;
 use Swoft\Validator\Annotation\Mapping\Validator;
-use Swoft\Validator\Contract\ValidatorInterface;
-use Swoft\Validator\Exception\ValidatorException;
 
 /**
- * Class CaptchaValidator
+ * Class CreateCaptchaValidator
  * @package App\Validator
  * @since 2.0
  *
  * @Validator(name="CaptchaValidator")
  */
-class CaptchaValidator implements ValidatorInterface
+class CaptchaValidator
 {
     /**
-     * 验证码校核
-     * @param array $data
-     * @param array $params
-     * @return array
-     * @throws BizException
-     * @throws ValidatorException
+     * 验证码生成类型
+     * @IsString()
+     * @Enum(values={"IMG","SMS","EMAIL"})
+     * @var string
      */
-    public function validate(array $data, array $params): array
-    {
-        if(!isset($data['captcha'])) {
-            throw new ValidatorException('captcha must be exist');
-        }
-        if($data['captcha']!=Redis::get('captcha:'.$data[$params['receiver']].':'.$params['scene'])) {
-            throw new BizException('',CAPTCHA_ERROR);
-        }
-        Redis::del('captcha:'.$data[$params['receiver']].':'.$params['scene']);
-        return $data;
-    }
+    protected $type;
+
+    /**
+     * 验证码生成场景
+     * @IsString()
+     * @var string
+     */
+    protected $scene;
+
+    /**
+     * 验证码生成接收-短信渠道
+     * @IsString()
+     * @MobileInternational()
+     * @var string
+     */
+    protected $mobile;
+
+    /**
+     * 验证码生成接收-邮件渠道
+     * @IsString()
+     * @Email()
+     * @var string
+     */
+    protected $email;
 }

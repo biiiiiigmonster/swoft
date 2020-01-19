@@ -10,15 +10,15 @@ use Swoft\Validator\Contract\ValidatorInterface;
 use Swoft\Validator\Exception\ValidatorException;
 
 /**
- * Class AwaitValidator
+ * Class PushValidator
  * @package App\Validator
  *
- * @Validator(name="AwaitValidator")
+ * @Validator(name="PushValidator")
  */
-class AwaitValidator implements ValidatorInterface
+class PushValidator implements ValidatorInterface
 {
     /**
-     * 验证socket是否连接
+     * 验证待推送目标socket是否存续
      * @param array $data
      * @param array $params
      * @return array

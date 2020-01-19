@@ -10,7 +10,6 @@
 
 namespace App\Http\Api;
 
-use App\Annotation\Mapping\CacheWrap;
 use App\Http\Middleware\AuthMiddleware;
 use App\Model\Logic\OrderLogic;
 use Swoft\Bean\Annotation\Mapping\Inject;
@@ -69,7 +68,6 @@ class OrderController{
      * 获取订单详情
      *
      * @RequestMapping(route="{id}",method=RequestMethod::GET)
-     * @CacheWrap(key="haha",ttl=10)
      * @param int $id
      * @return array
      * @throws DbException
