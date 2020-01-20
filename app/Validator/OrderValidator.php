@@ -6,6 +6,7 @@ namespace App\Validator;
 
 use Swoft\Validator\Annotation\Mapping\Date;
 use Swoft\Validator\Annotation\Mapping\IsString;
+use Swoft\Validator\Annotation\Mapping\Required;
 use Swoft\Validator\Annotation\Mapping\Validator;
 
 /**
@@ -19,6 +20,7 @@ class OrderValidator
     /**
      * 起始时间
      * @IsString()
+     * @Required()
      * @Date()
      * @var string
      */
@@ -27,6 +29,7 @@ class OrderValidator
     /**
      * 结束时间
      * @IsString()
+     * @Required()
      * @Date()
      * @var string
      */
