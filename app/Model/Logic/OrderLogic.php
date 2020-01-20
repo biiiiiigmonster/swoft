@@ -71,7 +71,7 @@ class OrderLogic
     public function detail(int $id): array
     {
         $order = Order::find($id);
-        CLog::debug('逻辑层进来了');
+
         return $order->toArray();
     }
 }
