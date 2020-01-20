@@ -39,8 +39,7 @@ class CacheWrapAspect
         $argsMap = $proceedingJoinPoint->getArgsMap();
 
         [$key, $ttl] = CacheWrapRegister::get($className,$methodName);
-        CLog::debug(json_encode($argsMap));
-//        $key = CacheWrapRegister::formatedKey($argsMap,$key);
+        $key = CacheWrapRegister::formatedKey($argsMap,$key);
 
         return remember($key,fn() => $proceedingJoinPoint->proceed(),(int)$ttl);
     }
