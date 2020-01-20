@@ -10,7 +10,7 @@ use Swoft\Redis\Redis;
 function remember(string $key,Closure $callback,$ttl = null)
 {
     $value = Redis::get($key);
-    if(!is_null($value)) {
+    if($value !== false) {
         return $value;
     }
 
