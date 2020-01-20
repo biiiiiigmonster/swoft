@@ -8,6 +8,7 @@ use App\Annotation\Mapping\MobileInternational;
 use Swoft\Validator\Annotation\Mapping\Email;
 use Swoft\Validator\Annotation\Mapping\Enum;
 use Swoft\Validator\Annotation\Mapping\IsString;
+use Swoft\Validator\Annotation\Mapping\Required;
 use Swoft\Validator\Annotation\Mapping\Validator;
 
 /**
@@ -22,6 +23,7 @@ class CaptchaValidator
     /**
      * 验证码生成类型
      * @IsString()
+     * @Required()
      * @Enum(values={"IMG","SMS","EMAIL"})
      * @var string
      */
@@ -30,6 +32,7 @@ class CaptchaValidator
     /**
      * 验证码生成场景
      * @IsString()
+     * @Required()
      * @var string
      */
     protected $scene;

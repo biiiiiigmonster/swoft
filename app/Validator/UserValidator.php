@@ -8,6 +8,7 @@ use App\Annotation\Mapping\MobileInternational;
 use Swoft\Validator\Annotation\Mapping\Confirm;
 use Swoft\Validator\Annotation\Mapping\IsString;
 use Swoft\Validator\Annotation\Mapping\Length;
+use Swoft\Validator\Annotation\Mapping\Required;
 use Swoft\Validator\Annotation\Mapping\Validator;
 
 /**
@@ -21,6 +22,7 @@ class UserValidator
 {
     /**
      * @IsString()
+     * @Required()
      * @MobileInternational(message="手机号格式不正确")
      *
      * @var string
@@ -29,6 +31,7 @@ class UserValidator
 
     /**
      * @IsString()
+     * @Required()
      * @Length(min=8,max=16,message="密码长度需在8~16位之间")
      *
      * @var string
@@ -37,6 +40,7 @@ class UserValidator
 
     /**
      * @IsString()
+     * @Required()
      * @Confirm(name="password",message="确认密码不一致")
      *
      * @var string

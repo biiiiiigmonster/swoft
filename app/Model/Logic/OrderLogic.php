@@ -44,6 +44,7 @@ class OrderLogic
     /**
      * 获取用户订单列表
      *
+     * @CacheWrap(key="'order:list'",ttl=10)
      * @param array $param
      * @param int $page
      * @param int $pageSize

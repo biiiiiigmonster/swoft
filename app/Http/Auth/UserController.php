@@ -69,7 +69,7 @@ class UserController{
      * app端扫码
      * @RequestMapping(route="scan", method=RequestMethod::GET)
      * @Middleware(AuthMiddleware::class)
-     * @Validate(validator="PushValidator",type=ValidateType::GET,params={"key":"uuid"})
+     * @Validate(validator="WsPushValidator",type=ValidateType::GET,params={"key":"uuid"})
      * @param Request $request
      */
     public function scan(Request $request): void
@@ -83,7 +83,7 @@ class UserController{
      * app端授权许可，将token发送至接收者
      * @RequestMapping(route="authorize", method=RequestMethod::GET)
      * @Middleware(AuthMiddleware::class)身份验证，前置
-     * @Validate(validator="PushValidator",type=ValidateType::GET,params={"key":"uuid"})
+     * @Validate(validator="WsPushValidator",type=ValidateType::GET,params={"key":"uuid"})
      * @param Request $request
      */
     public function authorize(Request $request): void
@@ -133,7 +133,7 @@ class UserController{
      * @RequestMapping(route="register", method=RequestMethod::POST)
      * @Validate(validator="UserValidator",fields={"mobile","password","passwordConf"})静态参数验证
      * @Validate(validator="MobileUniqueValidator")手机号user表唯一验证
-     * @Validate(validator="VerifyValidator",params={"receiver":"mobile","scene":"register"})验证码注册尝尽验证
+     * @Validate(validator="VerifyValidator",params={"receiver":"mobile","scene":"register"})验证码注册场景验证
      * @Middleware(AuthorizeMiddleware::class)默认登陆成功，颁发授权token，后置操作
      *
      * @param Request $request

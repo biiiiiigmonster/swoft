@@ -10,12 +10,12 @@ use Swoft\Validator\Contract\ValidatorInterface;
 use Swoft\Validator\Exception\ValidatorException;
 
 /**
- * Class PushValidator
+ * Class WsPushValidator
  * @package App\Validator
  *
- * @Validator(name="PushValidator")
+ * @Validator(name="WsPushValidator")
  */
-class PushValidator implements ValidatorInterface
+class WsPushValidator implements ValidatorInterface
 {
     /**
      * 验证待推送目标socket是否存续
