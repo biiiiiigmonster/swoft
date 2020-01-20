@@ -62,7 +62,7 @@ class OrderLogic
     /**
      * 获取订单详情
      *
-     * @CacheWrap(key="haha",ttl=10)
+     * @CacheWrap(key="'order:'~arg['id']",ttl=10)
      * @param int $id
      * @return array
      * @throws DbException

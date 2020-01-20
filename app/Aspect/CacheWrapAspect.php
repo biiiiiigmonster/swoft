@@ -3,11 +3,13 @@
 namespace App\Aspect;
 
 use App\Annotation\Mapping\CacheWrap;
+use App\Annotation\Register\CacheWrapRegister;
 use Swoft\Aop\Annotation\Mapping\Around;
 use Swoft\Aop\Annotation\Mapping\Aspect;
 use Swoft\Aop\Annotation\Mapping\PointAnnotation;
 use Swoft\Aop\Point\ProceedingJoinPoint;
 use Swoft\Log\Helper\CLog;
+use Throwable;
 
 /**
  * Class CacheWrapAspect
@@ -28,15 +30,18 @@ class CacheWrapAspect
      *
      * @param ProceedingJoinPoint $proceedingJoinPoint
      * @return mixed
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function aroundAdvice(ProceedingJoinPoint $proceedingJoinPoint)
     {
-        CLog::debug('aop进来了哟');
-        $ret = $proceedingJoinPoint->proceed();
+        $className = $proceedingJoinPoint->getClassName();
+        $methodName = $proceedingJoinPoint->getMethod();
         $argsMap = $proceedingJoinPoint->getArgsMap();
-        CLog::debug('参数吧：'.json_encode($argsMap));
-        CLog::debug('看看这是啥：'.json_encode($ret));
-        return ['xixi'=>123];
+
+        [$key, $ttl] = CacheWrapRegister::get($className,$methodName);
+        CLog::debug(json_encode($argsMap));
+//        $key = CacheWrapRegister::formatedKey($argsMap,$key);
+
+        return remember($key,fn() => $proceedingJoinPoint->proceed(),(int)$ttl);
     }
 }

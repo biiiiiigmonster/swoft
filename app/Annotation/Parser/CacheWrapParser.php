@@ -4,6 +4,7 @@
 namespace App\Annotation\Parser;
 
 use App\Annotation\Mapping\CacheWrap;
+use App\Annotation\Register\CacheWrapRegister;
 use Swoft\Annotation\Annotation\Mapping\AnnotationParser;
 use Swoft\Annotation\Annotation\Parser\Parser;
 use Swoft\Annotation\Exception\AnnotationException;
@@ -17,7 +18,7 @@ class CacheWrapParser extends Parser
 {
     /**
      * @param int $type
-     * @param object $annotationObject
+     * @param CacheWrap $annotationObject
      * @return array
      * @throws AnnotationException
      */
@@ -25,8 +26,15 @@ class CacheWrapParser extends Parser
     {
         // TODO: Implement parse() method.
         if($type === self::TYPE_PROPERTY) {
-            throw new AnnotationException('Annotation CacheClear should not on property!');
+            throw new AnnotationException('Annotation CacheWrap should not on property!');
         }
+
+        $data = [
+            $annotationObject->getKey(),
+            $annotationObject->getTtl(),
+        ];
+
+        CacheWrapRegister::register($this->className, $this->methodName, $data);
 
         return [];
     }
