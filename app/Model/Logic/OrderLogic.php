@@ -7,6 +7,7 @@ use App\Annotation\Mapping\CacheWrap;
 use App\Model\Entity\Order;
 use Swoft\Bean\Annotation\Mapping\Bean;
 use Swoft\Db\Exception\DbException;
+use Swoft\Log\Helper\CLog;
 
 /**
  * Class OrderLogic
@@ -70,7 +71,7 @@ class OrderLogic
     public function detail(int $id): array
     {
         $order = Order::find($id);
-
+        CLog::debug('逻辑层进来了');
         return $order->toArray();
     }
 }
