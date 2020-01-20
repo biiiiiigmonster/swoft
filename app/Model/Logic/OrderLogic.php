@@ -67,7 +67,7 @@ class OrderLogic
      * @return array
      * @throws DbException
      */
-    public function detail(int $id): array
+    public function detail(int $id,string $bbb='aaa'): array
     {
         $order = Order::find($id);
 
