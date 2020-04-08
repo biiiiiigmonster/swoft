@@ -42,7 +42,7 @@ class OrderController{
 
     /**
      * 获取订单列表
-     * @RequestMapping(route="{page}/{pageSize}",method=RequestMethod::GET)
+     * @RequestMapping(route="{page}[/{pageSize}]",method=RequestMethod::GET)
      * @Validate(validator="OrderValidator",type=ValidateType::GET)
      *
      * @param Request $request
@@ -51,7 +51,7 @@ class OrderController{
      * @return array
      * @throws DbException
      */
-    public function list(Request $request,int $page,int $pageSize): array
+    public function list(Request $request,int $page,int $pageSize=10): array
     {
         $param = $request->get();
 
