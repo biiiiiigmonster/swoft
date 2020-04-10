@@ -44,9 +44,9 @@ class UserServiceV2 implements UserInterface
             "iss" => $iss,//签发者  ex: swoft.duzhaoteng.com
             'aud' => $aud,//接收者  ex: *.duzhaoteng.com
             'data' => $data,
-//            'data' => [//自定义信息，不要定义敏感信息
+//            'data' => [//自定义信息，不要存储敏感信息
 //                'id' => $data['id'],//例如用户主键id
-////                'mobile' => $data['mobile'],//用户手机号
+//                'mobile' => $data['mobile'],//用户手机号
 //                //等等...
 //            ],
         ];

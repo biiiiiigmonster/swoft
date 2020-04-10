@@ -25,8 +25,8 @@ class CacheWrapParser extends Parser
     public function parse(int $type, $annotationObject): array
     {
         // TODO: Implement parse() method.
-        if($type === self::TYPE_PROPERTY) {
-            throw new AnnotationException('Annotation CacheWrap should not on property!');
+        if($type !== self::TYPE_METHOD) {
+            throw new AnnotationException('Annotation CacheWrap should on method!');
         }
 
         $data = [

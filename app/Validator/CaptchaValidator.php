@@ -23,8 +23,8 @@ class CaptchaValidator
     /**
      * 验证码生成类型
      * @IsString()
-     * @Required()
      * @Enum(values={"IMG","SMS","EMAIL"})
+     * @Required()
      * @var string
      */
     protected $type;

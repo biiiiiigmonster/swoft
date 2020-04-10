@@ -20,8 +20,9 @@ class OrderValidator
     /**
      * 起始时间
      * @IsString()
-     * @Required()
      * @Date()
+     * @Required()
+     *
      * @var string
      */
     protected $start;
@@ -29,8 +30,9 @@ class OrderValidator
     /**
      * 结束时间
      * @IsString()
-     * @Required()
      * @Date()
+     * @Required()
+     *
      * @var string
      */
     protected $end;

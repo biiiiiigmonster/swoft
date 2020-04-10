@@ -54,6 +54,7 @@ class UserController{
     private $userService;
 
     /**
+     * 生成许可链接
      * @RequestMapping(route="license", method=RequestMethod::GET)
      * @param Request $request
      * @return array

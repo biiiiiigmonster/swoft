@@ -6,6 +6,11 @@ namespace App\Annotation\Register;
 
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 
+/**
+ * Class CacheWrapRegister
+ * @package App\Annotation\Register
+ * @since 2.0
+ */
 class CacheWrapRegister
 {
     /**
@@ -39,7 +44,7 @@ class CacheWrapRegister
      * @param string $value
      * @return string
      */
-    public static function formatedKey(array $arguments, string $value): string
+    public static function formatKey(array $arguments, string $value): string
     {
         // Parse express language
         $el = new ExpressionLanguage();

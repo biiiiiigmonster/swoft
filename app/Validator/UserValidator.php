@@ -22,8 +22,8 @@ class UserValidator
 {
     /**
      * @IsString()
-     * @Required()
      * @MobileInternational(message="手机号格式不正确")
+     * @Required()
      *
      * @var string
      */
@@ -31,8 +31,8 @@ class UserValidator
 
     /**
      * @IsString()
-     * @Required()
      * @Length(min=8,max=16,message="密码长度需在8~16位之间")
+     * @Required()
      *
      * @var string
      */
@@ -40,8 +40,8 @@ class UserValidator
 
     /**
      * @IsString()
-     * @Required()
      * @Confirm(name="password",message="确认密码不一致")
+     * @Required()
      *
      * @var string
      */

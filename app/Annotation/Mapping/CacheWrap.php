@@ -5,12 +5,14 @@ namespace App\Annotation\Mapping;
 
 use Doctrine\Common\Annotations\Annotation\Attribute;
 use Doctrine\Common\Annotations\Annotation\Attributes;
+use Doctrine\Common\Annotations\Annotation\Target;
 
 /**
  * Class CacheWrap
  * @package App\Annotation\Mapping
  *
  * @Annotation()
+ * @Target("METHOD")
  * @Attributes({
  *     @Attribute("key",type="string"),
  *     @Attribute("ttl",type="int")
@@ -19,6 +21,7 @@ use Doctrine\Common\Annotations\Annotation\Attributes;
 class CacheWrap
 {
     /**
+     * 注解key支持symfony/expression-language语法表达式
      * @var string
      */
     private $key = '';
