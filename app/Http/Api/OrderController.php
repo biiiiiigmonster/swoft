@@ -42,7 +42,7 @@ class OrderController{
 
     /**
      * 获取订单列表
-     * @RequestMapping(route="{page}[/{pageSize}]",method=RequestMethod::GET)
+     * @RequestMapping(route="{page}/{pageSize}",method=RequestMethod::GET)
      * @Validate(validator="OrderValidator",type=ValidateType::GET)
      *
      * @param Request $request
