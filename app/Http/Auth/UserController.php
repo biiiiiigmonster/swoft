@@ -107,7 +107,6 @@ class UserController{
      *
      * @RequestMapping(route="login", method=RequestMethod::POST)
      * @Validate(validator="UserValidator",fields={"mobile","password"})静态参数验证
-     * @Validate(validator="VerifyValidator",params={"receiver":"mobile","scene":"login"})验证码登录场景验证
      * @Middleware(AuthorizeMiddleware::class)颁发授权token，后置操作
      *
      * @param Request $request
