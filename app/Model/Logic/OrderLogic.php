@@ -6,6 +6,7 @@ namespace App\Model\Logic;
 use App\Annotation\Mapping\CacheWrap;
 use App\Model\Entity\Order;
 use Swoft\Bean\Annotation\Mapping\Bean;
+use Swoft\Db\Eloquent\Collection;
 use Swoft\Db\Exception\DbException;
 use Swoft\Log\Helper\CLog;
 
@@ -47,17 +48,17 @@ class OrderLogic
      * @param array $param
      * @param int $page
      * @param int $pageSize
-     * @return array
+     * @return Collection
      * @throws DbException
      */
-    public function list(array $param, int $page=0, int $pageSize=10): array
+    public function list(array $param, int $page=0, int $pageSize=10): Collection
     {
         $model = Order::whereProp($this->where($param))
             ->whereBetween('create_time',[$param['start'],$param['end']]);
         if($page) $model->forPage($page,$pageSize);
         $list = $model->get();
 
-        return $list->toArray();
+        return $list;
     }
 
     /**
@@ -65,13 +66,13 @@ class OrderLogic
      *
      * @CacheWrap(key="'order:'~arg['id']",ttl=10)
      * @param int $id
-     * @return array
+     * @return Order
      * @throws DbException
      */
-    public function detail(int $id): array
+    public function detail(int $id): Order
     {
         $order = Order::find($id);
 
-        return $order->toArray();
+        return $order;
     }
 }

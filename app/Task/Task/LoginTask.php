@@ -19,7 +19,7 @@ use Swoole\Coroutine;
 /**
  * Class LoginTask - define some tasks
  *
- * @Task(name="LoginTask")
+ * @Task("LoginTask")
  * @package App\Task\Task
  */
 class LoginTask{

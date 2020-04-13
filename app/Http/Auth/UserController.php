@@ -10,6 +10,7 @@
 
 namespace App\Http\Auth;
 
+use App\Event\UserEvent;
 use App\Http\Middleware\AuthMiddleware;
 use App\Http\Middleware\AuthorizeMiddleware;
 use App\Model\Logic\UserLogic;
@@ -122,10 +123,12 @@ class UserController{
         $data = $request->post();
 
         $user = $this->logic->login($data);
+        //触发登录事件
+        \Swoft::trigger(UserEvent::LOGIN,$user);
         //投递记录本次登陆信息
-        Task::async('LoginTask','imprint',[$user['id'],['last_login_ip'=>ip(),'last_login_time'=>Carbon::now()->toDateTimeString()]]);
+        Task::async('LoginTask','imprint',[$user->getId(),['last_login_ip'=>ip(),'last_login_time'=>Carbon::now()->toDateTimeString()]]);
 
-        return $user;
+        return $user->toArray();
     }
 
     /**
@@ -149,6 +152,6 @@ class UserController{
 
         $user = $this->logic->register($data);
 
-        return $user;
+        return $user->toArray();
     }
 }

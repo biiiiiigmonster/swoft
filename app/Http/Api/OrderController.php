@@ -60,7 +60,7 @@ class OrderController{
 
         return [
             'total' => $total,
-            'list' => $list,
+            'list' => $list->toArray(),
         ];
     }
 
@@ -76,6 +76,6 @@ class OrderController{
     {
         $detail = $this->logic->detail($id);
 
-        return $detail;
+        return $detail->toArray();
     }
 }
