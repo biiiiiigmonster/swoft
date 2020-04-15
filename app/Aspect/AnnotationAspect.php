@@ -22,8 +22,9 @@ use Swoft\Log\Helper\CLog;
  *
  * @Aspect()
  *
+ * PointExecution的注解参数格式为 {class::method} ，其中class与method均支持正则表达式匹配，如何匹配的可看具体代码实现
  * @PointExecution({
-        "App\\Http\\Auth\\UserController::.*o.*"
+        "App\\Http\\Auth\\UserController::.*g.*"
  *     })
  */
 class AnnotationAspect
