@@ -11,7 +11,6 @@
 namespace App\Task\Task;
 
 use App\Model\Entity\User;
-use Swoft\Log\Helper\CLog;
 use Swoft\Log\Helper\Log;
 use Swoft\Task\Annotation\Mapping\Task;
 use Swoft\Task\Annotation\Mapping\TaskMapping;
@@ -29,17 +28,14 @@ class LoginTask{
      * 保存用户登录信息
      *
      * @TaskMapping()
-     * @param array $user
+     * @param int $id
+     * @param array $data
      */
-    public function imprint(array $user): void
+    public function imprint(int $id,array $data): void
     {
-        CLog::info('协程：'.ip());
-//        $data = [
-//
-//        ];
-//        $row = User::modifyById($user['id'],$data);
-//        if(!$row) {
-//            Log::warning("用户\{{$user['mobile']}}\}登录信息保存失败");
-//        }
+        $row = User::modifyById($id,$data);
+        if(!$row) {
+            Log::warning("用户\{$id\}登录信息保存失败");
+        }
     }
 }

@@ -136,8 +136,7 @@ class UserController{
         //触发登录事件
         sgo(fn() => \Swoft::trigger(UserEvent::LOGIN,$user));//异步触发
         //投递记录本次登陆信息
-        CLog::info('同步：'.ip());
-        Task::async('LoginTask','imprint',[$user]);
+        Task::async('LoginTask','imprint',[$user->getId(),['last_login_ip'=>ip(),'last_login_time'=>Carbon::now()->toDateTimeString()]]);
 
         return $user->toArray();
     }
