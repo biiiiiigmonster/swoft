@@ -21,15 +21,6 @@ use Swoft\Validator\Annotation\Mapping\Validator;
 class CaptchaValidator
 {
     /**
-     * 验证码生成类型
-     * @IsString()
-     * @Enum(values={"IMG","SMS","EMAIL"})
-     * @Required()
-     * @var string
-     */
-    protected $type;
-
-    /**
      * 验证码生成场景
      * @IsString()
      * @Required()
