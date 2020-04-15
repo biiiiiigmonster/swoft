@@ -11,6 +11,11 @@ namespace App\Event;
 class UserEvent
 {
     /**
+     * 用户扫码
+     */
+    public const SCAN = 'user.scan';
+
+    /**
      * 注册
      */
     public const REGISTER = 'user.register';

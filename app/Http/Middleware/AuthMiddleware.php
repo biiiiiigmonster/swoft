@@ -48,7 +48,7 @@ class AuthMiddleware implements MiddlewareInterface
         $auth = $request->getHeaderLine("authorization");
 
         try {
-            list($type,$token) = explode(' ',$auth);
+            [$type,$token] = explode(' ',$auth);
 //            JWT::$leeway = 60;//这个属性表示可以当前请求token的有效时间再延长60s
             $decoded = JWT::decode($token, config('secret.jwt', 'CT5'), ['HS256']);
 
@@ -86,7 +86,7 @@ class AuthMiddleware implements MiddlewareInterface
         $allow = [
             //默认有效签发者域名为auth+当前站点的根域名
             context()->getRequest()->getUri()->getHost(),
-            'auth.'.rootDomain(),
+            'auth.'.root_domain(),
         ];
         //必须是指定签发者且协议头一致
         return in_array($host,$allow);
@@ -100,7 +100,7 @@ class AuthMiddleware implements MiddlewareInterface
     private function audHostVerify(string $host):bool
     {
         $arr1 = array_reverse(array_filter(explode('.',$host)),false);
-        $arr2 = array_reverse(array_filter(explode('.',subDomain().'.'.rootDomain())),false);
+        $arr2 = array_reverse(array_filter(explode('.',sub_domain().'.'.root_domain())),false);
         //将接收者的域名与当前站点的域名进行比较（$arr1,$arr2此处的处理还需理解）
         $diff = array_diff_assoc($arr1,$arr2);
         foreach ($diff as $val) {

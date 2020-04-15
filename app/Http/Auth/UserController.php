@@ -13,6 +13,7 @@ namespace App\Http\Auth;
 use App\Event\UserEvent;
 use App\Http\Middleware\AuthMiddleware;
 use App\Http\Middleware\AuthorizeMiddleware;
+use App\Model\Entity\User;
 use App\Model\Logic\UserLogic;
 use App\Rpc\Lib\UserInterface;
 use Carbon\Carbon;
@@ -78,7 +79,9 @@ class UserController{
     {
         //推送信息
         $uuid = $request->get('uuid');
-        server()->push((int)Redis::get($uuid),wsFormat('scan'));
+        //触发用户扫码事件
+        sgo(fn() => \Swoft::trigger(UserEvent::SCAN,User::find($request->auth->id),$request->get()));
+        server()->push((int)Redis::get($uuid),ws_format('scan'));
     }
 
     /**
@@ -92,14 +95,14 @@ class UserController{
     {
         $id = $request->auth->id;
         $iss = $request->getUri()->getHost();//签发者
-        $aud = '*.'.rootDomain();//接收者
+        $aud = '*.'.root_domain();//接收者
 
         //生成授权
         $jwt = $this->userService->authorize(['id'=>$id],$iss,$aud);
 
         //推送授权信息
         $uuid = $request->get('uuid');
-        server()->push((int)Redis::get($uuid),wsFormat('authorize',"Bearer $jwt"));
+        server()->push((int)Redis::get($uuid),ws_format('authorize',"Bearer $jwt"));
     }
 
     /**
@@ -131,11 +134,11 @@ class UserController{
          *    任务投递属于主动型：业务逻辑中主动触发，将数据投递至预先设置好的方法队列中，让队列代为消费，一般采取协程或异步策略，提高性能；
          *      可以看作多对一关系（多处投递，一处实现）；
          * 4、为什么解释这些，因为这两种机制在简单情形下使用比较相似，比较容易让人无法选择，在初期使用或者年轻工作者容易随意使用，会造成隐患
-         *    建议根据上面的解释，再结合实际业务场景，慎重coding
+         *    建议根据上面的解释，再结合实际业务场景，慎重选型，慎重coding！
          */
         //触发登录事件
         sgo(fn() => \Swoft::trigger(UserEvent::LOGIN,$user));//异步触发
-        //投递记录本次登陆信息
+        //投递记录本次登录信息
         Task::async('LoginTask','imprint',[$user->getId(),['last_login_ip'=>ip(),'last_login_time'=>Carbon::now()->toDateTimeString()]]);
 
         return $user->toArray();
@@ -161,6 +164,8 @@ class UserController{
         $data = $request->post();
 
         $user = $this->logic->register($data);
+        //触发注册事件
+        sgo(fn() => \Swoft::trigger(UserEvent::REGISTER,$user));//异步触发
 
         return $user->toArray();
     }
