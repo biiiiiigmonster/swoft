@@ -7,6 +7,7 @@ namespace App\Listener;
 use App\Event\PointsEvent;
 use App\Event\UserEvent;
 use App\Model\Entity\User;
+use Swoft\Co;
 use Swoft\Event\Annotation\Mapping\Subscriber;
 use Swoft\Event\EventInterface;
 use Swoft\Event\EventSubscriberInterface;
@@ -41,6 +42,7 @@ class PointsChangeSubscriber implements EventSubscriberInterface
         /** @var User $user */
         $user = $event->getTarget();
         $points = 10;
+        Co::sleep(5);
 
         \Swoft::trigger(PointsEvent::ADD,$user,$points);
     }
