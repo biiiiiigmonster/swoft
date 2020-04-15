@@ -11,6 +11,7 @@
 namespace App\Aspect;
 
 use Swoft\Aop\Annotation\Mapping\After;
+use Swoft\Aop\Annotation\Mapping\Aspect;
 use Swoft\Aop\Annotation\Mapping\PointExecution;
 use Swoft\Log\Helper\CLog;
 
@@ -18,6 +19,8 @@ use Swoft\Log\Helper\CLog;
  * Class AnnotationAspect
  *
  * @since 2.0
+ *
+ * @Aspect()
  *
  * @PointExecution({
         "App\\Http\\Auth\\UserController::.*o.*"
