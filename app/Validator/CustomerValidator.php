@@ -19,7 +19,7 @@ use Swoft\Validator\Exception\ValidatorException;
  *
  * @since 2.0
  *
- * @Validator(name="userValidator")
+ * @Validator("userValidator")
  */
 class CustomerValidator implements ValidatorInterface
 {

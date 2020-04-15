@@ -14,7 +14,7 @@ use Swoft\Validator\Contract\ValidatorInterface;
  * @package App\Validator
  * @since 2.0
  *
- * @Validator(name="MobileUniqueValidator")
+ * @Validator("MobileUniqueValidator")
  */
 class MobileUniqueValidator implements ValidatorInterface
 {

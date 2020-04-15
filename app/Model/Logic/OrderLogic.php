@@ -31,6 +31,14 @@ class OrderLogic
     }
 
     /**
+     * @return array
+     */
+    public function relation(): array
+    {
+        return [];
+    }
+
+    /**
      * @param array $param
      * @return int
      */
@@ -67,7 +75,6 @@ class OrderLogic
      * @CacheWrap(key="'order:'~arg['id']",ttl=10)
      * @param int $id
      * @return Order
-     * @throws DbException
      */
     public function detail(int $id): Order
     {

@@ -4,7 +4,7 @@
 namespace App\Annotation\Parser;
 
 use App\Annotation\Mapping\CacheWrap;
-use App\Annotation\Register\CacheWrapRegister;
+use App\Register\CacheWrapRegister;
 use Swoft\Annotation\Annotation\Mapping\AnnotationParser;
 use Swoft\Annotation\Annotation\Parser\Parser;
 use Swoft\Annotation\Exception\AnnotationException;
@@ -34,7 +34,7 @@ class CacheWrapParser extends Parser
             $annotationObject->getTtl(),
         ];
 
-        CacheWrapRegister::register($this->className, $this->methodName, $data);
+        CacheWrapRegister::register($data, $this->className, $this->methodName);
 
         return [];
     }

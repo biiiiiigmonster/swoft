@@ -16,7 +16,7 @@ use Swoft\Validator\Annotation\Mapping\Validator;
  * @package App\Validator
  * @since 2.0
  *
- * @Validator(name="CaptchaValidator")
+ * @Validator("CaptchaValidator")
  */
 class CaptchaValidator
 {

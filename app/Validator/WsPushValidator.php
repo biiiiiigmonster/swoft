@@ -13,7 +13,7 @@ use Swoft\Validator\Exception\ValidatorException;
  * Class WsPushValidator
  * @package App\Validator
  *
- * @Validator(name="WsPushValidator")
+ * @Validator("WsPushValidator")
  */
 class WsPushValidator implements ValidatorInterface
 {

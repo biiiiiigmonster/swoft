@@ -16,7 +16,7 @@ use Swoft\Validator\Exception\ValidatorException;
  * @package App\Validator
  * @since 2.0
  *
- * @Validator(name="VerifyValidator")
+ * @Validator("VerifyValidator")
  */
 class VerifyValidator implements ValidatorInterface
 {

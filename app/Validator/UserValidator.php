@@ -16,7 +16,7 @@ use Swoft\Validator\Annotation\Mapping\Validator;
  *
  * @since 2.0
  *
- * @Validator(name="UserValidator")
+ * @Validator("UserValidator")
  */
 class UserValidator
 {

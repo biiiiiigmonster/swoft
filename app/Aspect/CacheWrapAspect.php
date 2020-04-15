@@ -3,7 +3,7 @@
 namespace App\Aspect;
 
 use App\Annotation\Mapping\CacheWrap;
-use App\Annotation\Register\CacheWrapRegister;
+use App\Register\CacheWrapRegister;
 use Swoft\Aop\Annotation\Mapping\Around;
 use Swoft\Aop\Annotation\Mapping\Aspect;
 use Swoft\Aop\Annotation\Mapping\PointAnnotation;
@@ -40,7 +40,7 @@ class CacheWrapAspect
 
         [$key, $ttl] = CacheWrapRegister::get($className,$methodName);
         if(!$key = CacheWrapRegister::formatKey($argsMap,$key)) {
-            //如果没有从缓存注解中解析出key（因为CacheWrap注解key非必填），则采用默认规则来赋值key
+            //如果没有从缓存注解中解析出有效key（因为CacheWrap注解key非必填），则采用默认规则来赋值key
             $key = "$className@$methodName";
         }
 

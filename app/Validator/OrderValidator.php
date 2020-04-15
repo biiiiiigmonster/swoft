@@ -13,7 +13,7 @@ use Swoft\Validator\Annotation\Mapping\Validator;
  * Class OrderValidator
  * @package App\Validator
  *
- * @Validator(name="OrderValidator")
+ * @Validator("OrderValidator")
  */
 class OrderValidator
 {

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Annotation\Register;
+namespace App\Register;
 
 
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
@@ -20,11 +20,11 @@ class CacheWrapRegister
 
     /**
      * 注册
+     * @param array $data
      * @param string $className
      * @param string $methodName
-     * @param array $data
      */
-    public static function register(string $className, string $methodName,array $data): void
+    public static function register(array $data,string $className, string $methodName): void
     {
         self::$data[$className][$methodName] = $data;
     }
