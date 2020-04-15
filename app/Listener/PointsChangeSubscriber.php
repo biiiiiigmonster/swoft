@@ -42,7 +42,6 @@ class PointsChangeSubscriber implements EventSubscriberInterface
         /** @var User $user */
         $user = $event->getTarget();
         $points = 10;
-        Co::sleep(5);
 
         \Swoft::trigger(PointsEvent::ADD,$user,$points);
     }

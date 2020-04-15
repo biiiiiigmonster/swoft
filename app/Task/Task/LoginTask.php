@@ -11,6 +11,8 @@
 namespace App\Task\Task;
 
 use App\Model\Entity\User;
+use Carbon\Carbon;
+use Swoft\Log\Helper\CLog;
 use Swoft\Log\Helper\Log;
 use Swoft\Task\Annotation\Mapping\Task;
 use Swoft\Task\Annotation\Mapping\TaskMapping;
@@ -28,14 +30,20 @@ class LoginTask{
      * 保存用户登录信息
      *
      * @TaskMapping()
-     * @param int $id
-     * @param array $data
+     * @param User $user
+     * @throws \ReflectionException
+     * @throws \Swoft\Bean\Exception\ContainerException
+     * @throws \Swoft\Db\Exception\DbException
      */
-    public function imprint(int $id,array $data): void
+    public function imprint(User $user): void
     {
-        $row = User::modifyById($id,$data);
-        if(!$row) {
-            Log::warning("用户\{$id\}登录信息保存失败");
-        }
+        CLog::info('异步：'.ip());
+//        $user->setLastLoginIp(ip());
+//        $user->setLastLoginTime(Carbon::now()->toDateTimeString());
+//        $res = $user->save();
+//
+//        if(!$res) {
+//            Log::warning("用户\{{$user->getMobile()}}\}登录信息保存失败");
+//        }
     }
 }

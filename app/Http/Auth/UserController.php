@@ -124,7 +124,7 @@ class UserController{
         $user = $this->logic->login($data);
         /**
          * 关于事件处理机制与任务投递机制
-         * 1、事件是同步执行策略，任务分别有三种执行策略（同步、协程、异步，详见文档）
+         * 1、事件是同步执行策略（可以通过sgo创建协程方式达到异步效果），任务分别有三种执行策略（同步、协程、异步，详见文档）
          * 2、这两种方案均可用于解决业务逻辑分支问题
          * 3、事件触发属于被动型：在完成主线逻辑之后，只需要抛出触发标识，由监听（订阅）者负责捕获并实现就行；
          *      可以看作一对多关系（一处触发，多处实现）；
@@ -134,9 +134,10 @@ class UserController{
          *    建议根据上面的解释，再结合实际业务场景，慎重coding
          */
         //触发登录事件
-        sgo(fn() => \Swoft::trigger(UserEvent::LOGIN,$user));
+        sgo(fn() => \Swoft::trigger(UserEvent::LOGIN,$user));//异步触发
         //投递记录本次登陆信息
-        Task::async('LoginTask','imprint',[$user->getId(),['last_login_ip'=>ip(),'last_login_time'=>Carbon::now()->toDateTimeString()]]);
+        CLog::info('同步：'.ip());
+        Task::async('LoginTask','imprint',[$user]);
 
         return $user->toArray();
     }
