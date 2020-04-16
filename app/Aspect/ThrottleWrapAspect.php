@@ -32,9 +32,13 @@ class ThrottleWrapAspect
     {
         $className = $joinPoint->getClassName();
         $method = $joinPoint->getMethod();
+        $argsMap = $joinPoint->getArgsMap();
 
         [$prefix,$key,$maxAccept,$ttl] = ThrottleRegister::get($className,$method);
-
+        if(!$key = ThrottleRegister::formatKey($key,$argsMap)) {
+            //如果没有从缓存注解中解析出有效key（因为ThrottleRegister注解key非必填），则采用默认规则来赋值key
+            $key = "$className@$method";
+        }
         //第一次访问初始化计数1，有效时间$ttl
         $times = remember("{$prefix}{$key}",1,$ttl);
         if($times>$maxAccept) {

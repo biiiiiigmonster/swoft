@@ -36,15 +36,14 @@ class CacheWrapAspect
     public function aroundAdvice(ProceedingJoinPoint $proceedingJoinPoint)
     {
         $className = $proceedingJoinPoint->getClassName();
-        $methodName = $proceedingJoinPoint->getMethod();
+        $method = $proceedingJoinPoint->getMethod();
         $argsMap = $proceedingJoinPoint->getArgsMap();
-        CLog::info(json_encode($proceedingJoinPoint->getArgs()));
-        CLog::info(json_encode($argsMap));
 
-        [$prefix, $key, $ttl] = CacheWrapRegister::get($className,$methodName);
-        if(!$key = CacheWrapRegister::formatKey($argsMap,$key)) {
+        [$prefix, $key, $ttl] = CacheWrapRegister::get($className,$method);
+        CLog::info(CacheWrapRegister::formatKey($key,$argsMap));
+        if(!$key = CacheWrapRegister::formatKey($key,$argsMap)) {
             //如果没有从缓存注解中解析出有效key（因为CacheWrap注解key非必填），则采用默认规则来赋值key
-            $key = "$className@$methodName";
+            $key = "$className@$method";
         }
 
         return remember("{$prefix}{$key}",fn() => $proceedingJoinPoint->proceed(),(int)$ttl);

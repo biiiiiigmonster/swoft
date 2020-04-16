@@ -4,7 +4,6 @@
 namespace App\Register;
 
 
-use Swoft\Log\Helper\CLog;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 
 /**
@@ -41,15 +40,17 @@ class CacheWrapRegister
     }
 
     /**
-     * @param array $arguments
-     * @param string $value
+     * @param string $key
+     * @param array $args
      * @return string
      */
-    public static function formatKey(array $arguments, string $value): string
+    public static function formatKey(string $key, array $args): string
     {
         // Parse express language
         $el = new ExpressionLanguage();
-        CLog::info('转换：'.json_encode($arguments));
-        return $el->evaluate($value, $arguments);
+        $values = array_merge($args,[
+            'request' => context()->getRequest(),//表达式支持请求对象
+        ]);
+        return $el->evaluate($key, $values);
     }
 }
