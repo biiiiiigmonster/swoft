@@ -141,7 +141,8 @@ return [
         'password' => 'BBOqWsva',
         'database' => 0,
         'option'   => [
-            'prefix' => 'swoft:'
+            'prefix' => 'swoft:',
+            'serializer ' => 0,
         ]
     ],
     'user'              => [
