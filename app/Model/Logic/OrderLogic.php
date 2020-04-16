@@ -72,7 +72,7 @@ class OrderLogic
     /**
      * 获取订单详情
      *
-     * @CacheWrap(key="'order:'~id~'xixi'~request.get('xixi',555)~request.getUri().getHost()",ttl=10)
+     * @CacheWrap(key="'order:'~id",ttl=10)
      * @param int $id
      * @return Order
      */

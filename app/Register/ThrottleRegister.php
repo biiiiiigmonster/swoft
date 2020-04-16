@@ -48,15 +48,19 @@ class ThrottleRegister
 
     /**
      * @param string $key
+     * @param string $className
+     * @param string $method
      * @param array $args
      * @return string
      */
-    public static function formatKey(string $key, array $args): string
+    public static function evaluateKey(string $key, string $className, string $method, array $args): string
     {
         // Parse express language
         $el = new ExpressionLanguage();
         $values = array_merge($args,[
             'request' => context()->getRequest(),//表达式支持请求对象
+            'CLASS' => $className,
+            'METHOD' => $method,
         ]);
         return $el->evaluate($key, $values);
     }

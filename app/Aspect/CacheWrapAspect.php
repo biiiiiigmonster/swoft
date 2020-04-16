@@ -40,8 +40,7 @@ class CacheWrapAspect
         $argsMap = $proceedingJoinPoint->getArgsMap();
 
         [$prefix, $key, $ttl] = CacheWrapRegister::get($className,$method);
-        CLog::info(CacheWrapRegister::formatKey($key,$argsMap));
-        if(!$key = CacheWrapRegister::formatKey($key,$argsMap)) {
+        if(!$key = CacheWrapRegister::evaluateKey($key,$className,$method,$argsMap)) {
             //如果没有从缓存注解中解析出有效key（因为CacheWrap注解key非必填），则采用默认规则来赋值key
             $key = "$className@$method";
         }

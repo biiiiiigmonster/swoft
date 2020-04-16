@@ -11,6 +11,7 @@ use Swoft\Aop\Annotation\Mapping\Aspect;
 use Swoft\Aop\Annotation\Mapping\Before;
 use Swoft\Aop\Annotation\Mapping\PointAnnotation;
 use Swoft\Aop\Point\JoinPoint;
+use Swoft\Log\Helper\CLog;
 use Swoft\Redis\Redis;
 
 /**
@@ -35,7 +36,8 @@ class ThrottleWrapAspect
         $argsMap = $joinPoint->getArgsMap();
 
         [$prefix,$key,$maxAccept,$ttl] = ThrottleRegister::get($className,$method);
-        if(!$key = ThrottleRegister::formatKey($key,$argsMap)) {
+        CLog::info(ThrottleRegister::evaluateKey($key,$className,$method,$argsMap));
+        if(!$key = ThrottleRegister::evaluateKey($key,$className,$method,$argsMap)) {
             //如果没有从缓存注解中解析出有效key（因为ThrottleRegister注解key非必填），则采用默认规则来赋值key
             $key = "$className@$method";
         }
