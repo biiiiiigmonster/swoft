@@ -55,6 +55,7 @@ class ThrottleRegister
      */
     public static function evaluateKey(string $key, string $className, string $method, array $args): string
     {
+        if($key==='') return '';
         // Parse express language
         $el = new ExpressionLanguage();
         $values = array_merge($args,[
