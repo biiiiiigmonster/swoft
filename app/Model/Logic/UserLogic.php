@@ -30,13 +30,13 @@ class UserLogic
      * 用户登录
      *
      * @param array $param
-     * @return User
+     * @return array
      * @throws BizException
      * @throws ReflectionException
      * @throws ContainerException
      * @throws DbException
      */
-    public function login(array $param): User
+    public function login(array $param): array
     {
         $where = [
             ['mobile',$param['mobile']],
@@ -50,19 +50,19 @@ class UserLogic
         $user->setLoginCode(Str::random());
         $user->save();
 
-        return $user;
+        return $user->toArray();
     }
 
     /**
      * 用户注册
      *
      * @param array $param
-     * @return User
+     * @return array
      * @throws ContainerException
      * @throws DbException
      * @throws ReflectionException
      */
-    public function register(array $param): User
+    public function register(array $param): array
     {
         $param['password'] = md5($param['password']);
         $user = User::new($param);
@@ -72,6 +72,6 @@ class UserLogic
             throw new RuntimeException('用户注册异常');
         }
 
-        return $user;
+        return $user->toArray();
     }
 }

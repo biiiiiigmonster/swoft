@@ -137,9 +137,9 @@ class UserController{
          *    建议根据上面的解释，再结合实际业务场景，慎重选型，慎重coding！
          */
         //触发登录事件
-        sgo(fn() => \Swoft::trigger(UserEvent::LOGIN,$user));//异步触发
+        sgo(fn() => \Swoft::trigger(UserEvent::LOGIN,User::find($user['id'])));//异步触发
         //投递记录本次登录信息
-        Task::async('LoginTask','imprint',[$user->getId(),['last_login_ip'=>ip(),'last_login_time'=>Carbon::now()->toDateTimeString()]]);
+        Task::async('LoginTask','imprint',[$user['id'],['last_login_ip'=>ip(),'last_login_time'=>Carbon::now()->toDateTimeString()]]);
 
         return $user->toArray();
     }
@@ -165,8 +165,8 @@ class UserController{
 
         $user = $this->logic->register($data);
         //触发注册事件
-        sgo(fn() => \Swoft::trigger(UserEvent::REGISTER,$user));//异步触发
+        sgo(fn() => \Swoft::trigger(UserEvent::REGISTER,User::find($user['id'])));//异步触发
 
-        return $user->toArray();
+        return $user;
     }
 }

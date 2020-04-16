@@ -142,7 +142,7 @@ return [
         'database' => 0,
         'option'   => [
             'prefix' => 'swoft:',
-            'serializer' => Redis::SERIALIZER_NONE,
+            'serializer' => Redis::SERIALIZER_JSON,
         ]
     ],
     'user'              => [

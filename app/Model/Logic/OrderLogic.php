@@ -56,17 +56,17 @@ class OrderLogic
      * @param array $param
      * @param int $page
      * @param int $pageSize
-     * @return Collection
+     * @return array
      * @throws DbException
      */
-    public function list(array $param, int $page=0, int $pageSize=10): Collection
+    public function list(array $param, int $page=0, int $pageSize=10): array
     {
         $model = Order::whereProp($this->where($param))
             ->whereBetween('create_time',[$param['start'],$param['end']]);
         if($page) $model->forPage($page,$pageSize);
         $list = $model->get();
 
-        return $list;
+        return $list->toArray();
     }
 
     /**
@@ -74,12 +74,13 @@ class OrderLogic
      *
      * @CacheWrap(key="'order:'~id",ttl=10)
      * @param int $id
-     * @return Order
+     * @return array
+     * @throws DbException
      */
-    public function detail(int $id): Order
+    public function detail(int $id): array
     {
         $order = Order::find($id);
 
-        return $order;
+        return $order->toArray();
     }
 }
