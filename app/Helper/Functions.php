@@ -20,6 +20,7 @@ if (!function_exists('remember')) {
     function remember(string $key,$value,$ttl = null)
     {
         $cache = Redis::get($key);
+        \Swoft\Log\Helper\CLog::info($cache);
         if($cache !== false) {
             return $cache;
         }
