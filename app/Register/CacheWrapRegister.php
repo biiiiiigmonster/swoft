@@ -22,21 +22,21 @@ class CacheWrapRegister
      * 注册
      * @param array $data
      * @param string $className
-     * @param string $methodName
+     * @param string $method
      */
-    public static function register(array $data,string $className, string $methodName): void
+    public static function register(array $data,string $className,string $method): void
     {
-        self::$data[$className][$methodName] = $data;
+        self::$data[$className][$method] = $data;
     }
 
     /**
      * @param string $className
-     * @param string $methodName
+     * @param string $method
      * @return array
      */
-    public static function get(string $className, string $methodName): array
+    public static function get(string $className, string $method): array
     {
-        return self::$data[$className][$methodName] ?? [];
+        return self::$data[$className][$method] ?? [];
     }
 
     /**

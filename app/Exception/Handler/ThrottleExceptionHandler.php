@@ -1,0 +1,42 @@
+<?php
+
+
+namespace App\Exception\Handler;
+
+
+
+use App\Exception\ThrottleException;
+use Swoft\Error\Annotation\Mapping\ExceptionHandler;
+use Swoft\Http\Message\Response;
+use Swoft\Http\Server\Exception\Handler\AbstractHttpErrorHandler;
+use Swoft\Log\Helper\Log;
+use Throwable;
+
+/**
+ * Class ThrottleExceptionHandler
+ * @package App\Exception\Handler
+ *
+ * @ExceptionHandler(ThrottleException::class)
+ */
+class ThrottleExceptionHandler extends AbstractHttpErrorHandler
+{
+    /**
+     * @param Throwable $except
+     * @param Response $response
+     * @return Response
+     */
+    public function handle(Throwable $except, Response $response): Response
+    {
+        // Debug is false
+        if (!APP_DEBUG) {
+            Log::error(sprintf(' %s At %s line %d', $except->getMessage(), $except->getFile(), $except->getLine()));
+            return $response->withStatus(429)->withContent(
+                sprintf(' %s', 'Too Many Requests')
+            );
+        }
+
+        $data = format(null,FAILED,$except->getMessage());
+
+        return $response->withData($data);
+    }
+}
