@@ -46,8 +46,6 @@ class ThrottleAspect
             //这种验证方式存在一点点bug啊，不过要求不严格可以用，在一个$ttl内最多可以访问2*$maxAccept-1次,细细品
             throw new ThrottleException('请求太频繁了');
         }
-        CLog::info(Redis::get("{$prefix}{$key}"));
-        Redis::incrBy("{$prefix}{$key}",3);
-        CLog::info(Redis::get("{$prefix}{$key}"));
+        Redis::incr("{$prefix}{$key}");
     }
 }

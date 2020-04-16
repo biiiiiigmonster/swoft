@@ -69,7 +69,7 @@ class OrderController{
      * 获取订单详情
      *
      * @RequestMapping(route="{id}",method=RequestMethod::GET)
-     * @Throttle()
+     * @Throttle(frequency="5/1m",key="id")
      * @param int $id
      * @return array
      * @throws DbException
