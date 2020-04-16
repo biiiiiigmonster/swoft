@@ -62,6 +62,6 @@ class ThrottleRegister
             'CLASS' => $className,
             'METHOD' => $method,
         ]);
-        return $el->evaluate($key, $values);
+        return (string)$el->evaluate($key, $values);
     }
 }
