@@ -31,7 +31,7 @@ class ThrottleRegister
         $unit = substr($duration,-1);
         $ttl = $value * ArrayHelper::get(['s'=>1,'m'=>60,'h'=>60*60,'d'=>60*60*24],$unit,1);
 
-        $throttleConfig = [$throttle->getName(),$maxAccepts,$ttl];
+        $throttleConfig = [$throttle->getPrefix(),$throttle->getKey(),$maxAccepts,$ttl];
         self::$throttle[$className][$method] = $throttleConfig;
     }
 
@@ -43,5 +43,17 @@ class ThrottleRegister
     public static function get(string $className,string $method): array
     {
         return self::$throttle[$className][$method] ?? [];
+    }
+
+    /**
+     * @param array $arguments
+     * @param string $value
+     * @return string
+     */
+    public static function formatKey(array $arguments, string $value): string
+    {
+        // Parse express language
+        $el = new ExpressionLanguage();
+        return $el->evaluate($value, ['arg' => $arguments]);
     }
 }

@@ -21,6 +21,10 @@ use Doctrine\Common\Annotations\Annotation\Target;
 class CacheWrap
 {
     /**
+     * @var string
+     */
+    private $prefix = 'biiiiiigmonster:cache:';
+    /**
      * 注解key支持symfony/expression-language语法表达式
      * @var string
      */
@@ -44,6 +48,17 @@ class CacheWrap
         if (isset($values['ttl'])) {
             $this->ttl = (int)$values['ttl'];
         }
+        if (isset($values['prefix'])) {
+            $this->prefix = $values['prefix'];
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function getPrefix(): string
+    {
+        return $this->prefix;
     }
 
     /**

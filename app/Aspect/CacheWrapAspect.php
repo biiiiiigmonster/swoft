@@ -8,6 +8,7 @@ use Swoft\Aop\Annotation\Mapping\Around;
 use Swoft\Aop\Annotation\Mapping\Aspect;
 use Swoft\Aop\Annotation\Mapping\PointAnnotation;
 use Swoft\Aop\Point\ProceedingJoinPoint;
+use Swoft\Aop\Proxy;
 use Swoft\Log\Helper\CLog;
 use Throwable;
 
@@ -37,16 +38,15 @@ class CacheWrapAspect
         $className = $proceedingJoinPoint->getClassName();
         $methodName = $proceedingJoinPoint->getMethod();
         $argsMap = $proceedingJoinPoint->getArgsMap();
-
-        [$key, $ttl] = CacheWrapRegister::get($className,$methodName);
-        CLog::info($key);
+        CLog::info(json_encode($proceedingJoinPoint->getArgs()));
         CLog::info(json_encode($argsMap));
-        CLog::info(CacheWrapRegister::formatKey($argsMap,$key));
+
+        [$prefix, $key, $ttl] = CacheWrapRegister::get($className,$methodName);
         if(!$key = CacheWrapRegister::formatKey($argsMap,$key)) {
             //如果没有从缓存注解中解析出有效key（因为CacheWrap注解key非必填），则采用默认规则来赋值key
             $key = "$className@$methodName";
         }
 
-        return remember($key,fn() => $proceedingJoinPoint->proceed(),(int)$ttl);
+        return remember("{$prefix}{$key}",fn() => $proceedingJoinPoint->proceed(),(int)$ttl);
     }
 }

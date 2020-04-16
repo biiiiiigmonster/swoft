@@ -30,6 +30,7 @@ class CacheWrapParser extends Parser
         }
 
         $data = [
+            $annotationObject->getPrefix(),
             $annotationObject->getKey(),
             $annotationObject->getTtl(),
         ];

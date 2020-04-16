@@ -6,7 +6,6 @@ namespace App\Annotation\Mapping;
 
 use Doctrine\Common\Annotations\Annotation\Attribute;
 use Doctrine\Common\Annotations\Annotation\Attributes;
-use Doctrine\Common\Annotations\Annotation\Required;
 use Doctrine\Common\Annotations\Annotation\Target;
 
 /**
@@ -23,11 +22,15 @@ class Throttle
     /**
      * @var string
      */
-    private $name = 'swoft:throttle';
+    private $prefix = 'biiiiiigmonster:throttle:';
 
     /**
      * @var string
-     * @Required()
+     */
+    private $key = '';
+
+    /**
+     * @var string
      * @example 1/1m,1/5m,5/30s... unit support [s:每秒,m:每分,h:每小时,d:每天]
      */
     private $frequency = '1/1m';
@@ -44,9 +47,20 @@ class Throttle
         if (isset($values['frequency'])) {
             $this->frequency = $values['frequency'];
         }
-        if (isset($values['name'])) {
-            $this->name = $values['name'];
+        if (isset($values['key'])) {
+            $this->key = $values['key'];
         }
+        if (isset($values['prefix'])) {
+            $this->prefix = $values['prefix'];
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function getPrefix(): string
+    {
+        return $this->prefix;
     }
 
     /**
@@ -60,8 +74,8 @@ class Throttle
     /**
      * @return string
      */
-    public function getName(): string
+    public function getKey(): string
     {
-        return $this->name;
+        return $this->key;
     }
 }
