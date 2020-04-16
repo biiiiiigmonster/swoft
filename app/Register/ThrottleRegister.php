@@ -31,9 +31,6 @@ class ThrottleRegister
         $value = substr($duration,0,-1);
         $unit = substr($duration,-1);
         $ttl = $value * ArrayHelper::get(['s'=>1,'m'=>60,'h'=>60*60,'d'=>60*60*24],$unit,1);
-        CLog::info($value);
-        CLog::info($unit);
-        CLog::info((string)$ttl);
         $throttleConfig = [$throttle->getPrefix(),$throttle->getKey(),$maxAccepts,$ttl];
         self::$throttle[$className][$method] = $throttleConfig;
     }

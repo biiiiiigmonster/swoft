@@ -15,14 +15,14 @@ use Swoft\Log\Helper\CLog;
 use Swoft\Redis\Redis;
 
 /**
- * Class ThrottleWrapAspect
+ * Class ThrottleAspect
  * @package App\Aspect
  * @Aspect()
  * @PointAnnotation(
  *     include={Throttle::class}
  * )
  */
-class ThrottleWrapAspect
+class ThrottleAspect
 {
     /**
      * @Before()
