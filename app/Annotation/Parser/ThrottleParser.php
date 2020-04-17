@@ -8,6 +8,7 @@ use App\Register\ThrottleRegister;
 use Swoft\Annotation\Annotation\Mapping\AnnotationParser;
 use App\Annotation\Mapping\Throttle;
 use Swoft\Annotation\Annotation\Parser\Parser;
+use Swoft\Log\Helper\CLog;
 
 /**
  * Class ThrottleParser
@@ -27,6 +28,7 @@ class ThrottleParser extends Parser
             return [];
         }
 
+        CLog::info('注册的class：'.$this->className);
         ThrottleRegister::register($this->className,$this->methodName,$annotationObject);
         return [];
     }

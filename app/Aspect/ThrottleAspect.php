@@ -39,6 +39,7 @@ class ThrottleAspect
         $target = $proceedingJoinPoint->getTarget();
         $className = get_class($target);
 
+        CLog::info('获取的class'.$className);
         [$prefix,$key,$maxAccept,$ttl,$idempotent] = ThrottleRegister::get($className,$method);
         if(!$key = ThrottleRegister::evaluateKey($key,$className,$method,$argsMap)) {
             $key = "$className@$method";
