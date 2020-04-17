@@ -36,6 +36,12 @@ class Throttle
     private $frequency = '1/1m';
 
     /**
+     * @var bool
+     * 是否幂等返回
+     */
+    private $idempotent = false;
+
+    /**
      * Throttle constructor.
      * @param array $values
      */
@@ -52,6 +58,9 @@ class Throttle
         }
         if (isset($values['prefix'])) {
             $this->prefix = $values['prefix'];
+        }
+        if (isset($values['idempotent'])) {
+            $this->idempotent = $values['idempotent'];
         }
     }
 
@@ -77,5 +86,13 @@ class Throttle
     public function getKey(): string
     {
         return $this->key;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isIdempotent(): bool
+    {
+        return $this->idempotent;
     }
 }

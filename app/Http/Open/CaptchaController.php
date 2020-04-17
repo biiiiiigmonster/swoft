@@ -17,12 +17,8 @@ use Swoft\Http\Message\Request;
 use Swoft\Http\Server\Annotation\Mapping\Controller;
 use Swoft\Http\Server\Annotation\Mapping\RequestMapping;
 use Swoft\Http\Server\Annotation\Mapping\RequestMethod;
-use Swoft\Limiter\Annotation\Mapping\RateLimiter;
-use Swoft\Log\Helper\CLog;
-use Swoft\Log\Helper\Log;
 use Swoft\Redis\Redis;
 use Swoft\Rpc\Client\Annotation\Mapping\Reference;
-use Exception;
 use Swoft\Validator\Annotation\Mapping\Validate;
 
 /**
@@ -56,8 +52,6 @@ class CaptchaController{
      * 比如某某情况下才不允许做什么，至于怎么去漂亮的实现，还需细品
      * @Validate(validator="CaptchaValidator",fields={"scene","mobile"})
      * @Throttle(frequency="1/2m",key="request.post('mobile')~':'~request.post('scene')")
-     * 这里限流器的作用就当做就是防抖吧，毕竟最小限制是1qps/seconds；PS：这个好像还不能使用
-     * @RateLimiter(rate=1,key="request.post('mobile')~':'~request.post('scene')")
      *
      * @param Request $request
      * @return array
@@ -76,7 +70,6 @@ class CaptchaController{
      *
      * @RequestMapping(route="email", method=RequestMethod::POST)
      * @Validate(validator="CaptchaValidator",fields={"scene","email"})
-     * @RateLimiter(rate=1,key="request.post('email')~':'~request.post('scene')")
      *
      * @param Request $request
      * @return array
