@@ -14,10 +14,10 @@ use Doctrine\Common\Annotations\Annotation\Target;
  * @Annotation()
  * @Target("METHOD")
  * @Attributes({
- *     @Attribute("frequency",type="string")
- *     @Attribute("prefix",type="string")
- *     @Attribute("key",type="string")
- *     @Attribute("idempotent",type="bool")
+ *     @Attribute("frequency",type="string"),
+ *     @Attribute("prefix",type="string"),
+ *     @Attribute("key",type="string"),
+ *     @Attribute("idempotent",type="bool"),
  *     })
  */
 class Throttle
