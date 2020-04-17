@@ -9,12 +9,15 @@ use Doctrine\Common\Annotations\Annotation\Attributes;
 use Doctrine\Common\Annotations\Annotation\Target;
 
 /**
- * Class Throttle
+ * 请求频率节流阀
  * @package App\Annotation\Mapping
  * @Annotation()
  * @Target("METHOD")
  * @Attributes({
  *     @Attribute("frequency",type="string")
+ *     @Attribute("prefix",type="string")
+ *     @Attribute("key",type="string")
+ *     @Attribute("idempotent",type="bool")
  *     })
  */
 class Throttle

@@ -34,6 +34,6 @@ class AnnotationAspect
      */
     public function after()
     {
-        CLog::info('要出去了啊');
+//        CLog::info('要出去了啊');
     }
 }
