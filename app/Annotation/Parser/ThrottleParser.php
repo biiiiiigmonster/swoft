@@ -28,7 +28,6 @@ class ThrottleParser extends Parser
             return [];
         }
 
-        CLog::info('注册的class：'.$this->className);
         ThrottleRegister::register($this->className,$this->methodName,$annotationObject);
         return [];
     }
