@@ -44,8 +44,7 @@ class ThrottleAspect
         }
         //第一次访问初始化计数，有效时间$ttl
         $times = remember("{$prefix}{$key}",1,$ttl);
-
-        if($idempotent && $times==$maxAccept) {
+        if($idempotent && $times>=$maxAccept) {
             /**
              * 如果设置了幂等， 并且在临界阈值访问次数时，将此次结果设置缓存
              * 例：当$maxAccept设置成5时，前四次访问均正常执行，到第五次的时候会将此次结果缓存，并且后续时间(Redis::ttl("{$prefix}{$key}"))
