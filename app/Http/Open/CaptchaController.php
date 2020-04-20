@@ -10,7 +10,7 @@
 
 namespace App\Http\Open;
 
-use App\Annotation\Mapping\Throttle;
+use BiiiiiigMonster\Throttle\Annotation\Mapping\Throttle;
 use App\Rpc\Lib\EmailInterface;
 use App\Rpc\Lib\SmsInterface;
 use Swoft\Http\Message\Request;

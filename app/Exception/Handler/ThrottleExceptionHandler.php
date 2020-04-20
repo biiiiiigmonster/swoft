@@ -5,7 +5,7 @@ namespace App\Exception\Handler;
 
 
 
-use App\Exception\ThrottleException;
+use BiiiiiigMonster\Throttle\Exception\ThrottleException;
 use Swoft\Error\Annotation\Mapping\ExceptionHandler;
 use Swoft\Http\Message\Response;
 use Swoft\Http\Server\Exception\Handler\AbstractHttpErrorHandler;
