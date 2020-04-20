@@ -16,9 +16,9 @@ class PointsEvent
     public const ADD = 'points.change.add';
 
     /**
-     * 减少
+     * 消费
      */
-    public const SUBTRACT = 'points.change.subtract';
+    public const COST = 'points.change.cost';
 
     /**
      * 清零
