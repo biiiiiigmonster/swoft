@@ -74,7 +74,7 @@
     "do-cs-fix": "./bin/php-cs-fixer fix"
   },
   "repositories": [
-    {"type": "composer", "url": "https://php.cnpkg.org"},
+    {"type": "composer", "url": "https://mirrors.aliyun.com/composer/"},
     {"packagist": false}
   ]
 }
