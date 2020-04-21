@@ -3,8 +3,8 @@
 
 namespace App\Model\Logic;
 
-use App\Annotation\Mapping\CacheWrap;
 use App\Model\Entity\Order;
+use BiiiiiigMonster\Cache\Annotation\Mapping\Cache;
 use Swoft\Bean\Annotation\Mapping\Bean;
 use Swoft\Db\Eloquent\Collection;
 use Swoft\Db\Exception\DbException;
@@ -72,7 +72,7 @@ class OrderLogic
     /**
      * 获取订单详情
      *
-     * @CacheWrap(key="'order:'~id",ttl=10)
+     * @Cache(key="'order:'~id",ttl=10)
      * @param int $id
      * @return array
      * @throws DbException
