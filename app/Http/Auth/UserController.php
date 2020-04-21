@@ -141,7 +141,7 @@ class UserController{
         //投递记录本次登录信息
         Task::async('LoginTask','imprint',[$user['id'],['last_login_ip'=>ip($request),'last_login_time'=>Carbon::now()->toDateTimeString()]]);
 
-        return $user->toArray();
+        return $user;
     }
 
     /**
