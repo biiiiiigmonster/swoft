@@ -95,7 +95,7 @@ class UserController{
     {
         $id = $request->auth->id;
         $iss = $request->getUri()->getHost();//签发者
-        $aud = '*.'.root_domain();//接收者
+        $aud = '*.'.root_domain($request);//接收者
 
         //生成授权
         $jwt = $this->userService->authorize(['id'=>$id],$iss,$aud);
@@ -139,7 +139,7 @@ class UserController{
         //触发登录事件
         sgo(fn() => \Swoft::trigger(UserEvent::LOGIN,User::find($user['id'])));//异步触发
         //投递记录本次登录信息
-        Task::async('LoginTask','imprint',[$user['id'],['last_login_ip'=>ip(),'last_login_time'=>Carbon::now()->toDateTimeString()]]);
+        Task::async('LoginTask','imprint',[$user['id'],['last_login_ip'=>ip($request),'last_login_time'=>Carbon::now()->toDateTimeString()]]);
 
         return $user->toArray();
     }

@@ -8,6 +8,7 @@
  * @license  https://github.com/swoft-cloud/swoft/blob/master/LICENSE
  */
 use Swoft\Redis\Redis;
+use Swoft\Http\Message\Request;
 
 if (!function_exists('remember')) {
     /**
@@ -75,12 +76,12 @@ if (!function_exists('ws_format')) {
 if (!function_exists('root_domain')) {
     /**
      * 获取当前根域名
-     * @access public
+     * @param Request $request
      * @return string
      */
-    function root_domain(): string
+    function root_domain(Request $request): string
     {
-        $item  = explode('.', context()->getRequest()->getUri()->getHost());
+        $item  = explode('.', $request->getUri()->getHost());
         $count = count($item);
         return $count > 1 ? $item[$count - 2] . '.' . $item[$count - 1] : $item[0];
     }
@@ -89,27 +90,28 @@ if (!function_exists('root_domain')) {
 if (!function_exists('sub_domain')) {
     /**
      * 获取当前子域名
-     * @access public
+     * @param Request $request
      * @return string
      */
-    function sub_domain(): string
+    function sub_domain(Request $request): string
     {
         // 获取当前主域名
-        $rootDomain = root_domain();
+        $rootDomain = root_domain($request);
 
-        return rtrim(stristr(context()->getRequest()->getUri()->getHost(), $rootDomain, true), '.');
+        return rtrim(stristr($request->getUri()->getHost(), $rootDomain, true), '.');
     }
 }
 
 if (!function_exists('ip')) {
     /**
      * 获取客户端的真实IP
+     * @param Request $request
      * @return string
      */
-    function ip(): string
+    function ip(Request $request): string
     {
-        $serverParams = context()->getRequest()->getServerParams();
-        $HeaderParams = context()->getRequest()->getHeaders();
+        $serverParams = $request->getServerParams();
+        $HeaderParams = $request->getHeaders();
 
         /** var String */
         $ip = $HeaderParams['x-real-ip'][0]??$HeaderParams['x-forwarded-for'][0]??$serverParams['remote_addr']??'0.0.0.0';

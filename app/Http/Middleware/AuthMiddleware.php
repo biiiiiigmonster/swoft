@@ -22,6 +22,7 @@ use Psr\Http\Server\RequestHandlerInterface;
 use Swoft\Bean\Annotation\Mapping\Bean;
 use Swoft\Http\Message\Request;
 use Swoft\Http\Server\Contract\MiddlewareInterface;
+use Exception;
 use Swoft\Log\Helper\CLog;
 use Swoft\Log\Helper\Log;
 use function context;
@@ -34,7 +35,7 @@ use function context;
 class AuthMiddleware implements MiddlewareInterface
 {
     /**
-     * @param ServerRequestInterface $request
+     * @param ServerRequestInterface|Request $request
      * @param RequestHandlerInterface $handler
      * @return ResponseInterface
      * @throws ApiException
@@ -59,15 +60,15 @@ class AuthMiddleware implements MiddlewareInterface
             throw new ApiException('[ 验签失败 ] 解析失败',401);
         } catch (ExpiredException $e){
             throw new BizException('',AUTH_EXPIRED);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw new ApiException('[ 验签失败 ] 解析失败',401);
         }
         //签发者验证
-        if (!$this->issHostVerify($decoded->iss)) {
+        if (!$this->issHostVerify($request,$decoded->iss)) {
             throw new ApiException('[ 验签失败 ] 来源不可靠',401);
         }
         //接收者验证
-        if (!$this->audHostVerify($decoded->aud)) {
+        if (!$this->audHostVerify($request,$decoded->aud)) {
             throw new ApiException('[ 验签失败 ] 签名无法验收',401);
         }
         $response = $handler->handle($request);
@@ -78,15 +79,16 @@ class AuthMiddleware implements MiddlewareInterface
 
     /**
      * 签发者域名验证
+     * @param Request $request
      * @param string $host
      * @return bool
      */
-    private function issHostVerify(string $host): bool
+    private function issHostVerify(Request $request,string $host): bool
     {
         $allow = [
             //默认有效签发者域名为auth+当前站点的根域名
-            context()->getRequest()->getUri()->getHost(),
-            'auth.'.root_domain(),
+            $request->getUri()->getHost(),
+            'auth.'.root_domain($request),
         ];
         //必须是指定签发者且协议头一致
         return in_array($host,$allow);
@@ -94,13 +96,14 @@ class AuthMiddleware implements MiddlewareInterface
 
     /**
      * 接收者域名验证
+     * @param Request $request
      * @param string $host
      * @return bool
      */
-    private function audHostVerify(string $host):bool
+    private function audHostVerify(Request $request,string $host):bool
     {
         $arr1 = array_reverse(array_filter(explode('.',$host)),false);
-        $arr2 = array_reverse(array_filter(explode('.',sub_domain().'.'.root_domain())),false);
+        $arr2 = array_reverse(array_filter(explode('.',sub_domain($request).'.'.root_domain($request))),false);
         //将接收者的域名与当前站点的域名进行比较（$arr1,$arr2此处的处理还需理解）
         $diff = array_diff_assoc($arr1,$arr2);
         foreach ($diff as $val) {
