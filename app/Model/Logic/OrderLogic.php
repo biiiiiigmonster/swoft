@@ -72,7 +72,7 @@ class OrderLogic
     /**
      * 获取订单详情
      *
-     * @Cache(key="'order:'~id",ttl=10)
+     * @Cache(key="'order:'~id",ttl=60)
      * @param int $id
      * @return array
      * @throws DbException
