@@ -26,7 +26,7 @@ use Swoft\Validator\Annotation\Mapping\ValidateType;
 /**
  * Class OrderController
  *
- * @Controller(prefix="/order")
+ * @Controller(prefix="/orders")
  * @Middlewares({
  *     @Middleware(AuthMiddleware::class)
  * })
