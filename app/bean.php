@@ -92,7 +92,7 @@ return [
     ],
     'db'                => [
         'class'    => Database::class,
-        'dsn'      => 'mysql:dbname=tp6;host=172.16.0.2;port=13306',
+        'dsn'      => 'mysql:dbname=tp6;host=123.207.255.238;port=13306',
         'username' => 'tp6',
         'password' => 'rhf$[TF}42ad',
     ],
@@ -102,7 +102,7 @@ return [
     ],
     'db2'               => [
         'class'      => Database::class,
-        'dsn'        => 'mysql:dbname=idx;host=172.16.0.2;port=13306',
+        'dsn'        => 'mysql:dbname=idx;host=123.207.255.238;port=13306',
         'username'   => 'tp6',
         'password'   => 'rhf$[TF}42ad',
 //        'dbSelector' => bean(DbSelector::class)
@@ -113,7 +113,7 @@ return [
     ],
     'db3'               => [
         'class'    => Database::class,
-        'dsn'      => 'mysql:dbname=partitions;host=172.16.0.2;port=13306',
+        'dsn'      => 'mysql:dbname=partitions;host=123.207.255.238;port=13306',
         'username' => 'tp6',
         'password' => 'rhf$[TF}42ad',
     ],
@@ -123,7 +123,7 @@ return [
     ],
     'db4'               => [
         'class'    => Database::class,
-        'dsn'      => 'mysql:dbname=unionall;host=172.16.0.2;port=13306',
+        'dsn'      => 'mysql:dbname=unionall;host=123.207.255.238;port=13306',
         'username' => 'tp6',
         'password' => 'rhf$[TF}42ad',
     ],
@@ -136,7 +136,7 @@ return [
     ],
     'redis'             => [
         'class'    => RedisDb::class,
-        'host'     => '172.16.0.2',
+        'host'     => '123.207.255.238',
         'port'     => 6379,
         'password' => 'BBOqWsva',
         'database' => 0,
@@ -147,7 +147,7 @@ return [
     ],
     'user'              => [
         'class'   => ServiceClient::class,
-        'host'    => '127.0.0.1',//172.16.0.2
+        'host'    => '123.207.255.238',//172.16.0.2
         'port'    => 18307,
         'setting' => [
             'timeout'         => 0.5,
@@ -163,7 +163,7 @@ return [
     ],
     'sms'              => [
         'class'   => ServiceClient::class,
-        'host'    => '127.0.0.1',//172.16.0.2
+        'host'    => '123.207.255.238',//172.16.0.2
         'port'    => 18307,
         'setting' => [
             'timeout'         => 0.5,
@@ -179,7 +179,7 @@ return [
     ],
     'email'              => [
         'class'   => ServiceClient::class,
-        'host'    => '127.0.0.1',//172.16.0.2
+        'host'    => '123.207.255.238',//172.16.0.2
         'port'    => 18307,
         'setting' => [
             'timeout'         => 0.5,
