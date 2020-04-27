@@ -33,7 +33,7 @@ class AuthorizeMiddleware implements MiddlewareInterface
      *
      * @var UserInterface
      */
-    private $userService;
+    private UserInterface $userService;
 
     /**
      * Process an incoming server request.

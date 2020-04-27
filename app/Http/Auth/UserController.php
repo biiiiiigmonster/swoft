@@ -46,7 +46,7 @@ class UserController{
      *
      * @var UserLogic
      */
-    private $logic;
+    private UserLogic $logic;
 
     /**
      * @Reference(pool="user.pool",version="1.2")

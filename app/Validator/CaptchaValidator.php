@@ -26,7 +26,7 @@ class CaptchaValidator
      * @Required()
      * @var string
      */
-    protected $scene;
+    protected string $scene;
 
     /**
      * 验证码生成接收-短信渠道
@@ -34,7 +34,7 @@ class CaptchaValidator
      * @MobileInternational()
      * @var string
      */
-    protected $mobile;
+    protected ?string $mobile;
 
     /**
      * 验证码生成接收-邮件渠道
@@ -42,5 +42,5 @@ class CaptchaValidator
      * @Email()
      * @var string
      */
-    protected $email;
+    protected ?string $email;
 }

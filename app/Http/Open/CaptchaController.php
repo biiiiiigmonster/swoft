@@ -33,14 +33,14 @@ class CaptchaController{
      *
      * @var SmsInterface
      */
-    private $smsService;
+    private SmsInterface $smsService;
 
     /**
      * @Reference(pool="email.pool")
      *
      * @var EmailInterface
      */
-    private $emailService;
+    private EmailInterface $emailService;
 
     /**
      * 发送短信验证码

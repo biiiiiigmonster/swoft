@@ -38,7 +38,7 @@ class OrderController{
      *
      * @var OrderLogic
      */
-    private $logic;
+    private OrderLogic $logic;
 
     /**
      * 获取订单列表
