@@ -5,8 +5,7 @@ namespace App\Validator;
 
 
 use App\Exception\BizException;
-use Swoft\Log\Helper\Log;
-use Swoft\Redis\Redis;
+use BiiiiiigMonster\Cache\Cache;
 use Swoft\Validator\Annotation\Mapping\Validator;
 use Swoft\Validator\Contract\ValidatorInterface;
 use Swoft\Validator\Exception\ValidatorException;
@@ -33,10 +32,10 @@ class VerifyValidator implements ValidatorInterface
         if(!isset($data['captcha'])) {
             throw new ValidatorException('captcha must be exist');
         }
-        if($data['captcha']!=Redis::get('captcha:'.$data[$params['receiver']].':'.$params['scene'])) {
+        if($data['captcha']!=Cache::get('captcha:'.$data[$params['receiver']].':'.$params['scene'])) {
             throw new BizException('',CAPTCHA_ERROR);
         }
-        Redis::del('captcha:'.$data[$params['receiver']].':'.$params['scene']);
+        Cache::delete('captcha:'.$data[$params['receiver']].':'.$params['scene']);
         return $data;
     }
 }

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 define('SUCCESS', 0);
 define('NULL_PARAM', 10010);
