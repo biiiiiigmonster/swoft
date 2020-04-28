@@ -90,8 +90,6 @@ if (!function_exists('ip')) {
         $HeaderParams = $request->getHeaders();
 
         /** var String */
-        $ip = $HeaderParams['x-real-ip'][0]??$HeaderParams['x-forwarded-for'][0]??$serverParams['remote_addr']??'0.0.0.0';
-
-        return $ip;
+        return $HeaderParams['x-real-ip'][0]??$HeaderParams['x-forwarded-for'][0]??$serverParams['remote_addr']??'0.0.0.0';
     }
 }
