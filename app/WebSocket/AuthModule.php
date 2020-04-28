@@ -10,6 +10,7 @@
 
 namespace App\WebSocket;
 
+use BiiiiiigMonster\Cache\Cache;
 use Swoft\Http\Message\Request;
 use Swoft\Http\Message\Response;
 use Swoft\Log\Helper\CLog;
@@ -57,8 +58,8 @@ class AuthModule{
     public function onOpen(Request $request, int $fd)
     {
         $uuid = $request->query('uuid');
-        Redis::set($uuid,$fd);
-        Redis::set((string)$fd,$uuid);
+        Cache::set($uuid,$fd);
+        Cache::set((string)$fd,$uuid);
         server()->push($fd, 'hello, welcome! :)');
     }
 
@@ -70,9 +71,9 @@ class AuthModule{
      */
     public function onClose(Server $server, int $fd)
     {
-        $uuid = Redis::get((string)$fd);
-        Redis::del((string)$fd);
-        Redis::del((string)$uuid);
+        $uuid = Cache::get((string)$fd);
+        Cache::delete((string)$fd);
+        Cache::delete($uuid);
         // do something. eg. record log
     }
 }

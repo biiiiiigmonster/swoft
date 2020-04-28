@@ -16,6 +16,7 @@ use App\Http\Middleware\AuthorizeMiddleware;
 use App\Model\Entity\User;
 use App\Model\Logic\UserLogic;
 use App\Rpc\Lib\UserInterface;
+use BiiiiiigMonster\Cache\Cache;
 use Carbon\Carbon;
 use Swoft\Bean\Annotation\Mapping\Inject;
 use Swoft\Http\Message\Request;
@@ -81,7 +82,7 @@ class UserController{
         $uuid = $request->get('uuid');
         //触发用户扫码事件
         sgo(fn() => \Swoft::trigger(UserEvent::SCAN,User::find($request->auth->id),$request->get()));
-        server()->push((int)Redis::get($uuid),ws_format('scan'));
+        server()->push((int)Cache::get($uuid),ws_format('scan'));
     }
 
     /**
@@ -102,7 +103,7 @@ class UserController{
 
         //推送授权信息
         $uuid = $request->get('uuid');
-        server()->push((int)Redis::get($uuid),ws_format('authorize',"Bearer $jwt"));
+        server()->push((int)Cache::get($uuid),ws_format('authorize',"Bearer $jwt"));
     }
 
     /**
