@@ -10,30 +10,6 @@
 use Swoft\Redis\Redis;
 use Swoft\Http\Message\Request;
 
-if (!function_exists('remember')) {
-    /**
-     * 不存在则写入缓存数据后返回
-     * @param string $key
-     * @param mixed $value 缓存数据，支持闭包传参
-     * @param int $ttl 过期时间
-     * @return mixed
-     */
-    function remember(string $key,$value,?int $ttl = null)
-    {
-        $cache = Redis::get($key);
-        if($cache !== false) {
-            return $cache;
-        }
-
-        if($value instanceof Closure) {
-            $value = $value();
-        }
-        Redis::set($key,$value,$ttl);
-
-        return $value;
-    }
-}
-
 if (!function_exists('format')) {
     /**
      * 格式化返回数据

@@ -10,6 +10,7 @@
 
 namespace App\Http\Open;
 
+use BiiiiiigMonster\Cache\Cache;
 use BiiiiiigMonster\Throttle\Annotation\Mapping\Throttle;
 use App\Rpc\Lib\EmailInterface;
 use App\Rpc\Lib\SmsInterface;
@@ -17,7 +18,6 @@ use Swoft\Http\Message\Request;
 use Swoft\Http\Server\Annotation\Mapping\Controller;
 use Swoft\Http\Server\Annotation\Mapping\RequestMapping;
 use Swoft\Http\Server\Annotation\Mapping\RequestMethod;
-use Swoft\Redis\Redis;
 use Swoft\Rpc\Client\Annotation\Mapping\Reference;
 use Swoft\Validator\Annotation\Mapping\Validate;
 
@@ -61,7 +61,7 @@ class CaptchaController{
         $param = $request->post();
 
         $res = $this->smsService->sendCaptcha($param['mobile']);
-        Redis::set('captcha:'.$res['mobile'].':'.$param['scene'],$res['captcha'],config('captcha.expire'));
+        Cache::set('captcha:'.$res['mobile'].':'.$param['scene'], $res['captcha'], config('captcha.expire'));
         return $res;
     }
 
@@ -80,7 +80,7 @@ class CaptchaController{
         $param = $request->post();
 
         $res = $this->emailService->sendCaptcha($param['email']);
-        Redis::set('captcha:'.$res['email'].':'.$param['scene'],$res['captcha'],config('captcha.expire'));
+        Cache::set('captcha:'.$res['email'].':'.$param['scene'], $res['captcha'], config('captcha.expire'));
         return $res;
     }
 }
