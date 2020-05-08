@@ -26,7 +26,6 @@ class MobileInternationalParser extends Parser
      */
     public function parse(int $type, $annotationObject): array
     {
-        //我还不太明白这个判断的意义是啥...
         if ($type == self::TYPE_PROPERTY) {
             ValidatorRegister::registerValidatorItem($this->className, $this->propertyName, $annotationObject);
         }

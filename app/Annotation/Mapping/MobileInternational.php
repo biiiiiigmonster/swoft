@@ -13,7 +13,8 @@ use Doctrine\Common\Annotations\Annotation\Attributes;
  *
  * @Annotation()
  * @Attributes({
- *      @Attribute("message",type="string")
+ *      @Attribute("message",type="string"),
+ *      @Attribute("name",type="string")
  * })
  */
 class MobileInternational
