@@ -35,13 +35,13 @@ return [
     ],
     'noticeHandler'      => [
         'class'     => FileHandler::class,
-        'logFile' => '@runtime/logs/notice-%d{Y-m-d}.log',
+        'logFile'   => '@runtime/logs/notice-%d{Y-m-d}.log',
         'formatter' => bean('lineFormatter'),
         'levels'    => 'notice,info,debug,trace',
     ],
     'applicationHandler' => [
         'class'     => FileHandler::class,
-        'logFile' => '@runtime/logs/error-%d{Y-m-d}.log',
+        'logFile'   => '@runtime/logs/error-%d{Y-m-d}.log',
         'formatter' => bean('lineFormatter'),
         'levels'    => 'error,warning',
     ],
@@ -245,9 +245,5 @@ return [
     ],
     'config'   => [
         'path' => alias('@config'),
-    ],
-    'rateLimiter' => [
-        'class'      => RateLimter::class,
-        'rateLimter' => bean('redisRateLimiter'),
     ]
 ];
