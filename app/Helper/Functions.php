@@ -7,7 +7,7 @@
  * @contact  group@swoft.org
  * @license  https://github.com/swoft-cloud/swoft/blob/master/LICENSE
  */
-use Swoft\Redis\Redis;
+use think\helper\Arr;
 use Swoft\Http\Message\Request;
 
 if (!function_exists('format')) {
@@ -24,7 +24,7 @@ if (!function_exists('format')) {
         $return['data'] = ['msg' => $msg?:Swoft::t((string)$code)];
 
         //判断能否当做数组一样访问
-        if(\think\helper\Arr::accessible($data)) {
+        if(Arr::accessible($data)) {
             $return['data'] = array_merge($return['data'],(array)$data);
         }
 

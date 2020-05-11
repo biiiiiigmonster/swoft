@@ -46,6 +46,8 @@ class AuthModule{
     public function checkHandshake(Request $request, Response $response): array
     {
         // some validate logic ...
+//        new WebSocket(url, protocols);前端new socket实例的时候可以传入protocols，就是token
+//        $token = $request->getHeaderLine('sec-websocket-protocol');到这里握手的时候就可以通过头信息获取到token
         return [true, $response];
     }
 

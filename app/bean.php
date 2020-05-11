@@ -54,6 +54,30 @@ return [
             'notice'      => bean('noticeHandler'),
         ],
     ],
+    'wsServer'          => [
+        'class'   => WebSocketServer::class,
+        'port'    => 18308,
+        'on'      => [
+            // Enable http handle
+            SwooleEvent::REQUEST => bean(RequestListener::class),
+            // 启用任务必须添加 task, finish 事件处理
+            SwooleEvent::TASK => bean(TaskListener::class),
+            SwooleEvent::FINISH => bean(FinishListener::class),
+        ],
+        'process'  => [
+//            'monitor' => bean(MonitorProcess::class)
+//            'crontab' => bean(CrontabProcess::class)
+        ],
+        'debug'   => env('SWOFT_DEBUG', 0),
+        /* @see WebSocketServer::$setting */
+        'setting' => [
+            'log_file' => alias('@runtime/swoole.log'),
+            // 任务需要配置 task worker
+            'task_worker_num'       => 12,
+            'task_enable_coroutine' => true,
+            'worker_num'            => 6,
+        ],
+    ],
     'httpServer'        => [
         'class'    => HttpServer::class,
         'port'     => 18306,
@@ -196,27 +220,6 @@ return [
     'rpcServer'         => [
         'class' => ServiceServer::class,
         'port' => 18307,
-    ],
-    'wsServer'          => [
-        'class'   => WebSocketServer::class,
-        'port'    => 18308,
-        'on'      => [
-            // Enable http handle
-            SwooleEvent::REQUEST => bean(RequestListener::class),
-            // 启用任务必须添加 task, finish 事件处理
-            SwooleEvent::TASK => bean(TaskListener::class),
-            SwooleEvent::FINISH => bean(FinishListener::class),
-        ],
-//        'debug'   => 1,
-        'debug'   => env('SWOFT_DEBUG', 0),
-        /* @see WebSocketServer::$setting */
-        'setting' => [
-            'log_file' => alias('@runtime/swoole.log'),
-            // 任务需要配置 task worker
-            'task_worker_num'       => 12,
-            'task_enable_coroutine' => true,
-            'worker_num'            => 6,
-        ],
     ],
     'tcpServer'         => [
         'port'  => 18309,
