@@ -193,7 +193,7 @@ return [
     ],
     'gateway'              => [
         'class'   => ServiceClient::class,
-        'host'    => '192.168.99.100',//192.168.99.100
+        'host'    => '123.207.255.238',//192.168.99.100
         'port'    => 18307,
         'setting' => [
             'timeout'         => 0.5,
