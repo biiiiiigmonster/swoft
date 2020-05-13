@@ -45,7 +45,7 @@ class PayController{
     {
         $data = $request->post();
 
-        $res = $this->gatewayService->pay($payMethod,$data);
+        $res = $this->gatewayService->pay($payMethod, $data);
 
         return $res;
     }
