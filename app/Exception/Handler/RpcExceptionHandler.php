@@ -34,15 +34,15 @@ class RpcExceptionHandler extends RpcErrorHandler
      */
     public function handle(Throwable $e, Response $response): Response
     {
-        // Debug is false
-        if (!APP_DEBUG) {
-            // just show error message
-            $error = Error::new($e->getCode() ?? ERRORS, $e->getMessage(), null);
-        } else {
+        // APP_DEBUG is true
+        if (APP_DEBUG) {
             $message = sprintf(' %s At %s line %d', $e->getMessage(), $e->getFile(), $e->getLine());
-            $error   = Error::new($e->getCode() ?? ERRORS, $message, null);
+        } else {
+            // just show error message
+            $message = $e->getMessage();
         }
 
+        $error   = Error::new($e->getCode(), $message, null);
         Debug::log('Rpc server error(%s)', $e->getMessage());
 
         $response->setError($error);

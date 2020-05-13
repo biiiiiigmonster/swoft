@@ -10,11 +10,12 @@
 
 namespace App\Http\Open;
 
-use BiiiiiigMonster\Cache\Cache;
-use BiiiiiigMonster\Throttle\Annotation\Mapping\Throttle;
-use BiiiiiigMonster\Throttle\Annotation\Mapping\Throttles;
 use App\Rpc\Lib\EmailInterface;
 use App\Rpc\Lib\SmsInterface;
+use App\Rpc\Service\EmailService;
+use App\Rpc\Service\SmsService;
+use BiiiiiigMonster\Cache\Cache;
+use BiiiiiigMonster\Throttle\Annotation\Mapping\Throttle;
 use Swoft\Http\Message\Request;
 use Swoft\Http\Server\Annotation\Mapping\Controller;
 use Swoft\Http\Server\Annotation\Mapping\RequestMapping;
@@ -71,10 +72,8 @@ class CaptchaController{
      *
      * @RequestMapping(route="email", method=RequestMethod::POST)
      * @Validate(validator="CaptchaValidator",fields={"scene","email"})
-     * @Throttles({
-     *      @Throttle(rate="10/1m",key="'127.0.0.1:'~request.post('scene')"),
-     *      @Throttle(rate="3/1m",key="request.post('email')~':'~request.post('scene')"),
-     * })
+     * @Throttle(rate="10/1m",key="ip()~':'~request.post('scene')")
+     * @Throttle(rate="3/1m",key="request.post('email')~':'~request.post('scene')")
      *
      * @param Request $request
      * @return array

@@ -51,7 +51,7 @@ return [
         'json'         => true,
         'handlers'     => [
             'application' => bean('applicationHandler'),
-            'notice'      => bean('noticeHandler'),
+//            'notice'      => bean('noticeHandler'),
         ],
     ],
     'wsServer'          => [
@@ -112,6 +112,11 @@ return [
         ],
         'afterMiddlewares' => [
             \Swoft\Http\Server\Middleware\ValidatorMiddleware::class
+        ]
+    ],
+    'serviceDispatcher'    => [
+        'afterMiddlewares' => [
+            \Swoft\Rpc\Server\Middleware\ValidatorMiddleware::class
         ]
     ],
     'db'                => [
@@ -185,6 +190,22 @@ return [
         'class'  => ServicePool::class,
         'client' => bean('user'),
     ],
+    'gateway'              => [
+        'class'   => ServiceClient::class,
+        'host'    => '123.207.255.238',//192.168.99.100
+        'port'    => 18307,
+        'setting' => [
+            'timeout'         => 0.5,
+            'connect_timeout' => 1.0,
+            'write_timeout'   => 10.0,
+            'read_timeout'    => 0.5,
+        ],
+        'packet'  => bean('rpcClientPacket')
+    ],
+    'gateway.pool'         => [
+        'class'  => ServicePool::class,
+        'client' => bean('gateway'),
+    ],
     'sms'              => [
         'class'   => ServiceClient::class,
         'host'    => '123.207.255.238',//172.16.0.2
@@ -248,5 +269,8 @@ return [
     ],
     'config'   => [
         'path' => alias('@config'),
-    ]
+    ],
+    'throttle' => [
+        'el' => bean('expressionLanguage'),
+    ],
 ];

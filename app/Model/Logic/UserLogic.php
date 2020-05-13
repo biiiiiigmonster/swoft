@@ -32,8 +32,6 @@ class UserLogic
      * @param array $param
      * @return array
      * @throws BizException
-     * @throws ReflectionException
-     * @throws ContainerException
      * @throws DbException
      */
     public function login(array $param): array

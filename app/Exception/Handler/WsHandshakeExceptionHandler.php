@@ -34,14 +34,15 @@ class WsHandshakeExceptionHandler extends AbstractHandshakeErrorHandler
      */
     public function handle(Throwable $e, Response $response): Response
     {
+        // Log
+        Log::error(sprintf(
+            '%s At %s line %d',
+            $e->getMessage(),
+            $e->getFile(),
+            $e->getLine()
+        ));
         // Debug is false
         if (!APP_DEBUG) {
-            Log::error(sprintf(
-                '%s At %s line %d',
-                $e->getMessage(),
-                $e->getFile(),
-                $e->getLine()
-            ));
             return $response->withStatus(500)->withContent(sprintf(
                 '%s',
                 $e->getMessage()

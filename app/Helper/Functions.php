@@ -7,7 +7,7 @@
  * @contact  group@swoft.org
  * @license  https://github.com/swoft-cloud/swoft/blob/master/LICENSE
  */
-use think\helper\Arr;
+use Swoft\Stdlib\Helper\ArrayHelper;
 use Swoft\Http\Message\Request;
 
 if (!function_exists('format')) {
@@ -24,7 +24,7 @@ if (!function_exists('format')) {
         $return['data'] = ['msg' => $msg?:Swoft::t((string)$code)];
 
         //判断能否当做数组一样访问
-        if(Arr::accessible($data)) {
+        if(ArrayHelper::isArrayable($data)) {
             $return['data'] = array_merge($return['data'],(array)$data);
         }
 

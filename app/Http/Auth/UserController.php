@@ -116,8 +116,6 @@ class UserController{
      * @param Request $request
      * @return array
      * @throws BizException
-     * @throws ReflectionException
-     * @throws ContainerException
      * @throws DbException
      * @throws TaskException
      */
