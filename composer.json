@@ -40,7 +40,6 @@
     "firebase/php-jwt": "^5.0",
     "swoft/validator": "^2.0",
     "nesbot/carbon": "^2.28",
-    "topthink/think-helper": "^3.1",
     "biiiiiigmonster/cache": "^1.0",
     "biiiiiigmonster/throttle": "^1.0"
   },
