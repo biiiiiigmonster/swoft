@@ -13,7 +13,7 @@ namespace App\Model\Logic;
 use App\Exception\BizException;
 use App\Model\Entity\User;
 use Swoft\Bean\Annotation\Mapping\Bean;
-use think\helper\Str;
+use Swoft\Stdlib\Helper\StringHelper;
 use ReflectionException;
 use RuntimeException;
 use Swoft\Bean\Exception\ContainerException;
@@ -33,6 +33,7 @@ class UserLogic
      * @return array
      * @throws BizException
      * @throws DbException
+     * @throws \Exception
      */
     public function login(array $param): array
     {
@@ -45,7 +46,7 @@ class UserLogic
             throw new BizException('',LOGIN_FAILED);
 
         $user->setLoginStatus(1);
-        $user->setLoginCode(Str::random());
+        $user->setLoginCode(StringHelper::randomString('distinct',6));
         $user->save();
 
         return $user->toArray();
@@ -56,16 +57,15 @@ class UserLogic
      *
      * @param array $param
      * @return array
-     * @throws ContainerException
      * @throws DbException
-     * @throws ReflectionException
+     * @throws \Exception
      */
     public function register(array $param): array
     {
         $param['password'] = md5($param['password']);
         $user = User::new($param);
         $user->setLoginStatus(1);
-        $user->setLoginCode(Str::random());
+        $user->setLoginCode(StringHelper::randomString('distinct',6));
         if(!$user->save()) {
             throw new RuntimeException('用户注册异常');
         }

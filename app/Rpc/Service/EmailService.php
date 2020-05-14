@@ -6,7 +6,7 @@ namespace App\Rpc\Service;
 
 use App\Rpc\Lib\EmailInterface;
 use Swoft\Rpc\Server\Annotation\Mapping\Service;
-use think\helper\Str;
+use Swoft\Stdlib\Helper\StringHelper;
 
 /**
  * Class EmailService
@@ -21,10 +21,11 @@ class EmailService implements EmailInterface
      * 发送验证码
      * @param string $email
      * @return array
+     * @throws \Exception
      */
     public function sendCaptcha(string $email): array
     {
-        $captcha = Str::random();
+        $captcha = StringHelper::randomString('distinct',6);
         return [
             'captcha' => $captcha,
             'email' => $email,
