@@ -73,7 +73,7 @@ class CaptchaController{
      * @RequestMapping(route="email", method=RequestMethod::POST)
      * @Validate(validator="CaptchaValidator",fields={"scene","email"})
      * @Throttle(rate="10/1m",key="ip()~':'~request.post('scene')")
-     * @Throttle(rate="3/1m",key="request.post('email')~':'~request.post('scene')")
+     * @Throttle(rate="3|2020-05-15 11:23:00",key="request.post('email')~':'~request.post('scene')")
      *
      * @param Request $request
      * @return array
