@@ -154,9 +154,7 @@ class UserController{
      *
      * @param Request $request
      * @return array
-     * @throws ContainerException
      * @throws DbException
-     * @throws ReflectionException
      */
     public function register(Request $request): array
     {
