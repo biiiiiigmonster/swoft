@@ -40,7 +40,7 @@ class LauncherMiddleware implements MiddlewareInterface
     {
         $response = $handler->handle($request);
         $data = $response->getData();
-        //这个地方还需要优化处理
-        return ArrayHelper::isArrayable($data) ? $response->withData(format($data)) : $response->withContent((string)$data);
+
+        return $response->withData(format($data));
     }
 }

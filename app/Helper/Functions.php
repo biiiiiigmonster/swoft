@@ -13,22 +13,22 @@ use Swoft\Http\Message\Request;
 if (!function_exists('format')) {
     /**
      * 格式化返回数据
-     * @param null $data
-     * @param int $code
-     * @param string $msg
+     * @param null      $data
+     * @param int       $status
+     * @param string    $msg
      * @return array
      */
-    function format($data=null,$code=SUCCESS,$msg=''): array
+    function format($data=null,$status=SUCCESS,$msg=''): array
     {
-        $return['code'] = $code;
-        $return['data'] = ['msg' => $msg?:Swoft::t((string)$code)];
-
-        //判断能否当做数组一样访问
-        if(ArrayHelper::isArrayable($data)) {
-            $return['data'] = array_merge($return['data'],(array)$data);
+        if(is_null($data)) {
+            $data = '';
         }
 
-        return $return;
+        return [
+            'status'    => $status,
+            'msg'       => $msg?:Swoft::t((string)$status),
+            'data'      => $data,
+        ];
     }
 }
 
