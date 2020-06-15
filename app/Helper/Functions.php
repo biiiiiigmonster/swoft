@@ -14,20 +14,20 @@ if (!function_exists('format')) {
     /**
      * 格式化返回数据
      * @param null      $data
-     * @param int       $status
-     * @param string    $msg
+     * @param int       $errcode
+     * @param string    $errmsg
      * @return array
      */
-    function format($data=null,$status=SUCCESS,$msg=''): array
+    function format($data=null,$errcode=SUCCESS,$errmsg=''): array
     {
         if(is_null($data)) {
             $data = '';
         }
 
         return [
-            'status'    => $status,
-            'msg'       => $msg?:Swoft::t((string)$status),
-            'data'      => $data,
+            'errcode'    => $errcode,
+            'errmsg'     => $errmsg?:Swoft::t((string)$errcode),
+            'data'       => $data,
         ];
     }
 }
