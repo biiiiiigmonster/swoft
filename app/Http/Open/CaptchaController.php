@@ -46,6 +46,18 @@ class CaptchaController{
     private EmailInterface $emailService;
 
     /**
+     * @param Request $request
+     * @RequestMapping(route="/receive")
+     * @return string
+     */
+    public function receive(Request $request): string
+    {
+        $param = $request->input();
+        Log::info(json_encode($param));
+        return 'success';
+    }
+
+    /**
      * 发送短信验证码
      *
      * @RequestMapping(route="sms", method=RequestMethod::POST)
@@ -62,7 +74,7 @@ class CaptchaController{
     public function sendSms(Request $request): array
     {
         $param = $request->post();
-        Log::info(json_encode($param));
+
         $res = $this->smsService->sendCaptcha($param['mobile']);
         Cache::set('captcha:'.$res['mobile'].':'.$param['scene'], $res['captcha'], config('captcha.expire'));
         return $res;
