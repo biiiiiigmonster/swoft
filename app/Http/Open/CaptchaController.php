@@ -47,7 +47,7 @@ class CaptchaController{
 
     /**
      * @param Request $request
-     * @RequestMapping(route="/receive")
+     * @RequestMapping(route="/notify/rongkin/pay")
      * @return string
      */
     public function receive(Request $request): string
