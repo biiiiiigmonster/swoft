@@ -47,13 +47,14 @@ class CaptchaController{
 
     /**
      * @param Request $request
-     * @RequestMapping(route="/notify/rongkin/pay")
+     * @RequestMapping(route="/receive")
      * @return string
      */
     public function receive(Request $request): string
     {
         $param = $request->input();
         Log::info(json_encode($param));
+        Log::info($request->getHeaderLine('Signature'));
         return 'success';
     }
 
