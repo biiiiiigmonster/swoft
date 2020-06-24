@@ -20,6 +20,7 @@ use Swoft\Http\Message\Request;
 use Swoft\Http\Server\Annotation\Mapping\Controller;
 use Swoft\Http\Server\Annotation\Mapping\RequestMapping;
 use Swoft\Http\Server\Annotation\Mapping\RequestMethod;
+use Swoft\Log\Helper\Log;
 use Swoft\Rpc\Client\Annotation\Mapping\Reference;
 use Swoft\Validator\Annotation\Mapping\Validate;
 
@@ -61,7 +62,7 @@ class CaptchaController{
     public function sendSms(Request $request): array
     {
         $param = $request->post();
-
+        Log::info(json_encode($param));
         $res = $this->smsService->sendCaptcha($param['mobile']);
         Cache::set('captcha:'.$res['mobile'].':'.$param['scene'], $res['captcha'], config('captcha.expire'));
         return $res;
