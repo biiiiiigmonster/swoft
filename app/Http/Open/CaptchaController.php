@@ -46,14 +46,16 @@ class CaptchaController{
     private EmailInterface $emailService;
 
     /**
+     * @RequestMapping(route="/notify/{channel}/{action}")
      * @param Request $request
-     * @RequestMapping(route="/receive")
+     * @param string $channel
+     * @param string $action
      * @return string
      */
-    public function receive(Request $request): string
+    public function receive(Request $request,string $channel,string $action): string
     {
         $param = $request->input();
-        Log::info(json_encode($param));
+        Log::info("渠道：$channel 回调操作：$action 接收数据：".json_encode($param));
         Log::info($request->getHeaderLine('Signature'));
         return 'success';
     }
