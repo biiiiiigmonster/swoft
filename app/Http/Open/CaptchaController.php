@@ -55,7 +55,7 @@ class CaptchaController{
     public function receive(Request $request,string $channel,string $action): string
     {
         $param = $request->input();
-        $raw = $request->raw();
+        $raw = $request->getCoRequest()->rawContent();
         Log::info("渠道：$channel 回调操作：$action 接收数据：".json_encode($raw));
         Log::info("渠道：$channel 回调操作：$action 接收数据：".json_encode($param));
         Log::info($request->getHeaderLine('Signature'));
